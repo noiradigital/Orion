@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no,maximum-scale=1">
+<meta name="theme-color" content="#171513">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Pulse — Ton espace</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --dark:#171513;--paper:#F1EFEC;--bg2:#E6E2DC;--card:#FAF8F5;
+  --line:#D2CCC4;--line2:#BCB3A8;--accent:#A49485;--deep:#7F6F60;
+  --ink:#2E2823;--cream:#EDE8DF;--glow:rgba(237,232,223,.5);
+  --sage:#7E9A78;--amber:#C39A55;--terra:#BE7A63;
+  --safe-top:env(safe-area-inset-top,0px);--safe-bot:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{background:var(--dark);overscroll-behavior:none;-webkit-tap-highlight-color:transparent;}
+body{font-family:'Montserrat',sans-serif;background:var(--dark);color:var(--ink);-webkit-font-smoothing:antialiased;overscroll-behavior:none;overflow-x:hidden;touch-action:pan-y;font-size:13.5px;line-height:1.6;}
+input,textarea,select,button{font-family:inherit;}
+input::placeholder,textarea::placeholder{color:#B9B1A7;}
+input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
+@keyframes pIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+@keyframes glowP{0%,100%{text-shadow:0 0 22px rgba(237,232,223,.45),0 0 60px rgba(237,232,223,.16);}50%{text-shadow:0 0 34px rgba(237,232,223,.7),0 0 90px rgba(237,232,223,.26);}}
+@keyframes pop{0%{transform:scale(.5);opacity:0;}65%{transform:scale(1.14);}100%{transform:scale(1);opacity:1;}}
+@keyframes sheetIn{from{transform:translateY(100%);}to{transform:translateY(0);}}
+@keyframes toastIn{from{opacity:0;transform:translate(-50%,12px);}to{opacity:1;transform:translate(-50%,0);}}
+.frame{display:flex;justify-content:center;min-height:100vh;}
+.col{position:relative;width:100%;max-width:462px;min-height:100vh;background:var(--paper);box-shadow:0 0 90px rgba(0,0,0,.45);overflow-x:hidden;}
+/* ── screens ── */
+.screen{display:none;position:fixed;inset:0;max-width:462px;margin:0 auto;z-index:60;}
+.screen.on{display:flex;flex-direction:column;align-items:center;justify-content:center;}
+/* ── auth ── */
+#s-auth{background:var(--dark);padding:40px 30px;text-align:center;}
+.logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:66px;line-height:1;color:var(--cream);animation:glowP 6s ease-in-out infinite;}
+.eyebrow{font-size:9px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);}
+.auth-lbl{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;text-align:left;width:100%;max-width:320px;}
+.auth-inp{width:100%;max-width:320px;background:rgba(237,232,223,.07);border:1px solid rgba(237,232,223,.16);border-radius:11px;padding:15px 16px;font-size:15px;font-weight:500;color:var(--cream);outline:none;text-align:center;letter-spacing:.12em;margin-bottom:14px;}
+.auth-inp:focus{border-color:rgba(237,232,223,.4);}
+.auth-err{font-size:11px;color:#C98B7B;margin-bottom:12px;display:none;}
+.auth-err.on{display:block;}
+.btn-cream{width:100%;max-width:320px;background:var(--cream);color:var(--dark);border:none;border-radius:11px;padding:15px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:opacity .2s;}
+.btn-cream:hover{opacity:.88;}
+/* ── onboarding ── */
+#s-onb{background:var(--dark);padding:40px 30px;overflow-y:auto;}
+.ob-logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:44px;color:var(--cream);text-shadow:0 0 20px var(--glow);margin-bottom:6px;}
+.ob-title{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:28px;}
+.dots{display:flex;gap:7px;margin-bottom:32px;}
+.dot{width:26px;height:3px;border-radius:99px;background:rgba(237,232,223,.18);transition:background .3s;}
+.dot.on{background:var(--cream);}
+.ob-step{display:none;width:100%;max-width:400px;animation:pIn .4s ease;}
+.ob-step.on{display:block;}
+.ob-q{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:26px;color:var(--cream);margin-bottom:6px;}
+.ob-hint{font-size:10px;color:var(--accent);margin-bottom:22px;}
+.ob-inp{width:100%;background:rgba(237,232,223,.07);border:1px solid rgba(237,232,223,.16);border-radius:11px;padding:15px 16px;font-size:15px;font-weight:500;color:var(--cream);outline:none;margin-bottom:20px;}
+.ob-choices{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.ob-choice{background:rgba(237,232,223,.05);border:1px solid rgba(237,232,223,.12);border-radius:11px;padding:14px 15px;cursor:pointer;transition:all .2s;display:flex;align-items:flex-start;gap:12px;}
+.ob-choice:hover,.ob-choice.on{border-color:var(--cream);background:rgba(237,232,223,.12);}
+.ob-ch-icon{font-size:21px;flex-shrink:0;}
+.ob-ch-lbl{font-size:12px;font-weight:700;color:var(--cream);letter-spacing:.03em;display:block;margin-bottom:2px;}
+.ob-ch-desc{font-size:10px;color:var(--accent);line-height:1.5;}
+.ob-next{width:100%;background:var(--cream);color:var(--dark);border:none;border-radius:11px;padding:15px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;opacity:1;transition:opacity .2s;}
+.ob-next:disabled{opacity:.35;cursor:default;}
+/* ── app ── */
+#app{display:none;padding-bottom:calc(80px + var(--safe-bot));}
+#app.on{display:block;}
+/* header */
+.hdr{background:var(--dark);padding:30px 24px 24px;padding-top:calc(30px + var(--safe-top));}
+.hdr-logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:48px;line-height:1;color:var(--cream);animation:glowP 6s ease-in-out infinite;}
+.hdr-sub{font-size:9px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-top:4px;}
+.page-hdr{background:var(--dark);padding:30px 24px 24px;padding-top:calc(28px + var(--safe-top));}
+.page-ttl{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:40px;color:var(--cream);text-shadow:0 0 18px rgba(237,232,223,.4);line-height:1;}
+.page-sub{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-top:5px;}
+/* pages */
+.page{display:none;animation:pIn .45s ease;}
+.page.on{display:block;}
+.body{max-width:680px;margin:0 auto;padding:22px 18px;}
+/* tab bar */
+.tab-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:462px;background:var(--dark);border-top:1px solid rgba(237,232,223,.08);display:flex;z-index:40;padding-bottom:var(--safe-bot);}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:11px 4px 13px;border:none;background:none;cursor:pointer;}
+.tab svg{stroke:var(--accent);transition:stroke .15s;}
+.tab.on svg{stroke:var(--cream);}
+.tab-lbl{font-size:8.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);transition:color .15s;}
+.tab.on .tab-lbl{color:var(--cream);}
+/* cards */
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:12px;}
+.card-dk{background:var(--dark);border:1px solid rgba(237,232,223,.1);border-radius:14px;padding:18px 16px;margin-bottom:12px;}
+/* section label */
+.sec{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
+/* action buttons */
+.btn-dark{display:block;width:100%;background:var(--dark);color:var(--cream);border:none;border-radius:11px;padding:14px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;margin-bottom:10px;transition:opacity .2s;text-align:center;}
+.btn-dark:hover{opacity:.82;}
+.btn-ghost{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:14px 15px;font-size:12.5px;font-weight:600;color:var(--ink);cursor:pointer;transition:border-color .2s;margin-bottom:10px;width:100%;}
+.btn-ghost:hover{border-color:var(--accent);}
+/* stat grid */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.stat-box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;}
+.stat-val{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:30px;color:var(--dark);line-height:1;margin-bottom:3px;}
+.stat-lbl{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);}
+/* tag */
+.tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border-radius:99px;}
+/* checklist items */
+.chk-row{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:13px 14px;margin-bottom:8px;cursor:pointer;transition:opacity .2s;}
+.chk-box{width:20px;height:20px;border-radius:6px;border:1.5px solid var(--line2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.chk-row.done .chk-box{background:var(--dark);border-color:var(--dark);}
+.chk-row.done .chk-txt{text-decoration:line-through;color:var(--accent);}
+/* modals */
+.overlay{position:fixed;inset:0;max-width:462px;margin:0 auto;background:rgba(23,21,19,.86);z-index:70;display:none;align-items:flex-end;justify-content:center;}
+.overlay.on{display:flex;}
+.sheet{background:var(--paper);border-radius:20px 20px 0 0;padding:24px 20px 30px;width:100%;max-height:90vh;overflow-y:auto;animation:sheetIn .3s ease;}
+.sheet-handle{width:38px;height:4px;background:var(--line);border-radius:99px;margin:0 auto 20px;}
+.sheet-ttl{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:26px;color:var(--ink);margin-bottom:20px;}
+.form-lbl{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:6px;}
+.form-inp,.form-sel,.form-ta{width:100%;background:var(--card);border:1px solid var(--line);border-radius:9px;padding:11px 13px;font-size:13px;color:var(--ink);outline:none;transition:border-color .2s;}
+.form-inp:focus,.form-sel:focus,.form-ta:focus{border-color:var(--deep);}
+.form-ta{resize:vertical;min-height:80px;}
+.form-f{margin-bottom:14px;}
+/* toast */
+#toast{position:fixed;bottom:108px;left:50%;transform:translate(-50%,0);background:var(--dark);color:var(--cream);font-size:11.5px;font-weight:600;letter-spacing:.04em;padding:11px 20px;border-radius:99px;z-index:80;display:none;animation:toastIn .25s ease;box-shadow:0 8px 30px rgba(0,0,0,.4);}
+/* eng chips */
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:99px;padding:9px 14px;font-size:11.5px;font-weight:500;cursor:pointer;transition:all .2s;border:1px solid var(--line);background:var(--card);color:var(--deep);margin:0 5px 8px 0;}
+.chip.on{background:var(--dark);color:var(--cream);border-color:var(--dark);}
+/* progress bar */
+.prog-bar{height:5px;border-radius:99px;background:#E6E2DC;overflow:hidden;margin-top:6px;}
+.prog-fill{height:100%;background:var(--dark);border-radius:99px;transition:width .4s;}
+/* calendar */
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.cal-cell{aspect-ratio:1;border-radius:3px;}
+/* filter chips */
+.filters{display:flex;gap:7px;overflow-x:auto;padding-bottom:8px;margin-bottom:14px;}
+.f-chip{flex-shrink:0;border-radius:99px;padding:7px 14px;font-size:10px;font-weight:600;letter-spacing:.04em;cursor:pointer;white-space:nowrap;transition:all .2s;border:1px solid var(--line);background:transparent;color:var(--deep);}
+.f-chip.on{border-color:var(--dark);background:var(--dark);color:var(--cream);}
+/* pack card */
+.pack-card{background:var(--dark);border:1px solid rgba(237,232,223,.1);border-radius:14px;padding:16px 14px;cursor:pointer;min-height:118px;display:flex;flex-direction:column;}
+/* mini btn */
+.mini-btn{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 10px;border-radius:7px;border:1px solid var(--line);background:transparent;color:var(--deep);cursor:pointer;transition:all .15s;}
+.mini-btn:hover{border-color:var(--accent);color:var(--accent);}
+.mini-btn.danger:hover{border-color:var(--terra);color:var(--terra);}
+/* week nav */
+.week-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.week-btn{width:36px;height:36px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:16px;cursor:pointer;}
+.week-lbl{font-size:11px;font-weight:600;color:var(--deep);}
+/* metric input */
+.met-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 14px;}
+.met-lbl{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:5px;}
+.met-inp{width:100%;border:none;background:transparent;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:30px;color:var(--dark);outline:none;}
+/* hub item */
+.hub-item{display:flex;align-items:center;gap:13px;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:16px;cursor:pointer;margin-bottom:10px;}
+.hub-lbl{font-size:13px;font-weight:600;color:var(--ink);}
+.hub-desc{font-size:10px;color:var(--accent);}
+/* victory card */
+.vic-photo{width:100%;height:160px;background-size:cover;background-position:center;display:block;}
+/* back btn */
+.back-btn{color:var(--cream);cursor:pointer;font-size:22px;line-height:1;margin-right:12px;background:none;border:none;padding:0;}
+@media(min-width:600px){.stat-grid{grid-template-columns:repeat(4,1fr);}}
+</style>
+</head>
+<body>
+<div class="frame">
+<div class="col">
+
+<!-- AUTH -->
+<div id="s-auth" class="screen on">
+  <div class="logo">Pulse</div>
+  <div class="eyebrow" style="margin-top:8px;margin-bottom:54px;">Ton espace &middot; par Noïra</div>
+  <div class="auth-lbl">Code d'accès</div>
+  <input type="password" id="auth-inp" class="auth-inp" placeholder="••••••••" autocomplete="off">
+  <div class="auth-err" id="auth-err">Code incorrect. Contacte Noïra.</div>
+  <button class="btn-cream" onclick="doAuth()">Accéder &rarr;</button>
+</div>
+
+<!-- ONBOARDING -->
+<div id="s-onb" class="screen">
+  <div class="ob-logo">Pulse</div>
+  <div class="ob-title">Personnalisons ton espace</div>
+  <div class="dots"><div class="dot" id="d0"></div><div class="dot" id="d1"></div><div class="dot" id="d2"></div></div>
+  <!-- step 0 -->
+  <div class="ob-step on" id="ob0">
+    <div class="ob-q">Comment tu t'appelles ?</div>
+    <div class="ob-hint">Pour personnaliser ton espace.</div>
+    <input type="text" id="ob-name" class="ob-inp" placeholder="Ton prénom…" oninput="obNameChange()">
+    <button class="ob-next" id="ob-btn0" onclick="obNext(0)" disabled>Continuer &rarr;</button>
+  </div>
+  <!-- step 1 -->
+  <div class="ob-step" id="ob1">
+    <div class="ob-q">Quel est ton modèle business ?</div>
+    <div class="ob-hint">Pulse adaptera ton plan d'action.</div>
+    <div class="ob-choices" id="ob-offres"></div>
+    <button class="ob-next" id="ob-btn1" onclick="obNext(1)" disabled>Continuer &rarr;</button>
+  </div>
+  <!-- step 2 -->
+  <div class="ob-step" id="ob2">
+    <div class="ob-q">Comment tu closes tes ventes ?</div>
+    <div class="ob-hint">Pulse t'affichera les bonnes actions au quotidien.</div>
+    <div class="ob-choices" id="ob-chemins"></div>
+    <button class="ob-next" id="ob-btn2" onclick="obFinish()" disabled>Commencer &rarr;</button>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <!-- ACCUEIL -->
+  <div id="p-home" class="page on">
+    <div class="hdr"><div class="hdr-logo">Pulse</div><div class="hdr-sub" id="home-sub">Ton espace &middot; par Noïra</div></div>
+    <div class="body" id="home-body"></div>
+  </div>
+  <!-- AUJOURD'HUI -->
+  <div id="p-today" class="page">
+    <div class="page-hdr"><div class="page-ttl">Aujourd'hui.</div><div class="page-sub" id="today-sub"></div></div>
+    <div class="body" id="today-body"></div>
+  </div>
+  <!-- PROSPECTS -->
+  <div id="p-prospects" class="page">
+    <div class="page-hdr"><div class="page-ttl">Prospects.</div><div class="page-sub">Suivi de tes conversations</div></div>
+    <div class="body" id="prospects-body"></div>
+  </div>
+  <!-- CONTENU -->
+  <div id="p-contenu" class="page">
+    <div class="page-hdr" id="contenu-hdr">
+      <div class="page-ttl">Contenu.</div>
+      <div class="page-sub">Tes idées, prêtes à l'emploi</div>
+      <div style="display:flex;gap:8px;margin-top:16px;" id="contenu-tabs"></div>
+    </div>
+    <div class="body" id="contenu-body"></div>
+  </div>
+  <!-- PLUS -->
+  <div id="p-plus" class="page">
+    <div class="page-hdr" id="plus-hdr"></div>
+    <div class="body" id="plus-body"></div>
+  </div>
+  <!-- TAB BAR -->
+  <nav class="tab-bar">
+    <button class="tab on" id="tab-home" onclick="goTab('home')">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10a1 1 0 001 1h12a1 1 0 001-1V10"/></svg>
+      <span class="tab-lbl">Accueil</span>
+    </button>
+    <button class="tab" id="tab-today" onclick="goTab('today')">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><path d="M13 2L4.5 13.5H11l-1 8.5L19 10.5H13z"/></svg>
+      <span class="tab-lbl">Aujourd'hui</span>
+    </button>
+    <button class="tab" id="tab-prospects" onclick="goTab('prospects')">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>
+      <span class="tab-lbl">Prospects</span>
+    </button>
+    <button class="tab" id="tab-contenu" onclick="goTab('contenu')">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      <span class="tab-lbl">Contenu</span>
+    </button>
+    <button class="tab" id="tab-plus" onclick="goTab('plus')">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>
+      <span class="tab-lbl">Plus</span>
+    </button>
+  </nav>
+</div>
+
+<!-- MODAL PROSPECT -->
+<div class="overlay" id="ov-prospect" onclick="closeOv('prospect',event)">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sheet-handle"></div>
+    <div class="sheet-ttl" id="pm-ttl">Nouveau prospect</div>
+    <div class="form-f"><label class="form-lbl">Prénom / @pseudo</label><input type="text" id="pm-name" class="form-inp" placeholder="ex : Marie ou @marie.digital"></div>
+    <div class="form-f"><label class="form-lbl">Plateforme</label><select id="pm-plat" class="form-sel"><option value="instagram">Instagram</option><option value="tiktok">TikTok</option><option value="autre">Autre</option></select></div>
+    <div class="form-f"><label class="form-lbl">Statut</label><select id="pm-status" class="form-sel"><option value="premier-contact">Premier contact</option><option value="chaud">Chaud — intéressée</option><option value="closing">En closing</option><option value="client">Devenue cliente ✓</option><option value="froid">Froid — pas de suite</option></select></div>
+    <div class="form-f"><label class="form-lbl">Note</label><textarea id="pm-note" class="form-ta" placeholder="Ses objections, la suite à donner…"></textarea></div>
+    <input type="hidden" id="pm-idx">
+    <div style="display:flex;gap:10px;">
+      <button id="pm-del" onclick="delProspect()" style="display:none;" class="mini-btn danger" style="padding:14px 16px;">Suppr.</button>
+      <button class="btn-dark" onclick="saveProspect()" style="flex:1;margin:0;">Sauvegarder</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL VICTOIRE -->
+<div class="overlay" id="ov-vic" onclick="closeOv('vic',event)">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sheet-handle"></div>
+    <div class="sheet-ttl">Nouvelle victoire</div>
+    <div class="form-f"><label class="form-lbl">Ce que tu as accompli</label><textarea id="vic-text" class="form-ta" placeholder="ex : Première vente ! Une cliente a rejoint mon programme."></textarea></div>
+    <div class="form-f"><label class="form-lbl">Photo (optionnel)</label>
+      <label style="display:flex;align-items:center;justify-content:center;gap:8px;background:var(--card);border:1px dashed var(--line2);border-radius:10px;padding:18px;font-size:11px;color:var(--deep);cursor:pointer;">
+        <div id="vic-thumb"></div>
+        <span id="vic-photo-lbl">Ajouter une photo</span>
+        <input type="file" id="vic-photo-inp" accept="image/*" onchange="vicPhotoChange()" style="display:none;">
+      </label>
+    </div>
+    <button class="btn-dark" onclick="saveVictoire()">Enregistrer ma victoire</button>
+  </div>
+</div>
+
+<!-- MODAL PACK -->
+<div class="overlay" id="ov-pack" onclick="closeOv('pack',event)">
+  <div class="sheet" onclick="event.stopPropagation()" id="pack-sheet">
+    <div class="sheet-handle"></div>
+    <div id="pack-inner"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+</div><!-- col -->
+</div><!-- frame -->
+
+<script>
+/* ════ CONFIG ════ */
+const ACCESS_CODES = {
+  noira:'NOIRA2024', cliente1:'PULSE01', cliente2:'PULSE02',
+  cliente3:'PULSE03', cliente4:'PULSE04', cliente5:'PULSE05', cliente6:'PULSE06'
+};
+const GITBOOK_URL = 'https://pulse-16.gitbook.io/pulse-docs/sommaire';
+
+/* ════ DATA ════ */
+const QUOTES = [
+  "Tu n'as pas besoin d'être parfaite pour commencer. Tu as besoin de commencer pour devenir meilleure.",
+  "La constance bat le talent quand le talent n'est pas constant.",
+  "Vendre, ce n'est pas convaincre. C'est connecter la bonne personne à la bonne transformation.",
+  "Chaque « non » te rapproche du prochain « oui ».",
+  "Tu n'es pas une mendiante quand tu présentes ton offre. Tu es une experte.",
+  "La régularité crée la confiance. La confiance crée les ventes.",
+  "Commence la journée par une action commerciale. Le reste suivra.",
+  "Ton audience a besoin de te voir tous les jours pour te faire confiance.",
+  "Montre tes résultats, même petits. Les gens ne comptent pas, ils ressentent le mouvement.",
+  "La peur ne devrait pas prendre de décisions à ta place.",
+  "Une vente de plus. Un impact de plus. Recommence demain.",
+  "Les prospects qui disent non aujourd'hui peuvent devenir tes meilleures clientes demain.",
+  "Quantité ne fait pas qualité, mais la régularité fait les résultats.",
+  "Le bon contenu, c'est le contenu juste pour la bonne personne au bon moment.",
+];
+const DEFIS = [
+  "Poste une story où on voit ton visage.",
+  "Envoie un message vocal à une abonnée qui a réagi à ta story.",
+  "Affiche une victoire ou un résultat en story.",
+  "Commente vraiment 5 reels de ta niche.",
+  "Relance un prospect silencieux depuis 3 jours.",
+  "Écris 3 hooks pour ton prochain reel.",
+  "Raconte ton « pourquoi » en story.",
+  "Propose un appel à 1 personne qualifiée.",
+  "Republie ton meilleur contenu en Reel d'essai.",
+  "Fais une story BAB avec un CTA clair.",
+  "Déconstruis une croyance de ta cible en carrousel.",
+  "Demande son avis à ton audience via un sondage story.",
+  "Note la douleur n°1 entendue cette semaine et crée un contenu dessus.",
+  "Envoie ta VSL ou ton lien à 1 prospect chaud.",
+];
+const ENG_DEFAULT = [
+  {id:'e0', text:'Dormir avant 23h',       cat:'Sommeil',      icon:'🌙'},
+  {id:'e1', text:'Pas de scroll avant 9h', cat:'Digital',      icon:'📵'},
+  {id:'e2', text:'Bouger 30 min minimum',  cat:'Sport',        icon:'💓'},
+  {id:'e3', text:'3 repas équilibrés',     cat:'Alimentation', icon:'🥗'},
+  {id:'e4', text:'Sortir dehors 30 min',   cat:'Bien-être',    icon:'🌿'},
+  {id:'e5', text:'Pas de scroll après 21h',cat:'Digital',      icon:'📵'},
+  {id:'e6', text:'Boire 2 L d\'eau',       cat:'Hydratation',  icon:'💧'},
+  {id:'e7', text:'Méditer 5 min',          cat:'Mental',       icon:'🧘'},
+  {id:'e8', text:'Journaling le matin',    cat:'Mental',       icon:'✍️'},
+  {id:'e9', text:'Pas de café après 14h',  cat:'Alimentation', icon:'☕'},
+  {id:'e10',text:'Articuler 20 min',       cat:'Voix',         icon:'🎙️'},
+  {id:'e11',text:'Visualisation 5 min',    cat:'Mental',       icon:'✨'},
+];
+function planDefault(chemin){
+  let base = ['Publier ton reel du jour','Poster 3 stories (valeur · engagement · vie)','Répondre à tous tes commentaires & DM','30 min de Deep Work'];
+  if(chemin==='appel') base=base.concat(['Envoyer 3 DM de qualification','Préparer / confirmer ton appel du jour']);
+  else if(chemin==='dm') base=base.concat(['Ouvrir 5 nouvelles conversations','Avancer 3 closings en DM']);
+  else if(chemin==='vsl') base=base.concat(['Envoyer ta VSL à 3 prospects','Relancer les clics sans achat']);
+  else base.push('Envoyer 3 DM de qualification');
+  base.push('Ajouter une victoire');
+  return base.map((t,i)=>({id:'p'+i,text:t}));
+}
+
+const BANQUE = [
+  {id:'t1',type:'TOFU',theme:'Aspiration',text:"Je travaille depuis mon téléphone. Je choisis mes horaires. Et j'ai pas de patron."},
+  {id:'t2',type:'TOFU',theme:'Aspiration',text:"T'as un téléphone et une connexion internet. C'est littéralement tout ce qu'il faut."},
+  {id:'t3',type:'TOFU',theme:'Aspiration',text:"Ce que personne ne t'a dit sur l'argent qu'on peut faire en ligne depuis chez soi."},
+  {id:'t4',type:'TOFU',theme:'Aspiration',text:"À [TON ÂGE], j'ai décidé d'arrêter d'échanger mon temps contre rien."},
+  {id:'t5',type:'TOFU',theme:'Aspiration',text:"Le problème c'est pas que t'as pas le temps. C'est que t'as pas le bon plan."},
+  {id:'t6',type:'TOFU',theme:'Aspiration',text:"Imagine avoir payé ton loyer ce mois-ci sans toucher à ton salaire."},
+  {id:'t7',type:'TOFU',theme:'Aspiration',text:"Y'a des filles de ton âge qui font ça depuis leur chambre. Je t'explique comment."},
+  {id:'t8',type:'TOFU',theme:'Aspiration',text:"Je gagne de l'argent même quand je dors. C'est pas de la magie. C'est un système."},
+  {id:'t9',type:'TOFU',theme:'Aspiration',text:"T'as jamais voulu te réveiller sans alarme et quand même avoir de l'argent qui rentre ?"},
+  {id:'t10',type:'TOFU',theme:'Aspiration',text:"Le job étudiant à 11€/h c'est pas une fatalité. Il y a autre chose."},
+  {id:'t11',type:'TOFU',theme:'Aspiration',text:"Si t'attends d'avoir le temps parfait pour te lancer, tu vas attendre toute ta vie."},
+  {id:'t12',type:'TOFU',theme:'Aspiration',text:"Ce que j'aurais voulu qu'on me dise à 19 ans sur l'argent et la liberté."},
+  {id:'t13',type:'TOFU',theme:'Aspiration',text:"Non, c'est pas réservé aux influenceuses. N'importe qui peut faire ça."},
+  {id:'t14',type:'TOFU',theme:'Aspiration',text:"Travailler depuis son canapé c'est pas un rêve. C'est une compétence."},
+  {id:'t15',type:'TOFU',theme:'Aspiration',text:"En [DURÉE], j'ai fait ma première vente. Voilà par où j'ai commencé."},
+  {id:'t16',type:'TOFU',theme:'Éducatif',text:"Le business en ligne expliqué simplement, pour quelqu'un qui part de zéro."},
+  {id:'t17',type:'TOFU',theme:'Aspiration',text:"Tu mérites de gagner plus que ce que quelqu'un d'autre a décidé de te payer."},
+  {id:'t18',type:'TOFU',theme:'Éducatif',text:"C'est quoi un produit digital ? Je t'explique en 30 secondes."},
+  {id:'t19',type:'TOFU',theme:'Aspiration',text:"Arrêter de dépendre financièrement de quelqu'un d'autre — c'est possible. Voilà comment."},
+  {id:'t20',type:'TOFU',theme:'Aspiration',text:"Je vais pas te promettre des millions. Mais ta première vente, c'est accessible."},
+  {id:'t21',type:'TOFU',theme:'Aspiration',text:"Ce que je fais concrètement pour gagner de l'argent depuis mon téléphone."},
+  {id:'t22',type:'TOFU',theme:'Aspiration',text:"Ta vie dans 5 ans si tu fais rien de différent. Ça ressemble à quoi ?"},
+  {id:'t23',type:'TOFU',theme:'Aspiration',text:"T'es étudiante, t'as pas beaucoup d'argent, et tu veux changer ça. Ce post est pour toi."},
+  {id:'t24',type:'TOFU',theme:'Aspiration',text:"La liberté financière c'est pas une question de chance. C'est une question de décision."},
+  {id:'t25',type:'TOFU',theme:'Aspiration',text:"J'avais pas de réseau, pas d'expérience, pas de budget. Et j'ai quand même commencé."},
+  {id:'m1',type:'MOFU',theme:'Croyance',text:"T'as l'impression que c'est fait pour les autres et pas pour toi. Voilà pourquoi c'est faux."},
+  {id:'m2',type:'MOFU',theme:'Croyance',text:"Le vrai problème c'est pas de vendre. C'est de savoir par où commencer."},
+  {id:'m3',type:'MOFU',theme:'Croyance',text:"'C'est trop compliqué pour moi.' C'est pas toi. C'est qu'on t'a jamais expliqué simplement."},
+  {id:'m4',type:'MOFU',theme:'Croyance',text:"Tu scrolles du contenu business depuis des mois. T'as encore rien lancé. Voilà pourquoi."},
+  {id:'m5',type:'MOFU',theme:'Croyance',text:"Ce qui t'empêche de te lancer, c'est pas le temps. C'est ça."},
+  {id:'m6',type:'MOFU',theme:'Croyance',text:"T'as peur de te lancer ? C'est normal. Voilà ce que j'en pense."},
+  {id:'m7',type:'MOFU',theme:'Croyance',text:"'J'ai pas les compétences pour ça.' Si. Voilà lesquelles tu as déjà."},
+  {id:'m8',type:'MOFU',theme:'Stratégie',text:"Le marché est pas saturé. Ta stratégie est juste absente."},
+  {id:'m9',type:'MOFU',theme:'Croyance',text:"Le problème en surface : tu veux faire de l'argent en ligne. Le vrai problème : [DOULEUR PROFONDE]."},
+  {id:'m10',type:'MOFU',theme:'Éducatif',text:"Personne t'a appris ça à l'école. Et pourtant c'est la compétence la plus utile de ta vie."},
+  {id:'m11',type:'MOFU',theme:'Croyance',text:"Si t'attends d'être prête pour te lancer, tu attends quelque chose qui arrive jamais."},
+  {id:'m12',type:'MOFU',theme:'Stratégie',text:"Ce que tu crois être le problème : le marché. Ce que c'est vraiment : le plan."},
+  {id:'m13',type:'MOFU',theme:'Croyance',text:"Celles qui réussissent en ligne ont pas plus de talent. Elles ont juste déconstruit ça avant toi."},
+  {id:'m14',type:'MOFU',theme:'Croyance',text:"'J'ai peur de me faire arnaquer.' C'est une peur légitime. Voilà comment la différencier."},
+  {id:'m15',type:'MOFU',theme:'Croyance',text:"T'as déjà essayé de te lancer seule et ça n'a rien donné. C'est pas toi. Voilà ce qui manquait."},
+  {id:'m16',type:'MOFU',theme:'Stratégie',text:"Le truc que personne dit sur le business en ligne : les vues ne font pas les ventes."},
+  {id:'m17',type:'MOFU',theme:'Psychologie',text:"Pourquoi tu consommes du contenu business sans jamais passer à l'action. La vraie raison."},
+  {id:'m18',type:'MOFU',theme:'Croyance',text:"Tu veux te lancer mais t'as peur de perdre ton argent. Voilà comment évaluer ça."},
+  {id:'m19',type:'MOFU',theme:'Psychologie',text:"Ce qu'on t'a appris sur l'argent depuis tes 6 ans — et pourquoi ça te coûte aujourd'hui."},
+  {id:'m20',type:'MOFU',theme:'Croyance',text:"'C'est pas fait pour moi, j'ai pas le bon profil.' Voilà ce que je pense de ça."},
+  {id:'m21',type:'MOFU',theme:'Croyance',text:"Tu dépends financièrement de quelqu'un d'autre. Voilà pourquoi ça change rien à ton potentiel."},
+  {id:'m22',type:'MOFU',theme:'Aspiration',text:"Le business en ligne c'est pas un raccourci. Mais c'est le chemin le plus direct vers la liberté."},
+  {id:'m23',type:'MOFU',theme:'Croyance',text:"3 croyances qui t'empêchent de te lancer — et comment les déconstruire une par une."},
+  {id:'m24',type:'MOFU',theme:'Storytelling',text:"Ce que je pensais sur le business en ligne avant de me lancer. Et ce que je pense maintenant."},
+  {id:'m25',type:'MOFU',theme:'Croyance',text:"Si tu fais partie des gens qui se disent 'un jour je me lance' — ce post est pour toi."},
+  {id:'bo1',type:'BOFU',theme:'Preuve',text:"[PRÉNOM] était dans ta situation exacte. En [DURÉE], voilà ce qui a changé."},
+  {id:'bo2',type:'BOFU',theme:'Preuve',text:"Elle avait peur d'investir. Elle l'a fait quand même. Ce qu'elle m'a dit après."},
+  {id:'bo3',type:'BOFU',theme:'Offre',text:"Ma méthode de A à Z pour faire ta première vente en ligne depuis ton téléphone."},
+  {id:'bo4',type:'BOFU',theme:'Preuve',text:"Ce que mes clientes ont toutes en commun avant de commencer : elles avaient peur. Et elles l'ont fait quand même."},
+  {id:'bo5',type:'BOFU',theme:'Closing',text:"La vraie question c'est pas 'est-ce que ça va marcher ?' C'est 'pendant combien de temps encore tu vas attendre ?'"},
+  {id:'bo6',type:'BOFU',theme:'Preuve',text:"Elles pensaient que c'était fait pour les autres. Résultat aujourd'hui : [RÉSULTAT CONCRET]."},
+  {id:'bo7',type:'BOFU',theme:'Offre',text:"Ce que j'ai construit et ce que je peux t'aider à construire aussi — voilà exactement ce que c'est."},
+  {id:'bo8',type:'BOFU',theme:'Closing',text:"Si t'es encore là à regarder mon contenu depuis des semaines, t'as peut-être déjà ta réponse."},
+  {id:'bo9',type:'BOFU',theme:'Offre',text:"J'accompagne jusqu'à la première vente. Pas jusqu'à la formation finie. Jusqu'au résultat."},
+  {id:'bo10',type:'BOFU',theme:'Closing',text:"Tu veux que je t'explique exactement ce qu'on fait ensemble et comment ça marche ? Réponds à cette story."},
+  {id:'ms1',type:'Mindset',theme:'Discipline',text:"La motivation t'a menti. Voilà ce qui marche vraiment."},
+  {id:'ms2',type:'Mindset',theme:'Confiance',text:"T'attends d'avoir confiance pour commencer. Mais la confiance, elle vient après."},
+  {id:'ms3',type:'Mindset',theme:'Discipline',text:"Ce qui sépare celles qui avancent de celles qui s'arrêtent. C'est pas le talent."},
+  {id:'ms4',type:'Mindset',theme:'Peur',text:"Pendant combien de temps encore tu vas laisser la peur prendre des décisions à ta place ?"},
+  {id:'ms5',type:'Mindset',theme:'Peur',text:"Tu veux pas te lancer par peur d'échouer. Mais rester où tu es, c'est déjà un choix."},
+  {id:'ms6',type:'Mindset',theme:'Discipline',text:"Le sabotage que j'ai identifié chez moi — et comment je l'attrape en flagrant délit."},
+  {id:'ms7',type:'Mindset',theme:'Action',text:"Attendre le bon moment pour se lancer. Le bon moment, c'est maintenant. Voilà pourquoi."},
+  {id:'ms8',type:'Mindset',theme:'Discipline',text:"Ce que font celles qui tiennent quand tout leur dit d'arrêter."},
+  {id:'ms9',type:'Mindset',theme:'Identité',text:"L'identité précède les résultats. T'es pas en train d'attendre d'être quelqu'un d'autre. T'es déjà cette personne."},
+  {id:'ms10',type:'Mindset',theme:'Sabotage',text:"Les excuses qui te coûtent le plus cher. Et tu t'en rends même pas compte."},
+  {id:'br1',type:'Branding',theme:'Pourquoi',text:"Je refuse de vivre une vie que je n'ai pas choisie. C'est pour ça que je fais ça."},
+  {id:'br2',type:'Branding',theme:'Histoire',text:"Mon histoire en 60 secondes — et pourquoi elle ressemble peut-être à la tienne."},
+  {id:'br3',type:'Branding',theme:'Tournant',text:"J'aurais pu continuer comme avant. J'ai choisi autre chose. Voilà ce qui a tout changé."},
+  {id:'br4',type:'Branding',theme:'Leçons',text:"Ce que j'ai appris en [DURÉE] de business en ligne — les vraies choses, pas les jolies."},
+  {id:'br5',type:'Branding',theme:'Positionnement',text:"Pourquoi je cible les étudiantes et les alternantes. Et pas tout le monde."},
+  {id:'br6',type:'Branding',theme:'Authenticité',text:"Je suis pas parfaite. Mon compte est pas parfait. Mais ça marche. Voilà pourquoi."},
+  {id:'br7',type:'Branding',theme:'Vérité',text:"Ce que ça m'a coûté de me lancer — en temps, en argent, en énergie. La vérité."},
+  {id:'br8',type:'Branding',theme:'Décisions',text:"Les décisions que j'ai prises cette année qui ont tout changé."},
+  {id:'br9',type:'Branding',theme:'Repartir',text:"Ce que je ferais différemment si je recommençais de zéro aujourd'hui."},
+  {id:'br10',type:'Branding',theme:'Coulisses',text:"Voilà à quoi ressemble ma semaine type quand tout va bien — et quand tout va pas bien."},
+  {id:'ed1',type:'Éducatif',theme:'Stratégie',text:"C'est quoi la différence entre TOFU, MOFU et BOFU ? Je t'explique simplement."},
+  {id:'ed2',type:'Éducatif',theme:'Stratégie',text:"Pourquoi tu peux faire 500K vues et ne jamais vendre une seule fois."},
+  {id:'ed3',type:'Éducatif',theme:'Stratégie',text:"La différence entre un compte qui attire et un compte qui vend."},
+  {id:'ed4',type:'Éducatif',theme:'Stratégie',text:"Ce que tu dois savoir sur les niveaux de conscience avant de créer ton prochain post."},
+  {id:'ed5',type:'Éducatif',theme:'Stratégie',text:"Pourquoi Instagram est mieux que TikTok pour vendre quand tu démarres."},
+  {id:'s1',type:'Story',theme:'Hook',text:"Toi aussi tu fais ça le soir avant de dormir ?"},
+  {id:'s2',type:'Story',theme:'Hook',text:"C'est quoi ton plus gros blocage en ce moment ? [Option A] / [Option B] / [Option C]"},
+  {id:'s3',type:'Story',theme:'Hook',text:"Il est temps que je me présente si tu arrives pour la première fois sur mon compte."},
+  {id:'s4',type:'Story',theme:'Hook',text:"Je vais être honnête avec toi sur quelque chose."},
+  {id:'s5',type:'Story',theme:'Hook',text:"On m'a posé cette question 10 fois cette semaine. Voilà ma réponse."},
+  {id:'s6',type:'Story',theme:'Hook',text:"Avant j'étais [DOULEUR]. Aujourd'hui : [RÉSULTAT]. Voilà ce qui a changé."},
+  {id:'s7',type:'Story',theme:'Hook',text:"J'ai reçu ce message ce matin et j'avais besoin de le partager."},
+  {id:'s8',type:'Story',theme:'Sondage',text:"Tu préfères [OPTION A] ou [OPTION B] ? Sondage — je ferai un récap."},
+  {id:'s9',type:'Story',theme:'Engagement',text:"Est-ce que je suis la seule à [RESSENTIR ÇA] ?"},
+  {id:'s10',type:'Story',theme:'Victoire',text:"Bilan de ma semaine : [VICTOIRE CONCRÈTE]."},
+  {id:'s11',type:'Story',theme:'Valeur',text:"Ce que personne ne te dit sur [SUJET PRÉCIS] — je te le dis moi."},
+  {id:'s12',type:'Story',theme:'Identification',text:"Si tu galères avec [PROBLÈME] depuis trop longtemps, j'ai quelque chose pour toi."},
+  {id:'s13',type:'Story',theme:'Croyance',text:"Le plus gros mensonge sur [TON DOMAINE] : [FAUSSE CROYANCE]. La réalité : [VÉRITÉ]."},
+  {id:'s14',type:'Story',theme:'Identification',text:"3 raisons pour lesquelles [RÉSULTAT DÉSIRÉ] ne vient pas encore."},
+  {id:'s15',type:'Story',theme:'Aspiration',text:"Imagine [RÉSULTAT] sans [CONTRAINTE QUE TA CIBLE DÉTESTE]."},
+  {id:'st1',type:'Story',theme:'Algorithme',text:"Les 3 signaux stories : 1) regarder entièrement → bon signal. 2) appuyer sur le cœur → meilleur signal. 3) répondre en DM → signal maximal. Un DM booste ta visibilité massivement."},
+  {id:'st2',type:'Story',theme:'Technique',text:"La technique de la story à réaction : une question clivante génère des DM en masse et signale à Instagram de vraies conversations → boost ta portée."},
+  {id:'st3',type:'Story',theme:'Planning',text:"Planning stories : Lundi = objectifs. Mardi = croyance à déconstruire. Mercredi = offre/conseil. Jeudi = BAB + mindset. Vendredi = leçon/victoire. Samedi = coulisses. Dimanche = BAB + bilan."},
+  {id:'st4',type:'Story',theme:'Structure',text:"Story de vente en 7 étapes : 1) Accroche problème. 2) Aggravation. 3) Sondage qualification. 4) Révélation (la solution existe). 5) Preuve sociale. 6) Présentation offre. 7) CTA unique."},
+  {id:'st5',type:'Story',theme:'Types',text:"5 types qui convertissent : Coulisses (humaniser), Témoignage précis, FAQ (lever objections), Urgence réelle, Engagement direct (mot-clé en DM → prospects qualifiés)."},
+  {id:'st6',type:'Story',theme:'Structure',text:"Vendre sans pitcher : Temps 1 = problème/identification. Temps 2 = preuve réelle. Temps 3 = proposition directe. Ratio : 4 stories valeur pour 1 story vente."},
+  {id:'st7',type:'Story',theme:'Sondage',text:"Sondages qui qualifient : Sondage 1 = situation (J'essaie/Pas encore). Sondage 2 = blocage. Sondage 3 = urgence. Ceux qui votent 'urgent + galère' → mode achat immédiat."},
+  {id:'st8',type:'Story',theme:'DM proactif',text:"Après sondage : tu vas voir QUI a voté. Prospect chaud → DM : 'Hey [Prénom] — j'ai vu que tu avais répondu à mes stories. Est-ce que je peux t'aider ?'"},
+  {id:'leg1',type:'Légende',theme:'Structure',text:"Légende en 4 parties : 1) Accroche (tension avant 'voir plus'). 2) Développement (conseil bonus). 3) Hashtags (4 max, à la fin). 4) CTA (une seule action, différente de la vidéo)."},
+  {id:'leg2',type:'Légende',theme:'Accroches',text:"Accroches prêtes : 'Ce que personne ne te dit sur [sujet] ↓' / 'Tu fais sûrement [erreur] sans le savoir ↓' / 'Si tu [situation] — lis ça ↓' / 'Ce que j'aurais fait différemment ↓'"},
+  {id:'leg3',type:'Légende',theme:'Erreurs',text:"4 erreurs à éviter : légende vide, hashtags en premier (détruit l'accroche), résumer la vidéo au lieu de la compléter, plusieurs CTAs simultanés."},
+  {id:'leg4',type:'Légende',theme:'Par type',text:"Reel éducatif → complète avec les points non dits. Reel storytelling → continue l'histoire. Carrousel → tension qui pousse au premier swipe. Témoignage → contextualise l'avant/après."},
+  {id:'leg5',type:'Légende',theme:'Algorithme',text:"Cliquer 'voir plus' sort du scroll → Instagram interprète ça comme un signal fort → boost ta portée. Les mots-clés dans ta légende = signal sur ta niche."},
+  {id:'r1',type:'Reel',theme:'TOFU',text:"Mon setup pour travailler depuis n'importe où — sans bureau, sans ordi fixe."},
+  {id:'r2',type:'Reel',theme:'TOFU',text:"'Une journée dans ma vie' version business en ligne depuis son téléphone."},
+  {id:'r3',type:'Reel',theme:'TOFU',text:"Ce que je fais à la place d'un job étudiant."},
+  {id:'r4',type:'Reel',theme:'TOFU',text:"Comparatif : job étudiant à 11€/h vs. business en ligne — les vraies maths."},
+  {id:'r5',type:'Reel',theme:'TOFU',text:"C'est quoi un produit digital — expliqué à quelqu'un qui n'en a jamais entendu parler."},
+  {id:'r6',type:'Reel',theme:'TOFU',text:"C'est quoi le MRR — explication simple en 45 secondes."},
+  {id:'r7',type:'Reel',theme:'TOFU',text:"3 choses que j'ai arrêté de faire depuis que je me suis lancée."},
+  {id:'r8',type:'Reel',theme:'TOFU',text:"Ma première vente : ce qui s'est passé exactement."},
+  {id:'r9',type:'Reel',theme:'TOFU',text:"Ce que ça veut dire 'travailler depuis son téléphone' — la réalité."},
+  {id:'r10',type:'Reel',theme:'TOFU',text:"Avant/après : ma situation avant de me lancer vs. maintenant."},
+  {id:'r11',type:'Reel',theme:'MOFU',text:"La vraie raison pour laquelle tu scrolles sans jamais passer à l'action."},
+  {id:'r12',type:'Reel',theme:'MOFU',text:"Ce qui bloque vraiment les gens qui veulent se lancer (c'est pas ce que tu crois)."},
+  {id:'r13',type:'Reel',theme:'MOFU',text:"'J'ai pas le temps' — la vérité sur cette objection."},
+  {id:'r14',type:'Reel',theme:'MOFU',text:"Pourquoi attendre d'être prête est la pire stratégie."},
+  {id:'r15',type:'Reel',theme:'MOFU',text:"La différence entre celles qui avancent et celles qui restent au même endroit."},
+  {id:'r16',type:'Reel',theme:'MOFU',text:"Pourquoi ton contenu n'attire personne — les 3 vraies raisons."},
+  {id:'r17',type:'Reel',theme:'MOFU',text:"Ce que tu dois savoir sur les niveaux de conscience avant de poster."},
+  {id:'r18',type:'Reel',theme:'BOFU',text:"Ma méthode complète de A à Z — résumée en 60 secondes."},
+  {id:'r19',type:'Reel',theme:'BOFU',text:"Ce qui est différent dans mon accompagnement vs. une formation classique."},
+  {id:'r20',type:'Reel',theme:'Mindset',text:"Ce que j'ai appris en [DURÉE] de business en ligne — les vraies choses, pas les jolies."},
+  {id:'c1',type:'Carrousel',theme:'MOFU',text:"'C'est trop compliqué pour moi' — déconstruction slide par slide."},
+  {id:'c2',type:'Carrousel',theme:'MOFU',text:"'Le marché est saturé' — pourquoi c'est faux et la vraie raison derrière cette croyance."},
+  {id:'c3',type:'Carrousel',theme:'MOFU',text:"'J'ai pas les compétences' — les 3 compétences qu'on a déjà sans le savoir."},
+  {id:'c4',type:'Carrousel',theme:'TOFU',text:"5 business en ligne accessibles depuis zéro — avec ce que ça prend vraiment."},
+  {id:'c5',type:'Carrousel',theme:'TOFU',text:"Les mots du business en ligne expliqués simplement (MRR, affiliation, produit digital, VSL...)."},
+  {id:'c6',type:'Carrousel',theme:'MOFU',text:"Les erreurs classiques quand on essaie de se lancer seule."},
+  {id:'c7',type:'Carrousel',theme:'Stratégie',text:"Vues ≠ ventes — pourquoi et comment corriger ça."},
+  {id:'c8',type:'Carrousel',theme:'Stratégie',text:"La différence entre du contenu qui inspire et du contenu qui vend."},
+  {id:'c9',type:'Carrousel',theme:'Mindset',text:"Commence par une croyance de ta cible entre guillemets, déconstruis slide par slide."},
+  {id:'c10',type:'Carrousel',theme:'Stratégie',text:"5 erreurs qui te font perdre des ventes (et quoi faire à la place)."},
+  {id:'cta1',type:'CTA',theme:'DM',text:"Si t'as envie d'en savoir plus sur ce que je fais, envoie-moi GO en DM et je t'explique tout."},
+  {id:'cta2',type:'CTA',theme:'DM',text:"J'ouvre [X] places ce mois-ci pour [résultat]. Si tu te reconnais, envoie-moi 'MOI' en DM."},
+  {id:'cta3',type:'CTA',theme:'Appel',text:"Envoie-moi [MOT-CLÉ] en DM et je te donne les détails. (Appel découverte gratuit disponible.)"},
+  {id:'cta4',type:'CTA',theme:'Story',text:"Envoie-moi le mot VENTE en DM et je t'explique tout."},
+  {id:'cta5',type:'CTA',theme:'Story',text:"Si tu crées du contenu et que tu veux que ça vende, envoie-moi CONTENT en DM."},
+  {id:'cta6',type:'CTA',theme:'Commentaire',text:"Dis-moi en commentaire : tu en faisais combien ?"},
+  {id:'cta7',type:'CTA',theme:'Bio',text:"Formule bio : 'J'aide [qui] à [résultat] sans [frustration] — même si [objection fréquente]'"},
+];
+
+const PACKS = [
+  {id:'pk1',emoji:'🎓',title:'Étudiante',desc:'Pour parler aux 18-25 ans qui veulent leur 1re vente.',sections:[
+    {label:'Hooks',items:["Étudiante + business en ligne : comment j'ai commencé sans temps ni argent.","Ce que personne ne te dit quand t'es étudiante et que tu veux gagner en ligne.","Le job étudiant que j'ai quitté grâce à ça."]},
+    {label:'Idées de reels',items:["Une journée type : cours + business en ligne.","3 excuses d'étudiante qui te bloquent (et la vérité).","Combien je gagnais avant / maintenant."]},
+    {label:'Stories',items:["Ton avant/après en tant qu'étudiante.","Sondage : « Tu dépends encore financièrement de tes parents ? »"]},
+    {label:'CTA',items:["Si t'es étudiante et que tu veux te lancer, envoie-moi « ÉTUDES » en DM."]},
+  ]},
+  {id:'pk2',emoji:'💼',title:'Salariée',desc:'Pour la cible qui veut sortir du 9-18h.',sections:[
+    {label:'Hooks',items:["Tu détestes ton job mais t'oses pas partir ? Lis ça.","Comment j'ai remplacé mon salaire en [X] mois.","Le calcul que personne ne fait avant de quitter son CDI."]},
+    {label:'Idées de reels',items:["POV : tu construis ta sortie pendant ta pause déj.","Les 3 peurs qui te gardent salariée.","Ce que j'aurais aimé savoir avant de me lancer."]},
+    {label:'CTA',items:["Envoie-moi « LIBERTÉ » si tu veux préparer ta sortie."]},
+  ]},
+  {id:'pk3',emoji:'🙈',title:'Peur de se montrer',desc:'Pour déverrouiller le passage à la caméra.',sections:[
+    {label:'Hooks',items:["Tu veux te lancer mais t'as peur du regard des autres ? Regarde.","La vérité sur « les gens vont juger ».","J'avais honte de poster. Voilà ce qui a tout changé."]},
+    {label:'Mindset',items:["Personne te regarde autant que tu le crois.","Ta peur protège ton ego, pas ton avenir."]},
+    {label:'Stories',items:["Première facecam vs maintenant.","Réponds aux peurs de ton audience en story Q/R."]},
+  ]},
+  {id:'pk4',emoji:'💸',title:'Première vente',desc:'Tout pour décrocher le premier oui.',sections:[
+    {label:'Stories BAB',items:["Before : sa galère actuelle. After : son résultat rêvé. Bridge : ton offre.","Affiche le type de personne pour qui c'est fait."]},
+    {label:'CTA',items:["J'accompagne [X] personnes ce mois-ci. Envoie « GO ».","Lien en bio pour réserver ton appel découverte."]},
+    {label:'Objections',items:["« C'est cher » → recadre sur le coût de ne rien changer.","« J'ai pas le temps » → 30 min/jour suffisent pour démarrer."]},
+  ]},
+  {id:'pk5',emoji:'🛡️',title:'Objections',desc:'Les réponses aux blocages classiques.',sections:[
+    {label:'Pendant le questionnement',items:["« J'ai peur » → Pendant combien de temps encore tu veux que la peur décide à ta place ?","« Pas l'argent » → Comment tu comptes t'arranger pour te lancer ?","« Je dois en parler à quelqu'un » → Qu'est-ce qui te ferait dire oui, toi, aujourd'hui ?"]},
+    {label:'En DM',items:["« Je réfléchis » → C'est sur quoi que tu hésites le plus : timing, budget, ou résultat ?","« C'est pas le moment » → Le bon moment, c'est celui où tu décides que ça compte."]},
+  ]},
+  {id:'pk6',emoji:'✨',title:'Storytelling',desc:'Pour créer du lien et de l\'attachement.',sections:[
+    {label:'Angles',items:["Le moment où j'ai failli abandonner.","Mon plus gros échec et ce qu'il m'a appris.","Pourquoi je fais ce que je fais (mon vrai pourquoi)."]},
+    {label:'Structure',items:["Situation initiale → déclencheur → galère → tournant → résultat → leçon.","Termine toujours par une leçon qui parle à ta cible."]},
+  ]},
+];
+
+const BANQUE_TYPES = ['Tous','Favoris','TOFU','MOFU','BOFU','Story','Mindset','Branding','Éducatif','Légende','Reel','Carrousel','CTA'];
+const TYPE_COLORS = {TOFU:'#C39A55',MOFU:'#7E9A78',BOFU:'#BE7A63',Story:'#A49485',Mindset:'#9C8C72',Branding:'#7F6F60',Éducatif:'#7E9A78',Légende:'#BCB3A8',Reel:'#C39A55',Carrousel:'#7F6F60',CTA:'#BE7A63'};
+
+/* ════ STATE ════ */
+let S = load();
+function load(){
+  let s=null; try{s=JSON.parse(localStorage.getItem('pulse_v3_state')||'null');}catch(e){}
+  if(!s){ let o=null; try{o=JSON.parse(localStorage.getItem('pulse_v2_state')||'null');}catch(e){} s={authed:false,prenom:'',typeOffre:'',cheminVente:'',prospects:[],metrics:{},notes:[],victoires:[],planItems:[],engagements:[],planChecks:{},engChecks:{},defiDates:[],favoris:[],banqueShuffle:false}; if(o){s.authed=!!o.auth;s.prenom=o.prenom||'';s.typeOffre=o.typeOffre||'';s.cheminVente=o.cheminVente||'';s.prospects=o.prospects||[];s.metrics=o.metrics||{};s.notes=o.notes||[];} }
+  if(!s.victoires)s.victoires=[];
+  if(!s.defiDates)s.defiDates=[];
+  if(!s.favoris)s.favoris=[];
+  if(!s.banqueShuffle)s.banqueShuffle=false;
+  if(!s.planItems||!s.planItems.length)s.planItems=planDefault(s.cheminVente);
+  if(!s.engagements||!s.engagements.length)s.engagements=ENG_DEFAULT;
+  return s;
+}
+function save(){try{localStorage.setItem('pulse_v3_state',JSON.stringify(S));}catch(e){}}
+
+/* ── UI state ── */
+let TAB='home', SUB='', CONTENU_TAB='banque', BANQUE_FILTER='Tous';
+let OB_STEP=0, OB_OFFRE='', OB_CHEMIN='';
+let VIC_PHOTO='';
+let METRIC_OFFSET=0;
+
+/* ════ UTILS ════ */
+const $ = id => document.getElementById(id);
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function today(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function dayOfYear(){const n=new Date();return Math.floor((n-new Date(n.getFullYear(),0,0))/86400000);}
+function weekKey(date){const d=new Date(date);d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function weekLabel(date){const d=new Date(date);d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));const e=new Date(d);e.setDate(d.getDate()+6);const f=dt=>dt.getDate()+'/'+(dt.getMonth()+1);return 'Semaine du '+f(d)+' au '+f(e);}
+function fmtDate(ts){const d=new Date(ts);const m=['jan','fév','mar','avr','mai','jun','jul','août','sep','oct','nov','déc'];return d.getDate()+' '+m[d.getMonth()]+' '+d.getFullYear();}
+function fmtShort(ts){const d=new Date(ts);return d.getDate()+'/'+(d.getMonth()+1);}
+function dayCount(dk){const pc=S.planChecks[dk]||{};const ec=S.engChecks[dk]||{};return Object.values(pc).filter(Boolean).length+Object.values(ec).filter(Boolean).length+(S.defiDates.includes(dk)?1:0);}
+let toastTm;
+function toast(msg){const el=$('toast');el.textContent=msg;el.style.display='block';clearTimeout(toastTm);toastTm=setTimeout(()=>el.style.display='none',1700);}
+function copy(text){try{navigator.clipboard.writeText(text);}catch(e){}toast('Copié ✓');}
+function openOv(id){$(id).classList.add('on');}
+function closeOv(id,e){if(!e||e.target===$(id)||e.target.classList.contains('overlay')){$('ov-'+id).classList.remove('on');}}
+
+/* ════ AUTH ════ */
+$('auth-inp').addEventListener('keydown',e=>{if(e.key==='Enter')doAuth();$('auth-err').classList.remove('on');});
+function doAuth(){
+  const val=($('auth-inp').value||'').trim().toUpperCase();
+  let prenom=null;
+  for(const[k,v]of Object.entries(ACCESS_CODES)){if(v.toUpperCase()===val){prenom=k;break;}}
+  if(!prenom){$('auth-err').classList.add('on');return;}
+  S.authed=true;
+  if(!S.prenom)S.prenom=prenom.charAt(0).toUpperCase()+prenom.slice(1);
+  save();
+  $('s-auth').classList.remove('on');
+  if(!S.typeOffre||!S.cheminVente)startOnb();
+  else launchApp();
+}
+
+/* ════ ONBOARDING ════ */
+const OB_OFFRES=[{val:'mrr',emoji:'🔄',label:'Revente MRR',desc:'Tu revends une formation et touches une commission.'},{val:'produit',emoji:'🎁',label:'Produit digital propre',desc:'Tu as créé ta propre formation ou coaching.'},{val:'affiliation',emoji:'🤝',label:'Affiliation',desc:'Tu recommandes des produits partenaires.'}];
+const OB_CHEMINS=[{val:'appel',emoji:'📞',label:'Appel de vente',desc:'Tu qualifies en DM puis closes en appel.'},{val:'dm',emoji:'💬',label:'Closing DM',desc:'Tu closes entièrement par messages.'},{val:'vsl',emoji:'🎬',label:'VSL + lien direct',desc:'Vidéo de vente + lien de paiement, sans call.'}];
+
+function startOnb(){
+  $('s-onb').classList.add('on');
+  if(S.prenom){$('ob-name').value=S.prenom;$('ob-btn0').disabled=false;}
+  renderObChoices();
+  updateDots(0);
+}
+function renderObChoices(){
+  $('ob-offres').innerHTML=OB_OFFRES.map(o=>`<div class="ob-choice${OB_OFFRE===o.val?' on':''}" onclick="pickOb('offre','${o.val}')"><div class="ob-ch-icon">${o.emoji}</div><div><span class="ob-ch-lbl">${o.label}</span><span class="ob-ch-desc">${o.desc}</span></div></div>`).join('');
+  $('ob-chemins').innerHTML=OB_CHEMINS.map(c=>`<div class="ob-choice${OB_CHEMIN===c.val?' on':''}" onclick="pickOb('chemin','${c.val}')"><div class="ob-ch-icon">${c.emoji}</div><div><span class="ob-ch-lbl">${c.label}</span><span class="ob-ch-desc">${c.desc}</span></div></div>`).join('');
+}
+function pickOb(type,val){if(type==='offre'){OB_OFFRE=val;$('ob-btn1').disabled=false;}else{OB_CHEMIN=val;$('ob-btn2').disabled=false;}renderObChoices();}
+function obNameChange(){$('ob-btn0').disabled=($('ob-name').value||'').trim().length<2;}
+function updateDots(step){[0,1,2].forEach(i=>$('d'+i).classList.toggle('on',i<=step));}
+function obNext(step){
+  if(step===0){const n=($('ob-name').value||'').trim();if(n.length<2)return;S.prenom=n.charAt(0).toUpperCase()+n.slice(1);save();}
+  $('ob'+step).classList.remove('on');$('ob'+(step+1)).classList.add('on');OB_STEP=step+1;updateDots(step+1);
+}
+function obFinish(){if(!OB_OFFRE||!OB_CHEMIN)return;S.typeOffre=OB_OFFRE;S.cheminVente=OB_CHEMIN;S.planItems=planDefault(OB_CHEMIN);save();$('s-onb').classList.remove('on');launchApp();}
+
+/* ════ APP ════ */
+function launchApp(){$('app').classList.add('on');renderAll();}
+function renderAll(){renderHome();renderToday();renderProspects();renderContenu();renderPlus();}
+
+function goTab(t){
+  ['home','today','prospects','contenu','plus'].forEach(id=>{$('p-'+id).classList.toggle('on',id===t);$('tab-'+id).classList.toggle('on',id===t);});
+  TAB=t;
+}
+
+/* ════ HOME ════ */
+function renderHome(){
+  const jours=['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+  const mois=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+  const now=new Date();
+  const dateStr=jours[now.getDay()]+' '+now.getDate()+' '+mois[now.getMonth()];
+  const t=today();
+  const defiDone=S.defiDates.includes(t);
+  const defiText=DEFIS[dayOfYear()%DEFIS.length];
+  const planChecks=S.planChecks[t]||{};
+  const engChecks=S.engChecks[t]||{};
+  const planDone=S.planItems.filter(p=>planChecks[p.id]).length;
+  const engDone=S.engagements.filter(e=>engChecks[e.id]).length;
+  const planTotal=S.planItems.length, engTotal=S.engagements.length;
+  const planPct=planTotal?Math.round(planDone/planTotal*100):0;
+  const engPct=engTotal?Math.round(engDone/engTotal*100):0;
+  const streak=calcStreak();
+  const wk=S.metrics[weekKey(now)]||{};
+  const appelLbl={appel:'Appels',dm:'DM closing',vsl:'Clics VSL'}[S.cheminVente]||'Appels';
+  const quote=QUOTES[dayOfYear()%QUOTES.length];
+  const miniCal=buildCal(35);
+
+  $('home-body').innerHTML=`
+    <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:27px;color:var(--ink);">Bonjour, ${esc(S.prenom||'toi')}.</div>
+    <div style="font-size:10px;color:var(--accent);font-weight:500;margin-bottom:22px;text-transform:capitalize;">${dateStr}</div>
+    <div onclick="toggleDefi()" style="background:var(--dark);border:1px solid ${defiDone?'rgba(195,154,85,.5)':'rgba(237,232,223,.12)'};border-radius:16px;padding:20px;cursor:pointer;margin-bottom:20px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        <div style="font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#C39A55;">★ Défi du jour</div>
+        <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;${defiDone?'color:#171513;background:#C39A55;padding:4px 9px;border-radius:99px;':'color:transparent;'}">${defiDone?'Fait ✓':''}</div>
+      </div>
+      <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:23px;line-height:1.35;color:var(--cream);">${esc(defiText)}</div>
+      <div style="font-size:10px;color:#8C8377;margin-top:12px;">${defiDone?'Bravo. Une mission accomplie, chaque jour.':'Tape pour cocher quand c\'est fait.'}</div>
+    </div>
+    <div class="sec">Ta progression du jour</div>
+    <div class="stat-grid" style="margin-bottom:18px;">
+      <div class="stat-box">
+        <div style="display:flex;align-items:baseline;gap:5px;"><div class="stat-val">${planDone}</div><div style="font-size:13px;color:var(--accent);">/ ${planTotal}</div></div>
+        <div class="stat-lbl">Plan d'action</div>
+        <div class="prog-bar"><div class="prog-fill" style="width:${planPct}%"></div></div>
+      </div>
+      <div class="stat-box">
+        <div style="display:flex;align-items:baseline;gap:5px;"><div class="stat-val">${engDone}</div><div style="font-size:13px;color:var(--accent);">/ ${engTotal}</div></div>
+        <div class="stat-lbl">Engagements</div>
+        <div class="prog-bar"><div class="prog-fill" style="width:${engPct}%"></div></div>
+      </div>
+    </div>
+    <div style="border:1px solid rgba(164,148,133,.32);border-radius:14px;padding:18px;margin-bottom:20px;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:44px;color:var(--line);line-height:.5;">&ldquo;</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:var(--deep);line-height:1.5;margin-top:6px;">${esc(quote)}</div>
+    </div>
+    <a href="${GITBOOK_URL}" target="_blank" rel="noopener" style="background:var(--dark);border:1px solid rgba(237,232,223,.14);border-radius:16px;padding:20px 20px 18px;margin-bottom:10px;cursor:pointer;display:flex;align-items:center;gap:16px;text-decoration:none;">
+      <div style="font-size:32px;flex-shrink:0;">📚</div>
+      <div style="flex:1;">
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--cream);line-height:1.15;margin-bottom:4px;">Pulse Academy</div>
+        <div style="font-size:10px;color:var(--accent);">Cours · Scripts · Checklists · Exercices</div>
+      </div>
+      <div style="background:var(--cream);color:var(--dark);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:8px 14px;border-radius:8px;flex-shrink:0;">Ouvrir →</div>
+    </a>
+    <a href="https://www.skool.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 16px;margin-bottom:18px;text-decoration:none;">
+      <div style="font-size:22px;flex-shrink:0;">🏫</div>
+      <div style="flex:1;">
+        <div style="font-size:13px;font-weight:600;color:var(--ink);">Communauté Skool</div>
+        <div style="font-size:10px;color:var(--accent);margin-top:2px;">Ton espace communauté</div>
+      </div>
+      <div style="color:var(--line2);">›</div>
+    </a>
+    <div class="sec">Accès rapide</div>
+    <button class="btn-ghost" onclick="goTab('today')">⚡ Que faire aujourd'hui ?</button>
+    <button class="btn-ghost" onclick="goTab('prospects')">🎯 Mes prospects</button>
+    <button class="btn-ghost" onclick="goTab('contenu')">💡 Banque de contenu</button>
+    <div class="sec" style="margin-top:22px;">Cette semaine</div>
+    <div class="stat-grid" style="margin-bottom:16px;">
+      <div class="stat-box"><div class="stat-val">${wk.dm_recus||'—'}</div><div class="stat-lbl">DM reçus</div></div>
+      <div class="stat-box"><div class="stat-val">${wk.reponses||'—'}</div><div class="stat-lbl">Réponses</div></div>
+      <div class="stat-box"><div class="stat-val">${wk.appels||'—'}</div><div class="stat-lbl">${appelLbl}</div></div>
+      <div class="stat-box"><div class="stat-val">${wk.ventes||'—'}</div><div class="stat-lbl">Ventes</div></div>
+    </div>
+    <div onclick="goSub('reg');goTab('plus');" style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--card);border:1px solid var(--line);border-radius:12px;cursor:pointer;margin-bottom:4px;">
+      <span style="font-size:15px;">🔥</span>
+      <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:var(--dark);">${streak}</span>
+      <span style="font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);">jours d'affilée</span>
+      <span style="margin-left:auto;font-size:9px;color:var(--accent);">Voir →</span>
+    </div>`;
+}
+function toggleDefi(){const t=today();const has=S.defiDates.includes(t);S.defiDates=has?S.defiDates.filter(d=>d!==t):[...S.defiDates,t];save();if(!has)toast('🎉 Mission accomplie');renderHome();}
+
+/* ════ TODAY ════ */
+function renderToday(){
+  const chLabel={appel:'Appel de vente',dm:'Closing DM',vsl:'VSL + lien'}[S.cheminVente]||'Ton chemin';
+  const t=today();
+  const pc=S.planChecks[t]||{};
+  const ec=S.engChecks[t]||{};
+  const planDone=S.planItems.filter(p=>pc[p.id]).length;
+  const jours=['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+  const mois=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+  const now=new Date();
+  const dateStr=jours[now.getDay()]+' '+now.getDate()+' '+mois[now.getMonth()];
+  $('today-sub').textContent=chLabel+' · ton plan';
+  const planDose={appel:'1 appel / 5 DM',dm:'15–20 DM',vsl:'VSL & relances'}[S.cheminVente]||'';
+  $('today-body').innerHTML=`
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:6px 13px;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--deep);">📅 ${dateStr}</div>
+      <div style="font-size:10px;color:var(--accent);">${planDone}/${S.planItems.length} tâches</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:9px;margin-bottom:13px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--deep)" stroke-width="1.6" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:23px;color:var(--ink);">Mon plan d'action</div>
+      <div style="margin-left:auto;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);">${planDose}</div>
+    </div>
+    <div id="plan-list">${renderPlanList(pc)}</div>
+    <div style="display:flex;gap:8px;margin-bottom:28px;">
+      <input type="text" id="plan-inp" class="form-inp" placeholder="Ajouter une tâche…" onkeydown="if(event.key==='Enter')addPlan()" style="flex:1;">
+      <button onclick="addPlan()" style="background:var(--dark);color:var(--cream);border:none;border-radius:10px;padding:0 16px;font-size:18px;cursor:pointer;">+</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:9px;margin-bottom:6px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--deep)" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:23px;color:var(--ink);">Mes engagements</div>
+      <div style="margin-left:auto;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);">${S.engagements.filter(e=>ec[e.id]).length}/${S.engagements.length}</div>
+    </div>
+    <div style="font-size:10px;color:var(--accent);margin-bottom:14px;">Les cases se remettent à zéro chaque jour à minuit.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">${S.engagements.map(e=>{const done=!!ec[e.id];return `<div onclick="toggleEng('${e.id}')" style="display:flex;align-items:center;gap:10px;background:${done?'var(--dark)':'var(--card)'};border:1px solid ${done?'var(--dark)':'var(--line)'};border-radius:11px;padding:11px 13px;cursor:pointer;transition:all .18s;">
+  <div style="font-size:19px;flex-shrink:0;">${e.icon||'○'}</div>
+  <div style="flex:1;min-width:0;">
+    <div style="font-size:11.5px;font-weight:600;color:${done?'var(--cream)':'var(--ink)'};line-height:1.3;">${esc(e.text)}</div>
+    <div style="font-size:8.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:${done?'rgba(237,232,223,.5)':'var(--accent)'};margin-top:2px;">${esc(e.cat||'')}</div>
+  </div>
+  ${done?`<svg width="14" height="14" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#EDE8DF" stroke-width="2.2" stroke-linecap="round"/></svg>`:''}
+</div>`;}).join('')}</div>`;
+}
+function renderPlanList(pc){
+  return S.planItems.map((p,i)=>`
+    <div class="chk-row${pc[p.id]?' done':''}" id="pi-${p.id}">
+      <div class="chk-box" onclick="togglePlan('${p.id}')">${pc[p.id]?'<svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#EDE8DF" stroke-width="2.3" stroke-linecap="round"/></svg>':''}</div>
+      <div onclick="togglePlan('${p.id}')" style="flex:1;font-size:12.5px;color:var(--ink);line-height:1.45;">${esc(p.text)}</div>
+      <button onclick="deletePlan('${p.id}')" style="color:var(--line2);font-size:16px;cursor:pointer;background:none;border:none;padding:0 2px;">×</button>
+    </div>`).join('');
+}
+function togglePlan(id){const t=today();const pc={...(S.planChecks[t]||{})};pc[id]=!pc[id];S.planChecks={...S.planChecks,[t]:pc};save();const el=$('plan-list');if(el)el.innerHTML=renderPlanList(pc);renderHome();}
+function deletePlan(id){S.planItems=S.planItems.filter(p=>p.id!==id);save();renderToday();renderHome();}
+function addPlan(){const v=($('plan-inp').value||'').trim();if(!v)return;S.planItems=[...S.planItems,{id:'p'+Date.now(),text:v}];save();$('plan-inp').value='';renderToday();renderHome();}
+function toggleEng(id){const t=today();const ec={...(S.engChecks[t]||{})};ec[id]=!ec[id];S.engChecks={...S.engChecks,[t]:ec};save();renderToday();renderHome();}
+
+/* ════ PROSPECTS ════ */
+const STATUS_MAP={'premier-contact':{l:'Premier contact',c:'#A49485',bg:'rgba(164,148,133,.15)'},chaud:{l:'Chaud 🔥',c:'#C39A55',bg:'rgba(195,154,85,.16)'},closing:{l:'En closing',c:'#BE7A63',bg:'rgba(190,122,99,.15)'},client:{l:'Cliente ✓',c:'#7E9A78',bg:'rgba(126,154,120,.16)'},froid:{l:'Froid',c:'#A49485',bg:'rgba(164,148,133,.1)'}};
+const PLAT_ICON={instagram:'📸',tiktok:'🎵',autre:'💬'};
+const STATUS_ORDER=['closing','chaud','premier-contact','froid','client'];
+
+function renderProspects(){
+  const sorted=[...S.prospects.map((p,i)=>({p,i}))].sort((a,b)=>STATUS_ORDER.indexOf(a.p.status)-STATUS_ORDER.indexOf(b.p.status));
+  const chaud=S.prospects.filter(p=>p.status==='chaud').length;
+  const closing=S.prospects.filter(p=>p.status==='closing').length;
+  const client=S.prospects.filter(p=>p.status==='client').length;
+  $('prospects-body').innerHTML=`
+    <div class="stat-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:18px;">
+      <div class="stat-box" style="text-align:center;padding:12px 8px;"><div class="stat-val" style="font-size:26px;">${S.prospects.length}</div><div class="stat-lbl" style="font-size:8px;">Total</div></div>
+      <div class="stat-box" style="text-align:center;padding:12px 8px;"><div class="stat-val" style="font-size:26px;">${chaud}</div><div class="stat-lbl" style="font-size:8px;">Chauds</div></div>
+      <div class="stat-box" style="text-align:center;padding:12px 8px;"><div class="stat-val" style="font-size:26px;">${closing}</div><div class="stat-lbl" style="font-size:8px;">Closing</div></div>
+      <div class="stat-box" style="text-align:center;padding:12px 8px;"><div class="stat-val" style="font-size:26px;">${client}</div><div class="stat-lbl" style="font-size:8px;">Clientes</div></div>
+    </div>
+    <button class="btn-dark" onclick="openProspect()">+ Ajouter un prospect</button>
+    ${sorted.length?sorted.map(({p,i})=>{const s=STATUS_MAP[p.status]||STATUS_MAP['premier-contact'];return `
+      <div style="background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px;margin-bottom:10px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;">
+          <div style="font-size:13px;font-weight:600;color:var(--ink);">${PLAT_ICON[p.platform]||'💬'} ${esc(p.name)}</div>
+          <span class="tag" style="color:${s.c};background:${s.bg};">${s.l}</span>
+        </div>
+        <div style="font-size:10px;color:var(--accent);margin-bottom:${p.note?'7':'10'}px;">${p.platform==='instagram'?'Instagram':p.platform==='tiktok'?'TikTok':'Autre'} · ajouté le ${fmtShort(p.createdAt)}</div>
+        ${p.note?`<div style="font-size:11.5px;color:var(--deep);font-style:italic;line-height:1.5;margin-bottom:10px;">${esc(p.note)}</div>`:''}
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="mini-btn" onclick="quickStatus(${i},'chaud')">Chaud</button>
+          <button class="mini-btn" onclick="quickStatus(${i},'closing')">Closing</button>
+          <button class="mini-btn" onclick="quickStatus(${i},'client')">Cliente ✓</button>
+          <button class="mini-btn" onclick="editProspect(${i})">Modifier</button>
+        </div>
+      </div>`;}).join(''):`<div style="text-align:center;padding:30px;color:var(--accent);font-size:12px;">Aucun prospect. Ajoute ta première conversation.</div>`}`;
+}
+function openProspect(idx){
+  $('pm-idx').value=idx!=null?idx:'';
+  $('pm-ttl').textContent=idx!=null?'Modifier le prospect':'Nouveau prospect';
+  $('pm-del').style.display=idx!=null?'block':'none';
+  if(idx!=null){const p=S.prospects[idx];$('pm-name').value=p.name;$('pm-plat').value=p.platform;$('pm-status').value=p.status;$('pm-note').value=p.note||'';}
+  else{$('pm-name').value='';$('pm-plat').value='instagram';$('pm-status').value='premier-contact';$('pm-note').value='';}
+  openOv('prospect');
+}
+function editProspect(i){openProspect(i);}
+function saveProspect(){
+  const name=($('pm-name').value||'').trim();if(!name)return;
+  const idx=$('pm-idx').value;
+  const rec={name,platform:$('pm-plat').value,status:$('pm-status').value,note:($('pm-note').value||'').trim(),createdAt:idx!==''?(S.prospects[+idx]?.createdAt||Date.now()):Date.now()};
+  if(idx!=='')S.prospects[+idx]=rec;else S.prospects.unshift(rec);
+  save();$('ov-prospect').classList.remove('on');renderProspects();
+}
+function delProspect(){const idx=+$('pm-idx').value;S.prospects.splice(idx,1);save();$('ov-prospect').classList.remove('on');renderProspects();}
+function quickStatus(i,status){S.prospects[i].status=status;save();renderProspects();}
+
+/* ════ CONTENU ════ */
+function renderContenu(){
+  $('contenu-tabs').innerHTML='';
+  renderBanque();
+}
+function setContenuTab(t){CONTENU_TAB=t;renderContenu();}
+
+function renderBanque(){
+  let bank=[...BANQUE];
+  if(BANQUE_FILTER==='Favoris')bank=bank.filter(b=>S.favoris.includes(b.id));
+  else if(BANQUE_FILTER!=='Tous')bank=bank.filter(b=>b.type===BANQUE_FILTER);
+  if(S.banqueShuffle)bank=bank.sort(()=>Math.random()-.5);
+  $('contenu-body').innerHTML=`
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+      <div style="font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);">${bank.length} contenus</div>
+      <button onclick="toggleShuffle()" style="display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid var(--line);border-radius:99px;padding:7px 14px;font-size:10px;font-weight:600;letter-spacing:.04em;color:var(--deep);cursor:pointer;">🎲 ${S.banqueShuffle?'Trié (annuler)':'Aléatoire'}</button>
+    </div>
+    <div class="filters">${BANQUE_TYPES.map(f=>`<button class="f-chip${BANQUE_FILTER===f?' on':''}" onclick="setBanqueFilter('${f}')">${f}</button>`).join('')}</div>
+    ${bank.length?bank.map(b=>{const fav=S.favoris.includes(b.id);const col=TYPE_COLORS[b.type]||'#A49485';return `
+      <div style="background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px;margin-bottom:10px;">
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:9px;">
+          <span class="tag" style="color:${col};background:${col}22;">${b.type}</span>
+          <span style="font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);">${b.theme}</span>
+          <span onclick="toggleFav('${b.id}')" style="margin-left:auto;cursor:pointer;font-size:15px;color:${fav?'#BE7A63':'#CFC9C1'};">${fav?'♥':'♡'}</span>
+        </div>
+        <div style="font-size:12.5px;color:var(--ink);line-height:1.6;margin-bottom:12px;">${esc(b.text)}</div>
+        <button onclick="copy(${JSON.stringify(b.text)})" style="display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid var(--line2);border-radius:8px;padding:7px 12px;font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--deep);cursor:pointer;">📋 Copier</button>
+      </div>`;}).join(''):`<div style="text-align:center;padding:30px;color:var(--accent);font-size:12px;">Aucun contenu dans ce filtre.</div>`}`;
+}
+function setBanqueFilter(f){BANQUE_FILTER=f;renderBanque();}
+function toggleFav(id){const has=S.favoris.includes(id);S.favoris=has?S.favoris.filter(x=>x!==id):[...S.favoris,id];save();renderBanque();}
+function toggleShuffle(){S.banqueShuffle=!S.banqueShuffle;save();renderBanque();}
+
+
+/* ════ PLUS ════ */
+let SUB_PAGE='';
+function goSub(s){SUB_PAGE=s;renderPlus();}
+
+function renderPlus(){
+  const hdr=$('plus-hdr');const body=$('plus-body');
+  if(!SUB_PAGE){
+    hdr.innerHTML=`<div class="page-ttl">Plus.</div><div class="page-sub">Ton espace personnel</div>`;
+    body.innerHTML=`
+      ${hubItem('📈','Mes stats','Suivi hebdomadaire',"goSub('stats')")}
+      ${hubItem('🏆','Mes victoires','Tes wins, petits et grands',"goSub('victoires')")}
+      ${hubItem('📅','Régularité','Ta discipline jour après jour',"goSub('reg')")}
+      ${hubItem('📁','Ressources','Drive, Canva, templates…',"goSub('ressources')")}
+      ${hubItem('📚','Ma formation','Accès à la méthode complète',"goSub('formation')")}
+      ${hubItem('⚙️','Paramètres','Prénom, offre, chemin de vente',"goSub('params')")}`;
+    return;
+  }
+  const back=`<button class="back-btn" onclick="goSub('')">‹</button>`;
+  if(SUB_PAGE==='stats'){
+    hdr.innerHTML=`<div class="page-hdr" style="padding:0;"><div style="display:flex;align-items:center;">${back}<div><div class="page-ttl">Stats.</div><div class="page-sub">Suivi hebdomadaire</div></div></div></div>`;
+    renderStats(body);
+  } else if(SUB_PAGE==='victoires'){
+    hdr.innerHTML=`<div style="display:flex;align-items:center;">${back}<div><div class="page-ttl">Victoires.</div><div class="page-sub">Tes wins, petits et grands</div></div></div>`;
+    renderVictoires(body);
+  } else if(SUB_PAGE==='reg'){
+    hdr.innerHTML=`<div style="display:flex;align-items:center;">${back}<div><div class="page-ttl">Régularité.</div><div class="page-sub">Jour après jour</div></div></div>`;
+    renderReg(body);
+  } else if(SUB_PAGE==='ressources'){
+    hdr.innerHTML=`<div style="display:flex;align-items:center;">${back}<div><div class="page-ttl">Ressources.</div><div class="page-sub">Tout au même endroit</div></div></div>`;
+    renderRessources(body);
+  } else if(SUB_PAGE==='formation'){
+    hdr.innerHTML=`<div style="display:flex;align-items:center;">${back}<div><div class="page-ttl">Formation.</div><div class="page-sub">Ta méthode complète</div></div></div>`;
+    renderFormation(body);
+  } else if(SUB_PAGE==='params'){
+    hdr.innerHTML=`<div style="display:flex;align-items:center;">${back}<div><div class="page-ttl">Paramètres.</div><div class="page-sub">Ton compte</div></div></div>`;
+    renderParams(body);
+  }
+}
+function hubItem(emoji,label,desc,onclick){return `<div class="hub-item" onclick="${onclick}"><div style="font-size:20px;">${emoji}</div><div style="flex:1;"><div class="hub-lbl">${label}</div><div class="hub-desc">${desc}</div></div><div style="color:var(--line2);">›</div></div>`;}
+
+function metricDate(){const d=new Date();d.setDate(d.getDate()+METRIC_OFFSET*7);return d;}
+function renderStats(body){
+  const mDate=metricDate();const mKey=weekKey(mDate);const mw=S.metrics[mKey]||{};
+  const appelLbl={appel:'Appels réalisés',dm:'DM closing',vsl:'Clics VSL'}[S.cheminVente]||'Appels';
+  const fields=[{k:'vues',l:'Vues reels'},{k:'abonnes',l:'Nouveaux abonnés'},{k:'reponses',l:'Réponses stories'},{k:'dm_recus',l:'DM reçus'},{k:'appels',l:appelLbl},{k:'ventes',l:'Ventes'}];
+  const histKeys=Object.keys(S.metrics).sort().reverse().slice(0,8);
+  body.innerHTML=`
+    <div class="week-nav">
+      <button class="week-btn" onclick="METRIC_OFFSET--;renderPlus()">‹</button>
+      <div class="week-lbl">${weekLabel(mDate)}</div>
+      <button class="week-btn" onclick="METRIC_OFFSET++;renderPlus()">›</button>
+    </div>
+    <div class="stat-grid" style="margin-bottom:14px;">
+      ${fields.map(f=>`<div class="met-card"><div class="met-lbl">${f.l}</div><input type="number" class="met-inp" id="m-${f.k}" placeholder="0" value="${mw[f.k]||''}"></div>`).join('')}
+    </div>
+    <button class="btn-dark" onclick="saveMetrics()">Sauvegarder</button>
+    <div id="met-ok" style="text-align:center;font-size:11px;color:var(--sage);font-weight:600;display:none;margin-bottom:12px;">✓ Sauvegardé</div>
+    <div class="sec" style="margin-top:16px;">Historique</div>
+    ${histKeys.length?histKeys.map(k=>{const m=S.metrics[k];return `<div class="card" style="margin-bottom:10px;"><div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--deep);margin-bottom:10px;">${weekLabel(k)}</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;font-size:12px;"><div><div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--dark);">${m.vues||0}</div><div style="font-size:8.5px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;">Vues</div></div><div><div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--dark);">${m.abonnes||0}</div><div style="font-size:8.5px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;">Abonnés</div></div><div><div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--dark);">${m.ventes||0}</div><div style="font-size:8.5px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;">Ventes</div></div></div></div>`;}).join(''):`<div style="text-align:center;color:var(--accent);font-size:12px;padding:14px;">Aucune donnée.</div>`}`;
+}
+function saveMetrics(){
+  const mKey=weekKey(metricDate());
+  S.metrics[mKey]={vues:+($('m-vues').value||0),abonnes:+($('m-abonnes').value||0),reponses:+($('m-reponses').value||0),dm_recus:+($('m-dm_recus').value||0),appels:+($('m-appels').value||0),ventes:+($('m-ventes').value||0)};
+  save();const ok=$('met-ok');if(ok){ok.style.display='block';setTimeout(()=>ok.style.display='none',2000);}renderHome();
+}
+
+function renderVictoires(body){
+  body.innerHTML=`
+    <button class="btn-dark" onclick="openVic()">+ Ajouter une victoire</button>
+    ${S.victoires.length?S.victoires.map((v,i)=>`
+      <div style="background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:12px;">
+        ${v.photo?`<div style="width:100%;height:160px;background:url(${JSON.stringify(v.photo)}) center/cover;"></div>`:''}
+        <div style="padding:15px;position:relative;">
+          <div style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#C39A55;margin-bottom:6px;">🏆 ${fmtDate(v.date)}</div>
+          <div style="font-size:13px;color:var(--ink);line-height:1.5;padding-right:20px;">${esc(v.text)}</div>
+          <button onclick="delVictoire(${i})" style="position:absolute;top:13px;right:13px;color:var(--line2);font-size:16px;cursor:pointer;background:none;border:none;">×</button>
+        </div>
+      </div>`).join(''):`<div style="text-align:center;color:var(--accent);font-size:12px;line-height:1.7;padding:24px;">Tes victoires apparaîtront ici.<br>La première vente, le premier appel…</div>`}`;
+}
+function openVic(){VIC_PHOTO='';$('vic-text').value='';$('vic-photo-lbl').textContent='Ajouter une photo';$('vic-thumb').innerHTML='';openOv('vic');}
+function vicPhotoChange(){
+  const f=$('vic-photo-inp').files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{const img=new Image();img.onload=()=>{const c=document.createElement('canvas');const max=560;const sc=Math.min(1,max/Math.max(img.width,img.height));c.width=Math.round(img.width*sc);c.height=Math.round(img.height*sc);c.getContext('2d').drawImage(img,0,0,c.width,c.height);VIC_PHOTO=c.toDataURL('image/jpeg',.82);$('vic-photo-lbl').textContent='Changer la photo';$('vic-thumb').innerHTML=`<div style="width:54px;height:54px;border-radius:8px;background:url(${JSON.stringify(VIC_PHOTO)}) center/cover;"></div>`;};img.src=r.result;};
+  r.readAsDataURL(f);
+}
+function saveVictoire(){const t=($('vic-text').value||'').trim();if(!t)return;S.victoires=[{text:t,photo:VIC_PHOTO,date:Date.now()},...S.victoires];save();$('ov-vic').classList.remove('on');renderVictoires($('plus-body'));}
+function delVictoire(i){S.victoires.splice(i,1);save();renderVictoires($('plus-body'));}
+
+function renderReg(body){
+  const streak=calcStreak();
+  let active=0;const set=new Set();S.defiDates.forEach(d=>set.add(d));Object.keys(S.planChecks).forEach(d=>{if(Object.values(S.planChecks[d]).some(Boolean))set.add(d);});Object.keys(S.engChecks).forEach(d=>{if(Object.values(S.engChecks[d]).some(Boolean))set.add(d);});active=set.size;
+  const fullCal=buildCal(84);
+  body.innerHTML=`
+    <div style="background:var(--dark);border-radius:14px;padding:20px;margin-bottom:16px;text-align:center;">
+      <div style="font-size:28px;">🔥</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:44px;color:var(--cream);line-height:1.1;">${streak}</div>
+      <div style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);">jours d'affilée · ${active} jours actifs</div>
+    </div>
+    <div style="font-size:11px;color:var(--deep);line-height:1.6;margin-bottom:16px;">Chaque jour où tu coches au moins une action, ta case se remplit.</div>
+    <div style="background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;">
+      <div class="cal-grid">${fullCal.map(c=>`<div class="cal-cell" style="background:${c.col};"></div>`).join('')}</div>
+      <div style="display:flex;align-items:center;justify-content:flex-end;gap:6px;margin-top:14px;font-size:9px;color:var(--accent);">Moins <div style="width:11px;height:11px;border-radius:3px;background:#E6E2DC;"></div><div style="width:11px;height:11px;border-radius:3px;background:#C9C0B2;"></div><div style="width:11px;height:11px;border-radius:3px;background:#9C8C72;"></div><div style="width:11px;height:11px;border-radius:3px;background:#5E5142;"></div>Plus</div>
+    </div>`;
+}
+
+function renderRessources(body){
+  const links=[
+    {e:'📚',l:'Pulse Academy',d:'Ta formation complète',url:'https://pulse-16.gitbook.io/pulse-docs/sommaire'},
+    {e:'🏫',l:'Communauté Skool',d:'Ton espace communauté',url:'https://www.skool.com'},
+    {e:'📁',l:'Google Drive',d:'Tes fichiers & ressources',url:'https://drive.google.com/drive/folders/17mbYAw5KGKqp4vr5Yo7_JZM7gWRnhi3b?usp=share_link'},
+    {e:'✈️',l:'Telegram',d:'Le canal privé',url:'https://t.me/noiradigital'},
+    {e:'🎨',l:'Canva',d:'Créer tes visuels',url:'https://www.canva.com'},
+    {e:'🎬',l:'CapCut',d:'Monter tes vidéos',url:'https://www.capcut.com'},
+  ];
+  body.innerHTML=links.map(r=>`<a href="${r.url}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px 16px;margin-bottom:10px;text-decoration:none;"><div style="font-size:20px;flex-shrink:0;">${r.e}</div><div style="flex:1;"><div style="font-size:13px;font-weight:600;color:var(--ink);">${r.l}</div><div style="font-size:10px;color:var(--accent);margin-top:2px;">${r.d}</div></div><div style="color:var(--line2);">›</div></a>`).join('');
+}
+
+const HOOK_BANQUE = [
+  "Personne ne te dit ça quand tu lances ton business…",
+  "Si j'avais su ça plus tôt, j'aurais gagné des mois…",
+  "Tu fais sûrement cette erreur sans t'en rendre compte…",
+  "Arrête de faire ça si tu veux vraiment vendre…",
+  "Ce détail change absolument tout…",
+  "La vérité que personne n'ose dire…",
+  "Spoiler : ça ne marche pas comme tu le crois…",
+  "Tu n'as pas un problème de motivation, mais de stratégie…",
+  "Ce blocage te freine plus que tu ne le penses…",
+  "Tu compliques quelque chose qui devrait être simple…",
+  "Tu postes tous les jours mais personne n'achète…",
+  "Tu travailles beaucoup pour zéro résultat…",
+  "Tu as l'impression que tout le monde réussit sauf toi…",
+  "Tu doutes de ta légitimité alors que tu es capable…",
+  "Tu consommes du contenu mais tu n'avances pas…",
+  "Tu veux réussir mais tu fais ça à l'envers…",
+  "Tu es fatiguée de recommencer sans jamais finir…",
+  "Tu sais que tu peux plus, mais tu bloques encore…",
+  "Tu es plus proche de réussir que tu ne le crois…",
+  "Tu n'es pas en retard, tu es juste mal guidée…",
+  "Tu n'as pas besoin de milliers d'abonnés pour vendre…",
+  "Comment faire ta première vente sans être experte…",
+  "La méthode la plus simple pour monétiser ton savoir…",
+  "Ce qui m'a permis de passer de zéro à mes premières ventes…",
+  "Tu peux vendre sans t'épuiser à poster partout…",
+  "La stratégie que j'utiliserais si je repartais de zéro…",
+  "Tu peux gagner de l'argent sans produit compliqué…",
+  "Ce système m'a tout simplifié…",
+  "Tu peux lancer une offre même en partant de rien…",
+  "Vendre peut être beaucoup plus simple que tu ne le penses…",
+  "Tu n'as pas besoin d'être prête pour commencer…",
+  "La confiance vient après l'action, pas avant…",
+  "Tu es plus légitime que tu ne le crois…",
+  "Ce n'est pas un manque de talent…",
+  "Tu n'as pas échoué, tu apprends…",
+  "Le vrai problème n'est pas technique…",
+  "Tu n'as rien à prouver à personne…",
+  "Tu peux réussir même si tu doutes encore…",
+  "Ce n'est pas toi le problème…",
+  "Tu peux faire beaucoup avec peu…",
+  "L'erreur que je vois chez 90 % des débutantes…",
+  "Personne ne parle assez de ça dans le business en ligne…",
+  "Voici ce que les formations ne t'expliquent pas…",
+  "Si je devais donner un seul conseil…",
+  "La vraie raison pour laquelle ça ne décolle pas…",
+  "Ce que tout le monde fait mais qui ne fonctionne pas…",
+  "La différence entre celles qui réussissent et les autres…",
+  "Ce que je changerais si je devais tout recommencer",
+  "Ce détail est sous-estimé mais essentiel…",
+  "Tout le monde se trompe sur ce point…"
+];
+
+function renderFormation(body){
+  const randomHook = HOOK_BANQUE[Math.floor(Math.random()*HOOK_BANQUE.length)];
+  const hookItems = HOOK_BANQUE.map((h,i)=>`
+    <div onclick="copyHook('${h.replace(/'/g,"\\'")}',this)" style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line2);cursor:pointer;gap:10px;">
+      <div style="font-size:11px;color:var(--cream);line-height:1.5;flex:1;">${h}</div>
+      <div style="font-size:9px;color:var(--deep);white-space:nowrap;flex-shrink:0;">copier</div>
+    </div>`).join('');
+
+  body.innerHTML=`
+    <div style="background:var(--dark);border-radius:16px;padding:28px 22px;text-align:center;margin-bottom:16px;">
+      <div style="font-size:34px;margin-bottom:10px;">📚</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:27px;color:var(--cream);text-shadow:0 0 18px rgba(237,232,223,.4);margin-bottom:8px;">Ta méthode complète</div>
+      <div style="font-size:11px;color:var(--accent);line-height:1.6;margin-bottom:20px;">Tous tes cours, scripts, checklists et exercices.</div>
+      <a href="${GITBOOK_URL}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:var(--cream);color:var(--dark);border-radius:10px;padding:14px 28px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;">Continuer ma formation →</a>
+    </div>
+    <div class="card" style="margin-bottom:16px;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--deep);margin-bottom:12px;">Ce que tu y trouveras</div>
+      <div style="font-size:12px;color:var(--deep);line-height:2;">La méthode en 8 modules<br>Scripts DM, closing, objections<br>Checklists par phase<br>Exercices pratiques<br>Mises à jour régulières</div>
+    </div>
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--deep);">Banque de hooks</div>
+        <div style="font-size:9px;color:var(--accent);">${HOOK_BANQUE.length} hooks · tape pour copier</div>
+      </div>
+      <div style="font-size:10px;color:var(--deep);margin-bottom:14px;line-height:1.5;">Hook du jour → <span style="color:var(--cream);font-style:italic;">${randomHook}</span></div>
+      <div style="max-height:320px;overflow-y:auto;">${hookItems}</div>
+    </div>`;
+}
+
+function copyHook(text, el){
+  navigator.clipboard.writeText(text).then(()=>{
+    const orig = el.querySelector('div:last-child').textContent;
+    el.querySelector('div:last-child').textContent = '✓ copié';
+    el.querySelector('div:last-child').style.color = 'var(--cream)';
+    setTimeout(()=>{ el.querySelector('div:last-child').textContent = orig; el.querySelector('div:last-child').style.color = 'var(--deep)'; }, 1500);
+  }).catch(()=>toast(text));
+}
+
+function renderParams(body){
+  const offreLbl={mrr:'Revente MRR',produit:'Produit digital propre',affiliation:'Affiliation'};
+  const cheminLbl={appel:'Appel de vente',dm:'Closing DM',vsl:'VSL + lien direct'};
+  body.innerHTML=`
+    <div class="form-f"><label class="form-lbl">Prénom</label><input type="text" id="par-prenom" class="form-inp" value="${esc(S.prenom)}" oninput="S.prenom=this.value.charAt(0).toUpperCase()+this.value.slice(1);save();renderHome();"></div>
+    <div class="form-f"><label class="form-lbl">Modèle business</label>
+      <select id="par-offre" class="form-sel" onchange="S.typeOffre=this.value;save();">
+        <option value="mrr"${S.typeOffre==='mrr'?' selected':''}>Revente MRR</option>
+        <option value="produit"${S.typeOffre==='produit'?' selected':''}>Produit digital propre</option>
+        <option value="affiliation"${S.typeOffre==='affiliation'?' selected':''}>Affiliation</option>
+      </select></div>
+    <div class="form-f"><label class="form-lbl">Chemin de vente</label>
+      <select id="par-chemin" class="form-sel" onchange="S.cheminVente=this.value;S.planItems=planDefault(this.value);save();toast('Plan d\'action mis à jour');renderToday();renderHome();">
+        <option value="appel"${S.cheminVente==='appel'?' selected':''}>Appel de vente</option>
+        <option value="dm"${S.cheminVente==='dm'?' selected':''}>Closing DM</option>
+        <option value="vsl"${S.cheminVente==='vsl'?' selected':''}>VSL + lien direct</option>
+      </select></div>
+    <div style="font-size:10px;color:var(--accent);line-height:1.6;margin-bottom:20px;">Changer le chemin de vente met à jour les tâches de ton plan d'action.</div>
+    <button onclick="doLogout()" style="width:100%;background:transparent;border:1px solid var(--line2);border-radius:10px;padding:13px;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--deep);cursor:pointer;">Se déconnecter</button>`;
+}
+function doLogout(){S.authed=false;save();location.reload();}
+
+/* ════ CAL ════ */
+function buildCal(days){
+  const out=[];const now=new Date();now.setHours(0,0,0,0);
+  const start=new Date(now);start.setDate(now.getDate()-(days-1));
+  const pad=(start.getDay()+6)%7;
+  for(let i=0;i<pad;i++)out.push({col:'transparent'});
+  for(let i=0;i<days;i++){const d=new Date(start);d.setDate(start.getDate()+i);const key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');const c=dayCount(key);const col=c===0?'#E6E2DC':c<=2?'#C9C0B2':c<=4?'#9C8C72':'#5E5142';out.push({col});}
+  return out;
+}
+function calcStreak(){let s=0;const t=new Date();t.setHours(0,0,0,0);let cur=new Date(t);const todayKey=t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');if(dayCount(todayKey)===0)cur.setDate(cur.getDate()-1);for(let i=0;i<400;i++){const key=cur.getFullYear()+'-'+String(cur.getMonth()+1).padStart(2,'0')+'-'+String(cur.getDate()).padStart(2,'0');if(dayCount(key)>0){s++;cur.setDate(cur.getDate()-1);}else break;}return s;}
+
+/* ════ INIT ════ */
+(function init(){
+  if(S.authed){$('s-auth').classList.remove('on');if(!S.typeOffre||!S.cheminVente)startOnb();else launchApp();}
+})();
+</script>
+</body>
+</html>
