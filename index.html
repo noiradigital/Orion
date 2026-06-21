@@ -208,6 +208,72 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
     <input type="hidden" id="auth-inp" value="">
     <div class="auth-err" id="auth-err" style="display:none;"></div>
     <div style="margin-top:60px;font-size:9px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:rgba(237,232,223,.28);animation:glowP 6s ease-in-out infinite;">Appuie pour entrer</div>
+
+    <!-- Installer l'app -->
+    <div onclick="event.stopPropagation();toggleInstall()" style="position:absolute;bottom:calc(32px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);cursor:pointer;text-align:center;width:calc(100% - 48px);max-width:320px;">
+      <div style="background:rgba(201,60,60,.2);border:1px solid rgba(220,80,80,.6);border-radius:14px;padding:13px 18px;display:flex;align-items:center;gap:12px;backdrop-filter:blur(6px);">
+        <div style="font-size:22px;flex-shrink:0;">📲</div>
+        <div style="text-align:left;">
+          <div style="font-size:10px;font-weight:700;color:#E07070;letter-spacing:.06em;margin-bottom:2px;">⚠️ Avant d'entrer</div>
+          <div style="font-size:11px;color:rgba(237,232,223,.85);line-height:1.4;">Installe l'app sur ton écran d'accueil pour la meilleure expérience → <span style="color:#E07070;font-weight:700;">Voir comment</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Overlay tuto install -->
+    <div id="install-overlay" onclick="event.stopPropagation();toggleInstall()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:300;align-items:flex-end;">
+      <div onclick="event.stopPropagation()" style="background:#2E2823;border-radius:22px 22px 0 0;padding:28px 24px 40px;width:100%;max-width:462px;margin:0 auto;">
+        <div style="width:36px;height:3px;background:rgba(237,232,223,.2);border-radius:99px;margin:0 auto 24px;"></div>
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:26px;color:var(--cream);margin-bottom:6px;">Installer Pulse</div>
+        <div style="font-size:10px;color:var(--accent);margin-bottom:24px;">Ajoute l'app à ton écran d'accueil pour y accéder en 1 tap.</div>
+
+        <!-- iOS -->
+        <div style="background:rgba(237,232,223,.05);border:1px solid rgba(237,232,223,.1);border-radius:14px;padding:16px;margin-bottom:12px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+            <div style="font-size:20px;"></div>
+            <div style="font-size:11px;font-weight:700;color:var(--cream);letter-spacing:.04em;">iPhone / iPad (Safari)</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;align-items:flex-start;gap:10px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:var(--accent);color:var(--dark);font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">1</div>
+              <div style="font-size:11px;color:rgba(237,232,223,.7);line-height:1.5;">Ouvre ce lien dans <strong style="color:var(--cream);">Safari</strong> (pas Chrome)</div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:10px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:var(--accent);color:var(--dark);font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">2</div>
+              <div style="font-size:11px;color:rgba(237,232,223,.7);line-height:1.5;">Appuie sur l'icône <strong style="color:var(--cream);">Partager</strong> <span style="font-size:13px;">⬆️</span> en bas de l'écran</div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:10px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:var(--accent);color:var(--dark);font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">3</div>
+              <div style="font-size:11px;color:rgba(237,232,223,.7);line-height:1.5;">Sélectionne <strong style="color:var(--cream);">"Sur l'écran d'accueil"</strong> puis <strong style="color:var(--cream);">Ajouter</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Android -->
+        <div style="background:rgba(237,232,223,.05);border:1px solid rgba(237,232,223,.1);border-radius:14px;padding:16px;margin-bottom:20px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+            <div style="font-size:20px;">🤖</div>
+            <div style="font-size:11px;font-weight:700;color:var(--cream);letter-spacing:.04em;">Android (Chrome)</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;align-items:flex-start;gap:10px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:var(--accent);color:var(--dark);font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">1</div>
+              <div style="font-size:11px;color:rgba(237,232,223,.7);line-height:1.5;">Ouvre ce lien dans <strong style="color:var(--cream);">Chrome</strong></div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:10px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:var(--accent);color:var(--dark);font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">2</div>
+              <div style="font-size:11px;color:rgba(237,232,223,.7);line-height:1.5;">Appuie sur les <strong style="color:var(--cream);">3 points</strong> ⋮ en haut à droite</div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:10px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:var(--accent);color:var(--dark);font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">3</div>
+              <div style="font-size:11px;color:rgba(237,232,223,.7);line-height:1.5;">Sélectionne <strong style="color:var(--cream);">"Ajouter à l'écran d'accueil"</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="toggleInstall()" style="width:100%;background:rgba(237,232,223,.08);border:1px solid rgba(237,232,223,.15);border-radius:11px;padding:14px;color:var(--cream);font-size:11px;font-weight:700;letter-spacing:.1em;cursor:pointer;">Fermer</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -685,6 +751,13 @@ function copy(text){try{navigator.clipboard.writeText(text);}catch(e){}toast('Co
 function openOv(id){$(id).classList.add('on');}
 function closeOv(id,e){if(!e||e.target===$(id)||e.target.classList.contains('overlay')){$('ov-'+id).classList.remove('on');}}
 
+/* ════ INSTALL TUTO ════ */
+function toggleInstall(){
+  const ov=$('install-overlay');
+  if(!ov)return;
+  ov.style.display=ov.style.display==='flex'?'none':'flex';
+}
+
 /* ════ AUTH ════ */
 function doAuth(){
   S.authed=true;
@@ -1130,33 +1203,48 @@ function renderVentes(body){
   const total=S.ventes.reduce((s,v)=>s+(+v.montant||0),0);
   const totalFmt=total.toLocaleString('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0});
 
-  // Graphique cumulatif
-  const byMonth={};
-  S.ventes.forEach(v=>{
-    const m=(v.date||'').slice(0,7);
-    if(m)byMonth[m]=(byMonth[m]||0)+(+v.montant||0);
-  });
-  const months=Object.keys(byMonth).sort();
-  let cum=0;const cumData=months.map(m=>{cum+=byMonth[m];return cum;});
-  const maxVal=cumData.length?cumData[cumData.length-1]:1;
-  const W=320,H=90,pad=10;
-  const pts=cumData.map((v,i)=>{
-    const x=pad+(i/(Math.max(cumData.length-1,1)))*(W-pad*2);
-    const y=H-pad-(v/maxVal)*(H-pad*2);
-    return `${x},${y}`;
-  }).join(' ');
-  const graphHtml=months.length>1?`
-    <div style="margin-bottom:18px;background:var(--dark2);border:1px solid rgba(237,232,223,.1);border-radius:14px;padding:16px;">
-      <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;">CA cumulatif</div>
-      <svg width="100%" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" style="display:block;height:90px;">
-        <defs><linearGradient id="gv" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--accent)" stop-opacity=".25"/><stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/></linearGradient></defs>
-        <polygon points="${pts} ${W-pad},${H-pad} ${pad},${H-pad}" fill="url(#gv)"/>
-        <polyline points="${pts}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        ${cumData.map((v,i)=>{const[x,y]=pts.split(' ')[i].split(',');return `<circle cx="${x}" cy="${y}" r="3.5" fill="var(--accent)"/>`;}).join('')}
-      </svg>
-      <div style="display:flex;justify-content:space-between;margin-top:6px;">
-        ${months.map(m=>`<div style="font-size:8px;color:var(--accent);text-align:center;">${m.slice(5)}</div>`).join('')}
+  // Graphique courbe cumulatif (CA qui monte dans le temps)
+  const ventesChron=[...S.ventes].sort((a,b)=>a.date>b.date?1:-1);
+  const GW=300,GH=100,pL=8,pR=8,pT=10,pB=8;
+  // cumuler les montants
+  let cumSum=0;
+  const vals=ventesChron.map(v=>{cumSum+=(+v.montant||0);return cumSum;});
+  const maxV=Math.max(cumSum,1);
+  const coords=vals.map((v,i)=>({
+    x:pL+(i/(Math.max(vals.length-1,1)))*(GW-pL-pR),
+    y:pT+(1-v/maxV)*(GH-pT-pB)
+  }));
+  // courbe lisse via bezier
+  function bezier(pts){
+    if(pts.length<2)return pts.map(p=>`L${p.x},${p.y}`).join('');
+    return pts.map((p,i)=>{
+      if(i===0)return `M${p.x},${p.y}`;
+      const prev=pts[i-1];
+      const cx=(prev.x+p.x)/2;
+      return `C${cx},${prev.y} ${cx},${p.y} ${p.x},${p.y}`;
+    }).join(' ');
+  }
+  const path=bezier(coords);
+  const fillPath=coords.length?`${path} L${coords[coords.length-1].x},${GH} L${coords[0].x},${GH} Z`:'';
+  const graphHtml=S.ventes.length>=2?`
+    <div style="margin-bottom:18px;background:var(--dark2);border:1px solid rgba(237,232,223,.1);border-radius:14px;overflow:hidden;">
+      <div style="padding:14px 16px 4px;display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);">CA par vente</div>
+        <div style="font-size:11px;font-weight:700;color:var(--cream);">${totalFmt}</div>
       </div>
+      <svg width="100%" viewBox="0 0 ${GW} ${GH}" preserveAspectRatio="none" style="display:block;height:110px;">
+        <defs>
+          <linearGradient id="gfill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#C39A55" stop-opacity=".3"/>
+            <stop offset="100%" stop-color="#C39A55" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path d="${fillPath}" fill="url(#gfill)"/>
+        <path d="${path}" fill="none" stroke="#C39A55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        ${coords.map((p,i)=>`
+          <circle cx="${p.x}" cy="${p.y}" r="4" fill="#3A3530" stroke="#C39A55" stroke-width="2"/>
+        `).join('')}
+      </svg>
     </div>`:
     `<div style="background:var(--dark2);border:1px solid rgba(237,232,223,.1);border-radius:14px;padding:16px;text-align:center;color:var(--accent);font-size:12px;margin-bottom:18px;">Ajoute au moins 2 ventes pour voir le graphique.</div>`;
 
@@ -1181,7 +1269,7 @@ function renderVentes(body){
             <div style="font-size:10px;color:var(--accent);margin-bottom:5px;">${esc(v.produit||'')}</div>
             <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
               <span style="font-size:9px;font-weight:600;letter-spacing:.06em;background:rgba(71,66,61,.5);border-radius:99px;padding:3px 9px;color:var(--deep);">${fmtDate(v.date)}</span>
-              <span style="font-size:9px;font-weight:600;letter-spacing:.06em;background:${v.paiement==='complet'?'rgba(126,154,120,.15)':'rgba(195,154,85,.12)'};border-radius:99px;padding:3px 9px;color:${v.paiement==='complet'?'#5A8055':'#9A7A35'};">${v.paiement==='complet'?'Payé en 1×':'Paiement échelonné'}</span>
+              <span style="font-size:9px;font-weight:600;letter-spacing:.06em;background:${v.paiement==='complet'?'rgba(126,154,120,.15)':'rgba(195,154,85,.12)'};border-radius:99px;padding:3px 9px;color:${v.paiement==='complet'?'#5A8055':'#9A7A35'};">${v.paiement==='complet'?'Payé en 1×':`${v.echeances||2}× de ${Math.round((+v.montant||0)/(v.echeances||2)).toLocaleString('fr-FR')} €`}</span>
             </div>
           </div>
           <div style="flex-shrink:0;text-align:right;">
@@ -1197,7 +1285,7 @@ function renderVentes(body){
         <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:var(--cream);margin-bottom:20px;">Nouvelle vente</div>
         <div class="form-f"><label class="form-lbl">Nom du client</label><input type="text" id="vente-client" class="form-inp" placeholder="Ex : Marie D."></div>
         <div class="form-f"><label class="form-lbl">Produit / offre</label><input type="text" id="vente-produit" class="form-inp" placeholder="Ex : Coaching 3 mois"></div>
-        <div class="form-f"><label class="form-lbl">Montant total (€)</label><input type="number" id="vente-montant" class="form-inp" placeholder="Ex : 1200"></div>
+        <div class="form-f"><label class="form-lbl">Montant total (€)</label><input type="number" id="vente-montant" class="form-inp" placeholder="Ex : 1200" oninput="if(window._payMode==='echelonne')selectEch(window._echeances||2)"></div>
         <div class="form-f"><label class="form-lbl">Date de la vente</label><input type="date" id="vente-date" class="form-inp" value="${new Date().toISOString().slice(0,10)}"></div>
         <div class="form-f"><label class="form-lbl">Paiement</label>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px;">
@@ -1205,11 +1293,21 @@ function renderVentes(body){
             <button id="pay-echelonne" onclick="selectPay('echelonne')" style="padding:11px;border-radius:10px;font-size:11px;font-weight:700;border:1.5px solid var(--line2);background:transparent;color:var(--deep);cursor:pointer;">Échelonné</button>
           </div>
         </div>
+        <div id="echeances-block" style="display:none;margin-bottom:14px;">
+          <label class="form-lbl">Nombre de fois</label>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px;">
+            <button id="ech-2" onclick="selectEch(2)" style="padding:10px;border-radius:10px;font-size:11px;font-weight:700;border:1.5px solid var(--dark);background:var(--dark);color:var(--cream);cursor:pointer;">2×</button>
+            <button id="ech-3" onclick="selectEch(3)" style="padding:10px;border-radius:10px;font-size:11px;font-weight:700;border:1.5px solid var(--line2);background:transparent;color:var(--deep);cursor:pointer;">3×</button>
+            <button id="ech-4" onclick="selectEch(4)" style="padding:10px;border-radius:10px;font-size:11px;font-weight:700;border:1.5px solid var(--line2);background:transparent;color:var(--deep);cursor:pointer;">4×</button>
+          </div>
+          <div id="ech-preview" style="margin-top:10px;font-size:11px;color:var(--accent);text-align:center;"></div>
+        </div>
         <button class="btn-dark" onclick="saveVente()" style="margin-top:8px;">Enregistrer →</button>
       </div>
     </div>`;
   // Init paiement
   window._payMode='complet';
+  window._echeances=2;
 }
 function selectPay(mode){
   window._payMode=mode;
@@ -1222,7 +1320,26 @@ function selectPay(mode){
     e.style.color=mode==='echelonne'?'var(--cream)':'var(--deep)';
     e.style.borderColor=mode==='echelonne'?'var(--dark)':'var(--line2)';
   }
+  const eb=$('echeances-block');
+  if(eb)eb.style.display=mode==='echelonne'?'block':'none';
+  if(mode==='echelonne'){selectEch(window._echeances||2);}
 }
+function selectEch(n){
+  window._echeances=n;
+  [2,3,4].forEach(i=>{
+    const btn=$('ech-'+i);
+    if(btn){
+      btn.style.background=i===n?'var(--dark)':'transparent';
+      btn.style.color=i===n?'var(--cream)':'var(--deep)';
+      btn.style.borderColor=i===n?'var(--dark)':'var(--line2)';
+    }
+  });
+  const montant=+($('vente-montant').value||0);
+  const prev=$('ech-preview');
+  if(prev&&montant>0)prev.textContent=`→ ${n}× de ${Math.round(montant/n).toLocaleString('fr-FR')} € / échéance`;
+  else if(prev)prev.textContent='Saisis le montant total pour voir le détail';
+}
+
 function openAddVente(){const ov=$('ov-vente');if(ov){ov.style.display='flex';}}
 function closeOvVente(){const ov=$('ov-vente');if(ov)ov.style.display='none';}
 function saveVente(){
@@ -1231,7 +1348,8 @@ function saveVente(){
   const montant=+($('vente-montant').value||0);
   const date=$('vente-date').value;
   if(!client||!montant||!date){toast('Remplis tous les champs');return;}
-  S.ventes=[...S.ventes,{client,produit,montant,date,paiement:window._payMode||'complet'}];
+  const echeances=window._payMode==='echelonne'?(window._echeances||2):1;
+  S.ventes=[...S.ventes,{client,produit,montant,date,paiement:window._payMode||'complet',echeances}];
   save();closeOvVente();renderPlus();toast('Vente ajoutée ✓');
 }
 function delVente(i){if(i<0||i>=S.ventes.length)return;S.ventes.splice(i,1);save();renderPlus();}
