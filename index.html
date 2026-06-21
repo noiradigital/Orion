@@ -6,11 +6,13 @@
 <meta name="theme-color" content="#171513">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Pulse — Ton espace</title>
+<meta name="apple-mobile-web-app-title" content="Pulse">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<title>Pulse</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --dark:#171513;--paper:#F1EFEC;--bg2:#E6E2DC;--card:#FAF8F5;
+  --dark:#3A3530;--paper:#F1EFEC;--bg2:#E6E2DC;--card:#FAF8F5;
   --line:#D2CCC4;--line2:#BCB3A8;--accent:#A49485;--deep:#7F6F60;
   --ink:#2E2823;--cream:#EDE8DF;--glow:rgba(237,232,223,.5);
   --sage:#7E9A78;--amber:#C39A55;--terra:#BE7A63;
@@ -26,6 +28,16 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
 @keyframes slideIn{from{transform:translateX(-100%);}to{transform:translateX(0);}}
 @keyframes glowP{0%,100%{text-shadow:0 0 22px rgba(237,232,223,.45),0 0 60px rgba(237,232,223,.16);}50%{text-shadow:0 0 34px rgba(237,232,223,.7),0 0 90px rgba(237,232,223,.26);}}
 @keyframes pop{0%{transform:scale(.5);opacity:0;}65%{transform:scale(1.14);}100%{transform:scale(1);opacity:1;}}
+@keyframes hcard-press{0%{transform:scale(1);}50%{transform:scale(.96);}100%{transform:scale(1);}}
+@keyframes sheen{0%{transform:translateX(-130%) skewX(-18deg);}100%{transform:translateX(230%) skewX(-18deg);}}
+/* carte avec reflet au hover */
+.hcard{background:var(--dark);border-radius:16px;padding:16px 14px;cursor:pointer;position:relative;overflow:hidden;transition:opacity .15s;}
+.hcard::before{content:'';position:absolute;top:0;left:0;width:60%;height:100%;background:linear-gradient(108deg,transparent 15%,rgba(220,215,205,.07) 50%,transparent 85%);transform:translateX(-130%) skewX(-18deg);pointer-events:none;}
+.hcard:hover::before{animation:sheen .5s ease forwards;}
+.hcard:active{animation:hcard-press .22s ease both;}
+/* carte sans reflet (défi + progression) */
+.hcard-s{border-radius:18px;cursor:pointer;position:relative;overflow:hidden;transition:opacity .15s;}
+.hcard-s:active{animation:hcard-press .22s ease both;}
 @keyframes sheetIn{from{transform:translateY(100%);}to{transform:translateY(0);}}
 @keyframes toastIn{from{opacity:0;transform:translate(-50%,12px);}to{opacity:1;transform:translate(-50%,0);}}
 .frame{display:flex;justify-content:center;min-height:100vh;}
@@ -86,7 +98,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
 .nav-item{display:flex;align-items:center;gap:14px;padding:15px 24px;cursor:pointer;transition:background .15s;border:none;background:none;width:100%;text-align:left;}
 .nav-item:hover,.nav-item.on{background:rgba(237,232,223,.06);}
 .nav-item.on .nav-lbl{color:var(--cream);}
-.nav-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.nav-icon{width:36px;height:36px;border-radius:10px;background:rgba(237,232,223,.07);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .nav-lbl{font-size:13px;font-weight:600;color:var(--accent);letter-spacing:.02em;transition:color .15s;}
 .nav-item.on .nav-icon svg{stroke:var(--cream);}
 /* pages */
@@ -178,8 +190,8 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
 
 <!-- AUTH -->
 <div id="s-auth" class="screen on">
-  <div class="logo">Pulse</div>
-  <div class="eyebrow" style="margin-top:8px;margin-bottom:54px;">Ton espace &middot; par Noïra</div>
+  <div class="logo" style="font-size:72px;line-height:1;margin-bottom:8px;">Pulse</div>
+  <div class="eyebrow" style="margin-bottom:52px;">Ton espace d'accompagnement</div>
   <div class="auth-lbl">Code d'accès</div>
   <input type="password" id="auth-inp" class="auth-inp" placeholder="••••••••" autocomplete="off">
   <div class="auth-err" id="auth-err">Code incorrect. Contacte Noïra.</div>
@@ -189,28 +201,13 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
 <!-- ONBOARDING -->
 <div id="s-onb" class="screen">
   <div class="ob-logo">Pulse</div>
-  <div class="ob-title">Personnalisons ton espace</div>
-  <div class="dots"><div class="dot" id="d0"></div><div class="dot" id="d1"></div><div class="dot" id="d2"></div></div>
-  <!-- step 0 -->
+  <div class="ob-title">Bienvenue dans ton espace</div>
+  <!-- step 0 : prénom uniquement -->
   <div class="ob-step on" id="ob0">
     <div class="ob-q">Comment tu t'appelles ?</div>
     <div class="ob-hint">Pour personnaliser ton espace.</div>
     <input type="text" id="ob-name" class="ob-inp" placeholder="Ton prénom…" oninput="obNameChange()">
-    <button class="ob-next" id="ob-btn0" onclick="obNext(0)" disabled>Continuer &rarr;</button>
-  </div>
-  <!-- step 1 -->
-  <div class="ob-step" id="ob1">
-    <div class="ob-q">Quel est ton modèle business ?</div>
-    <div class="ob-hint">Pulse adaptera ton plan d'action.</div>
-    <div class="ob-choices" id="ob-offres"></div>
-    <button class="ob-next" id="ob-btn1" onclick="obNext(1)" disabled>Continuer &rarr;</button>
-  </div>
-  <!-- step 2 -->
-  <div class="ob-step" id="ob2">
-    <div class="ob-q">Comment tu closes tes ventes ?</div>
-    <div class="ob-hint">Pulse t'affichera les bonnes actions au quotidien.</div>
-    <div class="ob-choices" id="ob-chemins"></div>
-    <button class="ob-next" id="ob-btn2" onclick="obFinish()" disabled>Commencer &rarr;</button>
+    <button class="ob-next" id="ob-btn0" onclick="obFinish()" disabled>Commencer &rarr;</button>
   </div>
 </div>
 
@@ -261,7 +258,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
 
   <!-- ACCUEIL -->
   <div id="p-home" class="page on" style="position:relative;overflow:hidden;">
-    <canvas id="home-canvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:.55;z-index:0;"></canvas>
+    <canvas id="home-canvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:.9;z-index:0;"></canvas>
     <div class="body" id="home-body" style="position:relative;z-index:1;"></div>
   </div>
   <!-- AUJOURD'HUI -->
@@ -344,20 +341,22 @@ const GITBOOK_URL = 'https://pulse-16.gitbook.io/pulse-docs/sommaire';
 
 /* ════ DATA ════ */
 const QUOTES = [
-  "Tu n'as pas besoin d'être parfaite pour commencer. Tu as besoin de commencer pour devenir meilleure.",
-  "La constance bat le talent quand le talent n'est pas constant.",
-  "Vendre, ce n'est pas convaincre. C'est connecter la bonne personne à la bonne transformation.",
-  "Chaque « non » te rapproche du prochain « oui ».",
-  "Tu n'es pas une mendiante quand tu présentes ton offre. Tu es une experte.",
-  "La régularité crée la confiance. La confiance crée les ventes.",
-  "Commence la journée par une action commerciale. Le reste suivra.",
-  "Ton audience a besoin de te voir tous les jours pour te faire confiance.",
-  "Montre tes résultats, même petits. Les gens ne comptent pas, ils ressentent le mouvement.",
-  "La peur ne devrait pas prendre de décisions à ta place.",
-  "Une vente de plus. Un impact de plus. Recommence demain.",
-  "Les prospects qui disent non aujourd'hui peuvent devenir tes meilleures clientes demain.",
-  "Quantité ne fait pas qualité, mais la régularité fait les résultats.",
-  "Le bon contenu, c'est le contenu juste pour la bonne personne au bon moment.",
+  "Ce que tu fais aujourd'hui construit qui tu seras dans 6 mois.",
+  "Une action imparfaite vaut mieux qu'un plan parfait qui attend.",
+  "Les gens n'achètent pas un produit. Ils achètent une version d'elles-mêmes.",
+  "La discipline, c'est choisir ce que tu veux le plus sur ce que tu veux maintenant.",
+  "Ce n'est pas qui tu es qui t'empêche d'avancer. C'est qui tu crois être.",
+  "Poste même quand tu doutes. Surtout quand tu doutes.",
+  "Chaque DM envoyé est une décision de ne pas attendre.",
+  "Le marché récompense celles qui se montrent, pas celles qui perfectionnent.",
+  "Tu n'as pas besoin de plus de contenu. Tu as besoin de plus de constance.",
+  "Les résultats ne viennent pas de l'inspiration. Ils viennent du retour au travail le lendemain.",
+  "Vendre, c'est servir. Arrêter de pitcher, c'est abandonner quelqu'un qui avait besoin de toi.",
+  "L'identité précède les résultats. Décide d'abord qui tu es.",
+  "Chaque non te coûte 0. Chaque non que tu n'envoies pas te coûte tout.",
+  "Ce n'est pas le talent qui crée la différence. C'est le volume d'essais.",
+  "Ta cliente rêvée existe déjà. Elle attend juste que tu te manifestes.",
+  "Une semaine de constance change rien. Trois mois de constance changent tout.",
 ];
 const DEFIS = [
   "Poste une story authentique — avec ou sans visage, montre qui tu es.",
@@ -389,14 +388,15 @@ const ENG_DEFAULT = [
   {id:'e10',text:'Articuler 20 min',       cat:'Voix',         icon:'🎙️'},
   {id:'e11',text:'Visualisation 5 min',    cat:'Mental',       icon:'✨'},
 ];
-function planDefault(chemin){
-  let base = ['Publier ton reel du jour','Poster 3 stories (valeur · engagement · vie)','Répondre à tous tes commentaires & DM','30 min de Deep Work'];
-  if(chemin==='appel') base=base.concat(['Envoyer 3 DM de qualification','Préparer / confirmer ton appel du jour']);
-  else if(chemin==='dm') base=base.concat(['Ouvrir 5 nouvelles conversations','Avancer 3 closings en DM']);
-  else if(chemin==='vsl') base=base.concat(['Envoyer ta VSL à 3 prospects','Relancer les clics sans achat']);
-  else base.push('Envoyer 3 DM de qualification');
-  base.push('Ajouter une victoire');
-  return base.map((t,i)=>({id:'p'+i,text:t}));
+function planDefault(){
+  return [
+    'Publier ton reel du jour',
+    'Poster 3 stories (valeur · engagement · vie)',
+    'Répondre à tous tes commentaires & DM',
+    '30 min de Deep Work',
+    'Envoyer 3 DM de qualification',
+    'Ajouter une victoire',
+  ].map((t,i)=>({id:'p'+i,text:t}));
 }
 
 const BANQUE = [
@@ -635,12 +635,13 @@ const TYPE_COLORS = {TOFU:'#C39A55',MOFU:'#7E9A78',BOFU:'#BE7A63',Story:'#A49485
 let S = load();
 function load(){
   let s=null; try{s=JSON.parse(localStorage.getItem('pulse_v3_state')||'null');}catch(e){}
-  if(!s){ let o=null; try{o=JSON.parse(localStorage.getItem('pulse_v2_state')||'null');}catch(e){} s={authed:false,prenom:'',typeOffre:'',cheminVente:'',prospects:[],metrics:{},notes:[],victoires:[],planItems:[],engagements:[],planChecks:{},engChecks:{},defiDates:[],favoris:[],banqueShuffle:false}; if(o){s.authed=!!o.auth;s.prenom=o.prenom||'';s.typeOffre=o.typeOffre||'';s.cheminVente=o.cheminVente||'';s.prospects=o.prospects||[];s.metrics=o.metrics||{};s.notes=o.notes||[];} }
+  if(!s){ s={authed:false,prenom:'',prospects:[],metrics:{},notes:[],victoires:[],planItems:[],engagements:[],planChecks:{},engChecks:{},defiDates:[],favoris:[],banqueShuffle:false}; }
   if(!s.victoires)s.victoires=[];
   if(!s.defiDates)s.defiDates=[];
   if(!s.favoris)s.favoris=[];
   if(!s.banqueShuffle)s.banqueShuffle=false;
-  if(!s.planItems||!s.planItems.length)s.planItems=planDefault(s.cheminVente);
+  if(!s.ventes)s.ventes=[];
+  if(!s.planItems||!s.planItems.length)s.planItems=planDefault();
   if(!s.engagements||!s.engagements.length)s.engagements=ENG_DEFAULT;
   return s;
 }
@@ -648,7 +649,6 @@ function save(){try{localStorage.setItem('pulse_v3_state',JSON.stringify(S));}ca
 
 /* ── UI state ── */
 let TAB='home', SUB='', CONTENU_TAB='banque', BANQUE_FILTER='Tous';
-let OB_STEP=0, OB_OFFRE='', OB_CHEMIN='';
 let VIC_PHOTO='';
 let METRIC_OFFSET=0;
 
@@ -676,52 +676,56 @@ function doAuth(){
   for(const[k,v]of Object.entries(ACCESS_CODES)){if(v.toUpperCase()===val){prenom=k;break;}}
   if(!prenom){$('auth-err').classList.add('on');return;}
   S.authed=true;
-  if(!S.prenom)S.prenom=prenom.charAt(0).toUpperCase()+prenom.slice(1);
+  const defaultPrenom=prenom.charAt(0).toUpperCase()+prenom.slice(1);
+  const firstLogin=!S.prenom||S.prenom===defaultPrenom;
+  if(!S.prenom)S.prenom=defaultPrenom;
   save();
   $('s-auth').classList.remove('on');
-  if(!S.typeOffre||!S.cheminVente)startOnb();
+  if(firstLogin)startOnb();
   else launchApp();
 }
 
 /* ════ ONBOARDING ════ */
-const OB_OFFRES=[{val:'mrr',emoji:'🔄',label:'Revente MRR',desc:'Tu revends une formation et touches une commission.'},{val:'produit',emoji:'🎁',label:'Produit digital propre',desc:'Tu as créé ta propre formation ou coaching.'},{val:'affiliation',emoji:'🤝',label:'Affiliation',desc:'Tu recommandes des produits partenaires.'}];
-const OB_CHEMINS=[{val:'appel',emoji:'📞',label:'Appel de vente',desc:'Tu qualifies en DM puis closes en appel.'},{val:'dm',emoji:'💬',label:'Closing DM',desc:'Tu closes entièrement par messages.'},{val:'vsl',emoji:'🎬',label:'VSL + lien direct',desc:'Vidéo de vente + lien de paiement, sans call.'}];
-
 function startOnb(){
   $('s-onb').classList.add('on');
   if(S.prenom){$('ob-name').value=S.prenom;$('ob-btn0').disabled=false;}
-  renderObChoices();
-  updateDots(0);
 }
-function renderObChoices(){
-  $('ob-offres').innerHTML=OB_OFFRES.map(o=>`<div class="ob-choice${OB_OFFRE===o.val?' on':''}" onclick="pickOb('offre','${o.val}')"><div class="ob-ch-icon">${o.emoji}</div><div><span class="ob-ch-lbl">${o.label}</span><span class="ob-ch-desc">${o.desc}</span></div></div>`).join('');
-  $('ob-chemins').innerHTML=OB_CHEMINS.map(c=>`<div class="ob-choice${OB_CHEMIN===c.val?' on':''}" onclick="pickOb('chemin','${c.val}')"><div class="ob-ch-icon">${c.emoji}</div><div><span class="ob-ch-lbl">${c.label}</span><span class="ob-ch-desc">${c.desc}</span></div></div>`).join('');
-}
-function pickOb(type,val){if(type==='offre'){OB_OFFRE=val;$('ob-btn1').disabled=false;}else{OB_CHEMIN=val;$('ob-btn2').disabled=false;}renderObChoices();}
 function obNameChange(){$('ob-btn0').disabled=($('ob-name').value||'').trim().length<2;}
-function updateDots(step){[0,1,2].forEach(i=>$('d'+i).classList.toggle('on',i<=step));}
-function obNext(step){
-  if(step===0){const n=($('ob-name').value||'').trim();if(n.length<2)return;S.prenom=n.charAt(0).toUpperCase()+n.slice(1);save();}
-  $('ob'+step).classList.remove('on');$('ob'+(step+1)).classList.add('on');OB_STEP=step+1;updateDots(step+1);
+function obFinish(){
+  const n=($('ob-name').value||'').trim();
+  if(n.length<2)return;
+  S.prenom=n.charAt(0).toUpperCase()+n.slice(1);
+  if(!S.planItems||!S.planItems.length)S.planItems=planDefault();
+  save();
+  $('s-onb').classList.remove('on');
+  launchApp();
 }
-function obFinish(){if(!OB_OFFRE||!OB_CHEMIN)return;S.typeOffre=OB_OFFRE;S.cheminVente=OB_CHEMIN;S.planItems=planDefault(OB_CHEMIN);save();$('s-onb').classList.remove('on');launchApp();}
 
 /* ════ APP ════ */
 function launchApp(){$('app').classList.add('on');renderAll();}
 function renderAll(){renderHome();renderToday();renderProspects();renderContenu();renderPlus();}
 
 const TAB_LABELS={home:'Pulse',today:'Aujourd\'hui',prospects:'Prospects',contenu:'Contenu',plus:'Plus'};
-function goTab(t){
+let TAB_ORIGIN=''; // 'home' si on vient de Home via une carte
+function goTab(t,origin){
   ['home','today','prospects','contenu','plus'].forEach(id=>{
     $('p-'+id).classList.toggle('on',id===t);
     const n=$('nav-'+id);if(n)n.classList.toggle('on',id===t);
   });
   TAB=t;
+  TAB_ORIGIN=origin||'';
   const ttl=$('top-bar-title');if(ttl)ttl.textContent=TAB_LABELS[t]||'Pulse';
-  // Always restore hamburger when switching main tabs (except Plus sub-page)
-  if(t!=='plus'||!SUB_PAGE){
+  const left=$('top-bar-left');
+  if(t==='home'){
+    // Home : hamburger
+    if(left)left.innerHTML=`<button class="hamburger" onclick="toggleDrawer()" aria-label="Menu"><span></span><span></span><span></span></button>`;
+  } else if(origin==='home'){
+    // Vient de Home : flèche retour → Home
+    if(left)left.innerHTML=`<button class="back-btn" onclick="goTab('home')" aria-label="Retour" style="padding:6px;display:flex;align-items:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>`;
     SUB_PAGE='';
-    const left=$('top-bar-left');
+  } else if(t!=='plus'||!SUB_PAGE){
+    // Navigation normale : hamburger
+    SUB_PAGE='';
     if(left)left.innerHTML=`<button class="hamburger" onclick="toggleDrawer()" aria-label="Menu"><span></span><span></span><span></span></button>`;
   }
   window.scrollTo(0,0);
@@ -757,77 +761,150 @@ function renderHome(){
   const engPct=engTotal?Math.round(engDone/engTotal*100):0;
   const streak=calcStreak();
   const wk=S.metrics[weekKey(now)]||{};
-  const appelLbl={appel:'Appels',dm:'DM closing',vsl:'Clics VSL'}[S.cheminVente]||'Appels';
   const quote=QUOTES[dayOfYear()%QUOTES.length];
   const miniCal=buildCal(35);
 
   $('home-body').innerHTML=`
-    <div style="margin-bottom:4px;">
-      <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:30px;color:var(--ink);">Bonjour, ${esc(S.prenom||'toi')}.</div>
+
+    <!-- ── EN-TÊTE ── -->
+    <div style="margin-bottom:20px;">
+      <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:28px;color:var(--ink);line-height:1.1;">Bonjour, ${esc(S.prenom||'toi')}.</div>
+      <div style="font-size:10px;color:var(--accent);font-weight:500;margin-top:3px;text-transform:capitalize;">${dateStr}</div>
     </div>
-    <div style="font-size:10px;color:var(--accent);font-weight:500;margin-bottom:24px;text-transform:capitalize;">${dateStr}</div>
-    <div onclick="toggleDefi()" style="background:var(--dark);border:1px solid ${defiDone?'rgba(195,154,85,.5)':'rgba(237,232,223,.12)'};border-radius:16px;padding:20px;cursor:pointer;margin-bottom:20px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-        <div style="font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#C39A55;">★ Défi du jour</div>
-        <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;${defiDone?'color:#171513;background:#C39A55;padding:4px 9px;border-radius:99px;':'color:transparent;'}">${defiDone?'Fait ✓':''}</div>
+
+    <!-- ── ZONE 1 — AUJOURD'HUI ── -->
+    <!-- Défi du jour -->
+    <div onclick="toggleDefi()" class="hcard-s" style="background:var(--dark);border:1px solid ${defiDone?'rgba(195,154,85,.3)':'rgba(237,232,223,.07)'};padding:18px;margin-bottom:10px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <div style="font-size:8.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);">★ Défi du jour</div>
+        ${defiDone
+          ? `<div style="background:var(--accent);color:var(--dark);font-size:8.5px;font-weight:700;letter-spacing:.06em;padding:4px 10px;border-radius:99px;">Fait ✓</div>`
+          : `<div style="width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(237,232,223,.2);"></div>`}
       </div>
-      <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:23px;line-height:1.35;color:var(--cream);">${esc(defiText)}</div>
-      <div style="font-size:10px;color:#8C8377;margin-top:12px;">${defiDone?'Bravo. Une mission accomplie, chaque jour.':'Tape pour cocher quand c\'est fait.'}</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;line-height:1.35;color:var(--cream);">${esc(defiText)}</div>
     </div>
-    <div class="sec">Ta progression du jour</div>
-    <div class="stat-grid" style="margin-bottom:18px;">
-      <div class="stat-box">
-        <div style="display:flex;align-items:baseline;gap:5px;"><div class="stat-val">${planDone}</div><div style="font-size:13px;color:var(--accent);">/ ${planTotal}</div></div>
-        <div class="stat-lbl">Plan d'action</div>
-        <div class="prog-bar"><div class="prog-fill" style="width:${planPct}%"></div></div>
+
+    <!-- Progression du jour -->
+    <div onclick="goTab('today','home')" class="hcard-s" style="background:var(--dark);padding:16px 18px;cursor:pointer;margin-bottom:20px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <div style="font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(237,232,223,.5);">Progression du jour</div>
+        <div style="font-size:9px;color:rgba(237,232,223,.35);">Voir le détail →</div>
       </div>
-      <div class="stat-box">
-        <div style="display:flex;align-items:baseline;gap:5px;"><div class="stat-val">${engDone}</div><div style="font-size:13px;color:var(--accent);">/ ${engTotal}</div></div>
-        <div class="stat-lbl">Engagements</div>
-        <div class="prog-bar"><div class="prog-fill" style="width:${engPct}%"></div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+            <div style="font-size:10px;font-weight:600;color:var(--cream);">Plan d'action</div>
+            <div style="font-size:10px;color:rgba(237,232,223,.45);">${planDone}/${planTotal}</div>
+          </div>
+          <div style="height:4px;background:rgba(237,232,223,.1);border-radius:99px;overflow:hidden;"><div style="height:100%;width:${planPct}%;background:${planPct===100?'#C39A55':'rgba(237,232,223,.6)'};border-radius:99px;transition:width .4s;"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+            <div style="font-size:10px;font-weight:600;color:var(--cream);">Engagements</div>
+            <div style="font-size:10px;color:rgba(237,232,223,.45);">${engDone}/${engTotal}</div>
+          </div>
+          <div style="height:4px;background:rgba(237,232,223,.1);border-radius:99px;overflow:hidden;"><div style="height:100%;width:${engPct}%;background:${engPct===100?'#C39A55':'rgba(237,232,223,.6)'};border-radius:99px;transition:width .4s;"></div></div>
+        </div>
       </div>
     </div>
-    <div style="border:1px solid rgba(164,148,133,.32);border-radius:14px;padding:18px;margin-bottom:20px;">
-      <div style="font-family:'Cormorant Garamond',serif;font-size:44px;color:var(--line);line-height:.5;">&ldquo;</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:var(--deep);line-height:1.5;margin-top:6px;">${esc(quote)}</div>
+
+    <!-- ── ZONE 2 — GRILLE ── -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px;">
+
+      <!-- Pulse Academy — pleine largeur, mise en avant -->
+      <a href="${GITBOOK_URL}" target="_blank" rel="noopener" class="hcard" style="grid-column:1/-1;text-decoration:none;display:flex;align-items:center;gap:16px;">
+        <div style="width:46px;height:46px;border-radius:12px;background:rgba(237,232,223,.08);border:1px solid rgba(237,232,223,.14);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(237,232,223,.4);margin-bottom:4px;">Formation</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--cream);line-height:1.1;margin-bottom:2px;">Pulse Academy</div>
+          <div style="font-size:9px;color:rgba(237,232,223,.35);">Cours · Scripts · Méthodes</div>
+        </div>
+        <div style="color:rgba(237,232,223,.25);font-size:20px;flex-shrink:0;">›</div>
+      </a>
+
+      <!-- Skool -->
+      <div class="hcard" onclick="window.open('https://www.skool.com','_blank')" style="grid-column:1/-1;display:flex;align-items:center;gap:14px;">
+        <div style="width:38px;height:38px;border-radius:10px;background:rgba(237,232,223,.07);border:1px solid rgba(237,232,223,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:12.5px;font-weight:700;color:var(--cream);margin-bottom:2px;">Communauté Skool</div>
+          <div style="font-size:9px;color:rgba(237,232,223,.35);">Ton espace communauté</div>
+        </div>
+        <div style="color:rgba(237,232,223,.2);font-size:18px;flex-shrink:0;">›</div>
+      </div>
+
+      <!-- Aujourd'hui -->
+      <div class="hcard" onclick="goTab('today','home')">
+        <div style="margin-bottom:10px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="9 16 11 18 15 14"/></svg></div>
+        <div style="font-size:12.5px;font-weight:700;color:var(--cream);margin-bottom:3px;">Aujourd'hui</div>
+        <div style="font-size:9px;color:rgba(237,232,223,.4);">Plan · Checklist</div>
+      </div>
+
+      <!-- Contenu -->
+      <div class="hcard" onclick="goTab('contenu','home')">
+        <div style="margin-bottom:10px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <div style="font-size:12.5px;font-weight:700;color:var(--cream);margin-bottom:3px;">Contenu</div>
+        <div style="font-size:9px;color:rgba(237,232,223,.4);">Idées · Hooks</div>
+      </div>
+
+      <!-- Prospects -->
+      <div class="hcard" onclick="goTab('prospects','home')">
+        <div style="margin-bottom:10px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div style="font-size:12.5px;font-weight:700;color:var(--cream);margin-bottom:3px;">Prospects</div>
+        <div style="font-size:9px;color:rgba(237,232,223,.4);">Leads · Pipeline</div>
+      </div>
+
+      <!-- Ventes -->
+      <div class="hcard" onclick="goSub('ventes','home');goTab('plus','home');">
+        <div style="margin-bottom:8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div style="font-size:12.5px;font-weight:700;color:var(--cream);margin-bottom:3px;">Ventes</div>
+        ${S.ventes.length
+          ? `<div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:#C39A55;line-height:1.2;">${S.ventes.reduce((s,v)=>s+(+v.montant||0),0).toLocaleString('fr-FR')} €</div>`
+          : `<div style="font-size:9px;color:rgba(237,232,223,.4);">Première vente →</div>`}
+      </div>
+
+      <!-- Stats -->
+      <div class="hcard" onclick="goSub('stats','home');goTab('plus','home');">
+        <div style="margin-bottom:8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+        <div style="font-size:12.5px;font-weight:700;color:var(--cream);margin-bottom:3px;">Stats</div>
+        <div style="font-size:9px;color:rgba(237,232,223,.4);">Vues · DM</div>
+      </div>
+
+      <!-- Victoires -->
+      <div class="hcard" onclick="goSub('victoires','home');goTab('plus','home');">
+        <div style="margin-bottom:8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <div style="font-size:12.5px;font-weight:700;color:var(--cream);margin-bottom:3px;">Victoires</div>
+        <div style="font-size:9px;color:rgba(237,232,223,.4);">Tes wins</div>
+      </div>
+
+      <!-- Régularité -->
+      <div class="hcard" onclick="goSub('reg','home');goTab('plus','home');">
+        <div style="margin-bottom:8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div style="font-size:12.5px;font-weight:700;color:var(--cream);margin-bottom:3px;">Régularité</div>
+        <div style="font-size:9px;color:rgba(237,232,223,.4);">${streak} j. 🔥</div>
+      </div>
+
+      <!-- Bonus -->
+      <div class="hcard" onclick="goSub('ressources','home');goTab('plus','home');">
+        <div style="margin-bottom:8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+        <div style="font-size:12.5px;font-weight:700;color:var(--cream);margin-bottom:3px;">Bonus</div>
+        <div style="font-size:9px;color:rgba(237,232,223,.4);">Outils · Templates</div>
+      </div>
+
     </div>
-    <a href="${GITBOOK_URL}" target="_blank" rel="noopener" style="background:var(--dark);border:1px solid rgba(237,232,223,.14);border-radius:16px;padding:20px 20px 18px;margin-bottom:10px;cursor:pointer;display:flex;align-items:center;gap:16px;text-decoration:none;">
-      <div style="font-size:32px;flex-shrink:0;">📚</div>
-      <div style="flex:1;">
-        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--cream);line-height:1.15;margin-bottom:4px;">Pulse Academy</div>
-        <div style="font-size:10px;color:var(--accent);">Cours · Scripts · Checklists · Workbooks</div>
-      </div>
-      <div style="background:var(--cream);color:var(--dark);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:8px 14px;border-radius:8px;flex-shrink:0;">Ouvrir →</div>
-    </a>
-    <a href="https://www.skool.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 16px;margin-bottom:24px;text-decoration:none;">
-      <div style="font-size:22px;flex-shrink:0;">🏫</div>
-      <div style="flex:1;">
-        <div style="font-size:13px;font-weight:600;color:var(--ink);">Communauté Skool</div>
-        <div style="font-size:10px;color:var(--accent);margin-top:2px;">Ton espace communauté</div>
-      </div>
-      <div style="color:var(--line2);">›</div>
-    </a>
-    <div class="sec">Cette semaine</div>
-    <div class="stat-grid" style="margin-bottom:16px;">
-      <div class="stat-box"><div class="stat-val">${wk.dm_recus||'—'}</div><div class="stat-lbl">DM reçus</div></div>
-      <div class="stat-box"><div class="stat-val">${wk.reponses||'—'}</div><div class="stat-lbl">Réponses</div></div>
-      <div class="stat-box"><div class="stat-val">${wk.appels||'—'}</div><div class="stat-lbl">${appelLbl}</div></div>
-      <div class="stat-box"><div class="stat-val">${wk.ventes||'—'}</div><div class="stat-lbl">Ventes</div></div>
-    </div>
-    <div onclick="goSub('reg');goTab('plus');" style="display:flex;align-items:center;gap:10px;padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:12px;cursor:pointer;margin-bottom:24px;transition:border-color .15s;" onmouseenter="this.style.borderColor='var(--accent)'" onmouseleave="this.style.borderColor='var(--line)'">
-      <span style="font-size:18px;">🔥</span>
-      <div>
-        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--dark);line-height:1;">${streak}</div>
-        <div style="font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-top:1px;">jours d'affilée</div>
-      </div>
-      <span style="margin-left:auto;font-size:9px;color:var(--line2);">Régularité →</span>
+
+    <!-- Citation — discrète, tout en bas -->
+    <div style="padding:16px 4px;margin-bottom:32px;">
+      <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--accent);line-height:1.65;text-align:center;">&ldquo; ${esc(quote)} &rdquo;</div>
     </div>`;
 }
 function toggleDefi(){const t=today();const has=S.defiDates.includes(t);S.defiDates=has?S.defiDates.filter(d=>d!==t):[...S.defiDates,t];save();if(!has)toast('🎉 Mission accomplie');renderHome();}
 
 /* ════ TODAY ════ */
 function renderToday(){
-  const chLabel={appel:'Appel de vente',dm:'Closing DM',vsl:'VSL + lien'}[S.cheminVente]||'Ton chemin';
   const t=today();
   const pc=S.planChecks[t]||{};
   const ec=S.engChecks[t]||{};
@@ -998,18 +1075,22 @@ function toggleShuffle(){S.banqueShuffle=!S.banqueShuffle;save();renderBanque();
 
 /* ════ PLUS ════ */
 let SUB_PAGE='';
-const SUB_LABELS={stats:'Stats',victoires:'Victoires',reg:'Régularité',ressources:'Ressources',params:'Paramètres'};
-function goSub(s){
+let SUB_ORIGIN='plus'; // 'plus' ou 'home'
+const SUB_LABELS={stats:'Stats',ventes:'Mes ventes',victoires:'Victoires',reg:'Régularité',ressources:'Ressources',params:'Paramètres'};
+function goSub(s,origin){
   SUB_PAGE=s;
+  if(origin)SUB_ORIGIN=origin;
   const ttl=$('top-bar-title');
   if(ttl)ttl.textContent=s?SUB_LABELS[s]||'Plus':'Plus';
   const left=$('top-bar-left');
   if(left){
     if(s){
-      left.innerHTML=`<button class="back-btn" onclick="goSub('')" aria-label="Retour" style="padding:6px;display:flex;align-items:center;">
+      const backFn=SUB_ORIGIN==='home'?`goTab('home')`:`goSub('')`;
+      left.innerHTML=`<button class="back-btn" onclick="${backFn}" aria-label="Retour" style="padding:6px;display:flex;align-items:center;">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
       </button>`;
     } else {
+      SUB_ORIGIN='plus';
       left.innerHTML=`<button class="hamburger" onclick="toggleDrawer()" aria-label="Menu"><span></span><span></span><span></span></button>`;
     }
   }
@@ -1023,6 +1104,7 @@ function renderPlus(){
     body.innerHTML=`
       <div class="sub-title">Plus.</div>
       <div class="sub-title-sm">Ton espace personnel</div>
+      ${hubItem('💰','Mes ventes','Clients · Montants · Graphique',"goSub('ventes')")}
       ${hubItem('📈','Mes stats','Suivi hebdomadaire',"goSub('stats')")}
       ${hubItem('🏆','Mes victoires','Tes wins, petits et grands',"goSub('victoires')")}
       ${hubItem('📅','Régularité','Ta discipline jour après jour',"goSub('reg')")}
@@ -1030,12 +1112,13 @@ function renderPlus(){
       ${hubItem('⚙️','Paramètres','Prénom, offre, chemin de vente',"goSub('params')")}`;
     return;
   }
-  const subTitles={stats:{t:'Stats.',s:'Suivi hebdomadaire'},victoires:{t:'Victoires.',s:'Tes wins, petits et grands'},reg:{t:'Régularité.',s:'Jour après jour'},ressources:{t:'Ressources.',s:'Tout au même endroit'},params:{t:'Paramètres.',s:'Ton compte'}};
+  const subTitles={ventes:{t:'Mes ventes.',s:'Ton chiffre d\'affaires'},stats:{t:'Stats.',s:'Suivi hebdomadaire'},victoires:{t:'Victoires.',s:'Tes wins, petits et grands'},reg:{t:'Régularité.',s:'Jour après jour'},ressources:{t:'Ressources.',s:'Tout au même endroit'},params:{t:'Paramètres.',s:'Ton compte'}};
   const st=subTitles[SUB_PAGE]||{t:SUB_LABELS[SUB_PAGE]||'',s:''};
   // Create title + sub-content container
   body.innerHTML=`<div class="sub-title">${st.t}</div><div class="sub-title-sm">${st.s}</div><div id="sub-content"></div>`;
   const sub=$('sub-content');
-  if(SUB_PAGE==='stats') renderStats(sub);
+  if(SUB_PAGE==='ventes') renderVentes(sub);
+  else if(SUB_PAGE==='stats') renderStats(sub);
   else if(SUB_PAGE==='victoires') renderVictoires(sub);
   else if(SUB_PAGE==='reg') renderReg(sub);
   else if(SUB_PAGE==='ressources') renderRessources(sub);
@@ -1043,11 +1126,122 @@ function renderPlus(){
 }
 function hubItem(emoji,label,desc,onclick){return `<div class="hub-item" onclick="${onclick}"><div style="font-size:20px;">${emoji}</div><div style="flex:1;"><div class="hub-lbl">${label}</div><div class="hub-desc">${desc}</div></div><div style="color:var(--line2);">›</div></div>`;}
 
+/* ════ VENTES ════ */
+function renderVentes(body){
+  const ventes=[...S.ventes].sort((a,b)=>a.date>b.date?-1:1);
+  const total=S.ventes.reduce((s,v)=>s+(+v.montant||0),0);
+  const totalFmt=total.toLocaleString('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0});
+
+  // Graphique cumulatif
+  const byMonth={};
+  S.ventes.forEach(v=>{
+    const m=(v.date||'').slice(0,7);
+    if(m)byMonth[m]=(byMonth[m]||0)+(+v.montant||0);
+  });
+  const months=Object.keys(byMonth).sort();
+  let cum=0;const cumData=months.map(m=>{cum+=byMonth[m];return cum;});
+  const maxVal=cumData.length?cumData[cumData.length-1]:1;
+  const W=320,H=90,pad=10;
+  const pts=cumData.map((v,i)=>{
+    const x=pad+(i/(Math.max(cumData.length-1,1)))*(W-pad*2);
+    const y=H-pad-(v/maxVal)*(H-pad*2);
+    return `${x},${y}`;
+  }).join(' ');
+  const graphHtml=months.length>1?`
+    <div style="margin-bottom:18px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;">
+      <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;">CA cumulatif</div>
+      <svg width="100%" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" style="display:block;height:90px;">
+        <defs><linearGradient id="gv" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--accent)" stop-opacity=".25"/><stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/></linearGradient></defs>
+        <polygon points="${pts} ${W-pad},${H-pad} ${pad},${H-pad}" fill="url(#gv)"/>
+        <polyline points="${pts}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        ${cumData.map((v,i)=>{const[x,y]=pts.split(' ')[i].split(',');return `<circle cx="${x}" cy="${y}" r="3.5" fill="var(--accent)"/>`;}).join('')}
+      </svg>
+      <div style="display:flex;justify-content:space-between;margin-top:6px;">
+        ${months.map(m=>`<div style="font-size:8px;color:var(--accent);text-align:center;">${m.slice(5)}</div>`).join('')}
+      </div>
+    </div>`:
+    `<div style="background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center;color:var(--accent);font-size:12px;margin-bottom:18px;">Ajoute au moins 2 ventes pour voir le graphique.</div>`;
+
+  body.innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;">
+      <div style="background:var(--dark);border-radius:14px;padding:16px;">
+        <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(237,232,223,.45);margin-bottom:6px;">Total CA</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:26px;color:var(--cream);line-height:1;">${totalFmt}</div>
+      </div>
+      <div style="background:var(--dark);border-radius:14px;padding:16px;">
+        <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(237,232,223,.45);margin-bottom:6px;">Ventes</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:26px;color:var(--cream);line-height:1;">${S.ventes.length}</div>
+      </div>
+    </div>
+    ${graphHtml}
+    <button class="btn-dark" onclick="openAddVente()" style="margin-bottom:18px;">+ Ajouter une vente</button>
+    ${ventes.length?ventes.map((v,i)=>`
+      <div style="background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px;margin-bottom:10px;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;">
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:3px;">${esc(v.client||'—')}</div>
+            <div style="font-size:10px;color:var(--accent);margin-bottom:5px;">${esc(v.produit||'')}</div>
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+              <span style="font-size:9px;font-weight:600;letter-spacing:.06em;background:var(--bg2);border-radius:99px;padding:3px 9px;color:var(--deep);">${fmtDate(v.date)}</span>
+              <span style="font-size:9px;font-weight:600;letter-spacing:.06em;background:${v.paiement==='complet'?'rgba(126,154,120,.15)':'rgba(195,154,85,.12)'};border-radius:99px;padding:3px 9px;color:${v.paiement==='complet'?'#5A8055':'#9A7A35'};">${v.paiement==='complet'?'Payé en 1×':'Paiement échelonné'}</span>
+            </div>
+          </div>
+          <div style="flex-shrink:0;text-align:right;">
+            <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--ink);line-height:1;">${(+v.montant||0).toLocaleString('fr-FR')} €</div>
+            <button onclick="delVente(${S.ventes.indexOf(v)})" style="font-size:9px;color:var(--accent);background:none;border:none;cursor:pointer;margin-top:6px;">Supprimer</button>
+          </div>
+        </div>
+      </div>`).join(''):`<div style="text-align:center;padding:32px 20px;color:var(--accent);font-size:12px;">Aucune vente encore.<br>Ajoute ta première !</div>`}
+
+    <!-- Overlay ajout vente -->
+    <div id="ov-vente" onclick="if(event.target===this)closeOvVente()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;max-width:462px;margin:0 auto;align-items:flex-end;">
+      <div style="background:var(--paper);border-radius:20px 20px 0 0;padding:28px 22px 36px;width:100%;animation:sheetIn .3s ease;">
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:var(--ink);margin-bottom:20px;">Nouvelle vente</div>
+        <div class="form-f"><label class="form-lbl">Nom du client</label><input type="text" id="vente-client" class="form-inp" placeholder="Ex : Marie D."></div>
+        <div class="form-f"><label class="form-lbl">Produit / offre</label><input type="text" id="vente-produit" class="form-inp" placeholder="Ex : Coaching 3 mois"></div>
+        <div class="form-f"><label class="form-lbl">Montant total (€)</label><input type="number" id="vente-montant" class="form-inp" placeholder="Ex : 1200"></div>
+        <div class="form-f"><label class="form-lbl">Date de la vente</label><input type="date" id="vente-date" class="form-inp" value="${new Date().toISOString().slice(0,10)}"></div>
+        <div class="form-f"><label class="form-lbl">Paiement</label>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px;">
+            <button id="pay-complet" onclick="selectPay('complet')" style="padding:11px;border-radius:10px;font-size:11px;font-weight:700;border:1.5px solid var(--dark);background:var(--dark);color:var(--cream);cursor:pointer;">En 1 fois</button>
+            <button id="pay-echelonne" onclick="selectPay('echelonne')" style="padding:11px;border-radius:10px;font-size:11px;font-weight:700;border:1.5px solid var(--line2);background:transparent;color:var(--deep);cursor:pointer;">Échelonné</button>
+          </div>
+        </div>
+        <button class="btn-dark" onclick="saveVente()" style="margin-top:8px;">Enregistrer →</button>
+      </div>
+    </div>`;
+  // Init paiement
+  window._payMode='complet';
+}
+function selectPay(mode){
+  window._payMode=mode;
+  const c=$('pay-complet'),e=$('pay-echelonne');
+  if(c&&e){
+    c.style.background=mode==='complet'?'var(--dark)':'transparent';
+    c.style.color=mode==='complet'?'var(--cream)':'var(--deep)';
+    c.style.borderColor=mode==='complet'?'var(--dark)':'var(--line2)';
+    e.style.background=mode==='echelonne'?'var(--dark)':'transparent';
+    e.style.color=mode==='echelonne'?'var(--cream)':'var(--deep)';
+    e.style.borderColor=mode==='echelonne'?'var(--dark)':'var(--line2)';
+  }
+}
+function openAddVente(){const ov=$('ov-vente');if(ov){ov.style.display='flex';}}
+function closeOvVente(){const ov=$('ov-vente');if(ov)ov.style.display='none';}
+function saveVente(){
+  const client=($('vente-client').value||'').trim();
+  const produit=($('vente-produit').value||'').trim();
+  const montant=+($('vente-montant').value||0);
+  const date=$('vente-date').value;
+  if(!client||!montant||!date){toast('Remplis tous les champs');return;}
+  S.ventes=[...S.ventes,{client,produit,montant,date,paiement:window._payMode||'complet'}];
+  save();closeOvVente();renderPlus();toast('Vente ajoutée ✓');
+}
+function delVente(i){if(i<0||i>=S.ventes.length)return;S.ventes.splice(i,1);save();renderPlus();}
+
 function metricDate(){const d=new Date();d.setDate(d.getDate()+METRIC_OFFSET*7);return d;}
 function renderStats(body){
   const mDate=metricDate();const mKey=weekKey(mDate);const mw=S.metrics[mKey]||{};
-  const appelLbl={appel:'Appels réalisés',dm:'DM closing',vsl:'Clics VSL'}[S.cheminVente]||'Appels';
-  const fields=[{k:'vues',l:'Vues reels'},{k:'abonnes',l:'Nouveaux abonnés'},{k:'reponses',l:'Réponses stories'},{k:'dm_recus',l:'DM reçus'},{k:'appels',l:appelLbl},{k:'ventes',l:'Ventes'}];
+  const fields=[{k:'vues',l:'Vues reels'},{k:'abonnes',l:'Nouveaux abonnés'},{k:'reponses',l:'Réponses stories'},{k:'dm_recus',l:'DM reçus'},{k:'appels',l:'Appels'},{k:'ventes',l:'Ventes'}];
   const histKeys=Object.keys(S.metrics).sort().reverse().slice(0,8);
   body.innerHTML=`
     <div class="week-nav">
@@ -1123,23 +1317,9 @@ function renderRessources(body){
 
 
 function renderParams(body){
-  const offreLbl={mrr:'Revente MRR',produit:'Produit digital propre',affiliation:'Affiliation'};
-  const cheminLbl={appel:'Appel de vente',dm:'Closing DM',vsl:'VSL + lien direct'};
   body.innerHTML=`
     <div class="form-f"><label class="form-lbl">Prénom</label><input type="text" id="par-prenom" class="form-inp" value="${esc(S.prenom)}" oninput="S.prenom=this.value.charAt(0).toUpperCase()+this.value.slice(1);save();renderHome();"></div>
-    <div class="form-f"><label class="form-lbl">Modèle business</label>
-      <select id="par-offre" class="form-sel" onchange="S.typeOffre=this.value;save();">
-        <option value="mrr"${S.typeOffre==='mrr'?' selected':''}>Revente MRR</option>
-        <option value="produit"${S.typeOffre==='produit'?' selected':''}>Produit digital propre</option>
-        <option value="affiliation"${S.typeOffre==='affiliation'?' selected':''}>Affiliation</option>
-      </select></div>
-    <div class="form-f"><label class="form-lbl">Chemin de vente</label>
-      <select id="par-chemin" class="form-sel" onchange="S.cheminVente=this.value;S.planItems=planDefault(this.value);save();toast('Plan d\'action mis à jour');renderToday();renderHome();">
-        <option value="appel"${S.cheminVente==='appel'?' selected':''}>Appel de vente</option>
-        <option value="dm"${S.cheminVente==='dm'?' selected':''}>Closing DM</option>
-        <option value="vsl"${S.cheminVente==='vsl'?' selected':''}>VSL + lien direct</option>
-      </select></div>
-    <div style="font-size:10px;color:var(--accent);line-height:1.6;margin-bottom:20px;">Changer le chemin de vente met à jour les tâches de ton plan d'action.</div>
+    <div style="height:24px;"></div>
     <button onclick="doLogout()" style="width:100%;background:transparent;border:1px solid var(--line2);border-radius:10px;padding:13px;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--deep);cursor:pointer;">Se déconnecter</button>`;
 }
 function doLogout(){S.authed=false;save();location.reload();}
@@ -1157,72 +1337,92 @@ function calcStreak(){let s=0;const t=new Date();t.setHours(0,0,0,0);let cur=new
 
 /* ════ INIT ════ */
 (function init(){
-  if(S.authed){$('s-auth').classList.remove('on');if(!S.typeOffre||!S.cheminVente)startOnb();else launchApp();}
+  if(S.authed){$('s-auth').classList.remove('on');launchApp();}
 })();
 
-/* ════ HOME CANVAS — particules flottantes ════ */
+/* ════ HOME CANVAS — particules vivantes ════ */
 (function initCanvas(){
   const canvas=$('home-canvas');
   if(!canvas)return;
   const ctx=canvas.getContext('2d');
-  const N=28;
-  let W,H,pts;
+  const N=55;
+  let W,H,pts,raf;
 
   function resize(){
     const p=$('p-home');
     W=canvas.width=p.offsetWidth||360;
-    H=canvas.height=Math.max(p.scrollHeight,window.innerHeight);
+    H=canvas.height=Math.max(p.scrollHeight,window.innerHeight*1.5);
   }
 
-  function mkPt(){
+  function mkPt(forceBottom){
     return {
       x:Math.random()*W,
-      y:Math.random()*H,
-      r:Math.random()*2.2+.6,
-      vx:(Math.random()-.5)*.18,
-      vy:-(Math.random()*.22+.06),
-      a:Math.random(),
-      da:(Math.random()-.5)*.004,
-      life:Math.random()
+      y:forceBottom?H+Math.random()*60:Math.random()*H,
+      r:Math.random()*3.5+1,
+      vx:(Math.random()-.5)*.5,
+      vy:-(Math.random()*.55+.15),
+      a:Math.random()*.7+.15,
+      da:(Math.random()-.5)*.008,
+      wobble:Math.random()*Math.PI*2,
+      wSpeed:(Math.random()*.02+.005),
     };
   }
 
-  function setup(){
-    resize();
-    pts=Array.from({length:N},mkPt);
-  }
+  function setup(){resize();pts=Array.from({length:N},()=>mkPt(false));}
 
   function draw(){
     ctx.clearRect(0,0,W,H);
-    pts.forEach(p=>{
-      p.x+=p.vx; p.y+=p.vy;
-      p.a+=p.da;
-      if(p.a<0)p.da=Math.abs(p.da);
-      if(p.a>1)p.da=-Math.abs(p.da);
-      p.life+=.0015;
-      // reset if out of bounds
-      if(p.y<-10||p.x<-10||p.x>W+10){Object.assign(p,mkPt());p.y=H+5;}
-      const alpha=p.a*.35;
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle=`rgba(164,148,133,${alpha})`;
-      ctx.fill();
-    });
-    // subtle drifting gradient overlay
-    const grad=ctx.createRadialGradient(W*.5,H*.25,0,W*.5,H*.25,W*.7);
-    grad.addColorStop(0,'rgba(195,154,85,.03)');
+
+    // pulsing warm glow at top
+    const t=Date.now()/3000;
+    const gx=W*.5+Math.sin(t*.7)*W*.12;
+    const gy=H*.18+Math.cos(t*.5)*H*.04;
+    const grad=ctx.createRadialGradient(gx,gy,0,gx,gy,W*.65);
+    grad.addColorStop(0,'rgba(195,154,85,.10)');
+    grad.addColorStop(.5,'rgba(164,148,133,.05)');
     grad.addColorStop(1,'rgba(241,239,236,0)');
     ctx.fillStyle=grad;
     ctx.fillRect(0,0,W,H);
-    requestAnimationFrame(draw);
+
+    // connection lines between close particles
+    for(let i=0;i<pts.length;i++){
+      for(let j=i+1;j<pts.length;j++){
+        const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<80){
+          ctx.beginPath();
+          ctx.moveTo(pts[i].x,pts[i].y);
+          ctx.lineTo(pts[j].x,pts[j].y);
+          ctx.strokeStyle=`rgba(164,148,133,${.18*(1-dist/80)})`;
+          ctx.lineWidth=.8;
+          ctx.stroke();
+        }
+      }
+    }
+
+    // particles
+    pts.forEach(p=>{
+      p.wobble+=p.wSpeed;
+      p.x+=p.vx+Math.sin(p.wobble)*.35;
+      p.y+=p.vy;
+      p.a+=p.da;
+      if(p.a<.08)p.da=Math.abs(p.da);
+      if(p.a>.85)p.da=-Math.abs(p.da);
+      if(p.y<-12||p.x<-12||p.x>W+12)Object.assign(p,mkPt(true));
+
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(164,148,133,${p.a*.6})`;
+      ctx.fill();
+    });
+
+    raf=requestAnimationFrame(draw);
   }
 
-  setup();
-  draw();
-  // resize when home re-renders
-  const obs=new MutationObserver(()=>{resize();});
-  obs.observe($('home-body'),{childList:true,subtree:false});
-  window.addEventListener('resize',resize);
+  setup();draw();
+  const obs=new MutationObserver(()=>{cancelAnimationFrame(raf);resize();draw();});
+  obs.observe($('home-body'),{childList:true});
+  window.addEventListener('resize',()=>{cancelAnimationFrame(raf);resize();draw();});
 })();
 </script>
 </body>
