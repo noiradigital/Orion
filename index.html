@@ -28,7 +28,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
 @keyframes sheetIn{from{transform:translateY(100%);}to{transform:translateY(0);}}
 @keyframes toastIn{from{opacity:0;transform:translate(-50%,12px);}to{opacity:1;transform:translate(-50%,0);}}
 .frame{display:flex;justify-content:center;min-height:100vh;}
-.col{position:relative;width:100%;max-width:462px;min-height:100vh;background:var(--paper);box-shadow:0 0 90px rgba(0,0,0,.45);overflow-x:hidden;}
+.col{position:relative;width:100%;max-width:462px;min-height:100vh;background:var(--dark);box-shadow:0 0 90px rgba(0,0,0,.45);overflow-x:hidden;}
 /* ── screens ── */
 .screen{display:none;position:fixed;inset:0;max-width:462px;margin:0 auto;z-index:60;}
 .screen.on{display:flex;flex-direction:column;align-items:center;justify-content:center;}
@@ -554,6 +554,50 @@ const PACKS = [
 ];
 
 const BANQUE_TYPES = ['Tous','Favoris','TOFU','MOFU','BOFU','Story','Mindset','Branding','Éducatif','Légende','Reel','Carrousel','CTA'];
+const HOOKS = [
+  {id:'h1', cat:'Vérité', text:'Personne ne te dit ça quand tu lances ton business…'},
+  {id:'h2', cat:'Vérité', text:'Si j\'avais su ça plus tôt, j\'aurais gagné des mois…'},
+  {id:'h3', cat:'Vérité', text:'La vérité que personne n\'ose dire…'},
+  {id:'h4', cat:'Vérité', text:'Voici ce que les formations ne t\'expliquent pas…'},
+  {id:'h5', cat:'Vérité', text:'Personne ne parle assez de ça dans le business en ligne…'},
+  {id:'h6', cat:'Vérité', text:'Ce que tout le monde fait mais qui ne fonctionne pas…'},
+  {id:'h7', cat:'Vérité', text:'La vraie raison pour laquelle ça ne décolle pas…'},
+  {id:'h8', cat:'Vérité', text:'Si je devais donner un seul conseil…'},
+  {id:'h9', cat:'Vérité', text:'Ce que je changerais si je devais tout recommencer…'},
+  {id:'h10', cat:'Erreur', text:'Tu fais sûrement cette erreur sans t\'en rendre compte…'},
+  {id:'h11', cat:'Erreur', text:'Arrête de faire ça si tu veux vraiment vendre…'},
+  {id:'h12', cat:'Erreur', text:'Tu veux réussir mais tu fais ça à l\'envers…'},
+  {id:'h13', cat:'Erreur', text:'Tu postes tous les jours mais personne n\'achète…'},
+  {id:'h14', cat:'Erreur', text:'L\'erreur que je vois chez 90 % des débutantes…'},
+  {id:'h15', cat:'Erreur', text:'Ce détail te freine plus que tu ne le penses…'},
+  {id:'h16', cat:'Erreur', text:'Tu compliques quelque chose qui devrait être simple…'},
+  {id:'h17', cat:'Erreur', text:'Spoiler : ça ne marche pas comme tu le crois…'},
+  {id:'h18', cat:'Erreur', text:'Tu n\'as pas un problème de motivation, mais de stratégie…'},
+  {id:'h19', cat:'Identification', text:'Tu travailles beaucoup pour zéro résultat…'},
+  {id:'h20', cat:'Identification', text:'Tu as l\'impression que tout le monde réussit sauf toi…'},
+  {id:'h21', cat:'Identification', text:'Tu consommes du contenu mais tu n\'avances pas…'},
+  {id:'h22', cat:'Identification', text:'Tu es fatiguée de recommencer sans jamais finir…'},
+  {id:'h23', cat:'Identification', text:'Tu sais que tu peux plus, mais tu bloques encore…'},
+  {id:'h24', cat:'Identification', text:'Tu doutes de ta légitimité alors que tu es capable…'},
+  {id:'h25', cat:'Identification', text:'Tu n\'es pas en retard, tu es juste mal guidée…'},
+  {id:'h26', cat:'Possibilité', text:'Tu n\'as pas besoin de milliers d\'abonnés pour vendre…'},
+  {id:'h27', cat:'Possibilité', text:'Comment faire ta première vente sans être experte…'},
+  {id:'h28', cat:'Possibilité', text:'La méthode la plus simple pour monétiser ton savoir…'},
+  {id:'h29', cat:'Possibilité', text:'Tu peux vendre sans t\'épuiser à poster partout…'},
+  {id:'h30', cat:'Possibilité', text:'La stratégie que j\'utiliserais si je repartais de zéro…'},
+  {id:'h31', cat:'Possibilité', text:'Tu peux gagner de l\'argent sans produit compliqué…'},
+  {id:'h32', cat:'Possibilité', text:'Tu peux lancer une offre même en partant de rien…'},
+  {id:'h33', cat:'Possibilité', text:'Vendre peut être beaucoup plus simple que tu ne le penses…'},
+  {id:'h34', cat:'Possibilité', text:'Ce qui m\'a permis de passer de zéro à mes premières ventes…'},
+  {id:'h35', cat:'Mindset', text:'Tu n\'as pas besoin d\'être prête pour commencer…'},
+  {id:'h36', cat:'Mindset', text:'La confiance vient après l\'action, pas avant…'},
+  {id:'h37', cat:'Mindset', text:'Tu es plus légitime que tu ne le crois…'},
+  {id:'h38', cat:'Mindset', text:'Tu n\'as rien à prouver à personne…'},
+  {id:'h39', cat:'Mindset', text:'Tu peux réussir même si tu doutes encore…'},
+  {id:'h40', cat:'Mindset', text:'Ce n\'est pas un manque de talent…'},
+  {id:'h41', cat:'Mindset', text:'Tu n\'as pas échoué, tu apprends…'},
+  {id:'h42', cat:'Mindset', text:'Tu es plus proche de réussir que tu ne le crois…'},
+];
 const TYPE_COLORS = {TOFU:'#C39A55',MOFU:'#7E9A78',BOFU:'#BE7A63',Story:'#A49485',Mindset:'#9C8C72',Branding:'#7F6F60',Éducatif:'#7E9A78',Légende:'#BCB3A8',Reel:'#C39A55',Carrousel:'#7F6F60',CTA:'#BE7A63'};
 
 /* ════ STATE ════ */
@@ -837,11 +881,36 @@ function delProspect(){const idx=+$('pm-idx').value;S.prospects.splice(idx,1);sa
 function quickStatus(i,status){S.prospects[i].status=status;save();renderProspects();}
 
 /* ════ CONTENU ════ */
+let HOOK_FILTER='Tous';
+const HOOK_CATS=['Tous','Vérité','Erreur','Identification','Possibilité','Mindset'];
+const HOOK_COLORS={'Vérité':'#C39A55','Erreur':'#BE7A63','Identification':'#A49485','Possibilité':'#7E9A78','Mindset':'#9C8C72'};
+
 function renderContenu(){
-  $('contenu-tabs').innerHTML='';
-  renderBanque();
+  $('contenu-tabs').innerHTML=`
+    <button onclick="setContenuTab('banque')" style="flex:1;padding:9px;border:none;border-radius:9px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s;${CONTENU_TAB==='banque'?'background:var(--dark);color:var(--cream);':'background:transparent;color:var(--accent);'}">Idées</button>
+    <button onclick="setContenuTab('hooks')" style="flex:1;padding:9px;border:none;border-radius:9px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s;${CONTENU_TAB==='hooks'?'background:var(--dark);color:var(--cream);':'background:transparent;color:var(--accent);'}">Hooks</button>`;
+  if(CONTENU_TAB==='banque') renderBanque();
+  else renderHooks();
 }
 function setContenuTab(t){CONTENU_TAB=t;renderContenu();}
+
+function renderHooks(){
+  let hooks=[...HOOKS];
+  if(HOOK_FILTER!=='Tous') hooks=hooks.filter(h=>h.cat===HOOK_FILTER);
+  $('contenu-body').innerHTML=`
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+      <div style="font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);">${hooks.length} hooks</div>
+    </div>
+    <div class="filters">${HOOK_CATS.map(c=>`<button class="f-chip${HOOK_FILTER===c?' on':''}" onclick="setHookFilter('${c}')">${c}</button>`).join('')}</div>
+    <div style="font-size:10px;color:var(--accent);margin-bottom:16px;line-height:1.6;">Adapte ces hooks à ta voix — ne les copie pas mot pour mot.</div>
+    ${hooks.map(h=>{const col=HOOK_COLORS[h.cat]||'#A49485';return `
+      <div style="background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px;margin-bottom:10px;">
+        <div style="margin-bottom:8px;"><span class="tag" style="color:${col};background:${col}22;">${h.cat}</span></div>
+        <div style="font-size:13px;color:var(--ink);line-height:1.6;margin-bottom:12px;">${esc(h.text)}</div>
+        <button onclick="copy(${JSON.stringify(h.text)})" style="display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid var(--line2);border-radius:8px;padding:7px 12px;font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--deep);cursor:pointer;">📋 Copier</button>
+      </div>`;}).join('')}`;
+}
+function setHookFilter(c){HOOK_FILTER=c;renderHooks();}
 
 function renderBanque(){
   let bank=[...BANQUE];
