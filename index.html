@@ -22,13 +22,14 @@ body{font-family:'Montserrat',sans-serif;background:var(--dark);color:var(--ink)
 input,textarea,select,button{font-family:inherit;}
 input::placeholder,textarea::placeholder{color:#B9B1A7;}
 input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
-@keyframes pIn{from{opacity:1;transform:translateY(6px);}to{opacity:1;transform:none;}}
+@keyframes pIn{from{opacity:0;}to{opacity:1;}}
+@keyframes slideIn{from{transform:translateX(-100%);}to{transform:translateX(0);}}
 @keyframes glowP{0%,100%{text-shadow:0 0 22px rgba(237,232,223,.45),0 0 60px rgba(237,232,223,.16);}50%{text-shadow:0 0 34px rgba(237,232,223,.7),0 0 90px rgba(237,232,223,.26);}}
 @keyframes pop{0%{transform:scale(.5);opacity:0;}65%{transform:scale(1.14);}100%{transform:scale(1);opacity:1;}}
 @keyframes sheetIn{from{transform:translateY(100%);}to{transform:translateY(0);}}
 @keyframes toastIn{from{opacity:0;transform:translate(-50%,12px);}to{opacity:1;transform:translate(-50%,0);}}
 .frame{display:flex;justify-content:center;min-height:100vh;}
-.col{position:relative;width:100%;max-width:462px;min-height:100vh;background:var(--dark);box-shadow:0 0 90px rgba(0,0,0,.45);overflow-x:hidden;}
+.col{position:relative;width:100%;max-width:462px;min-height:100vh;background:var(--paper);box-shadow:0 0 90px rgba(0,0,0,.45);overflow-x:hidden;}
 /* ── screens ── */
 .screen{display:none;position:fixed;inset:0;max-width:462px;margin:0 auto;z-index:60;}
 .screen.on{display:flex;flex-direction:column;align-items:center;justify-content:center;}
@@ -64,31 +65,44 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
 .ob-next{width:100%;background:var(--cream);color:var(--dark);border:none;border-radius:11px;padding:15px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;opacity:1;transition:opacity .2s;}
 .ob-next:disabled{opacity:.35;cursor:default;}
 /* ── app ── */
-#app{display:none;padding-bottom:calc(80px + var(--safe-bot));}
+#app{display:none;padding-bottom:0;}
 #app.on{display:block;}
-/* header */
-.hdr{background:var(--dark);padding:30px 24px 24px;padding-top:calc(30px + var(--safe-top));}
-.hdr-logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:48px;line-height:1;color:var(--cream);animation:glowP 6s ease-in-out infinite;}
-.hdr-sub{font-size:9px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-top:4px;}
-.page-hdr{background:var(--dark);padding:30px 24px 24px;padding-top:calc(28px + var(--safe-top));}
-.page-ttl{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:40px;color:var(--cream);text-shadow:0 0 18px rgba(237,232,223,.4);line-height:1;}
-.page-sub{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-top:5px;}
+/* top bar */
+.top-bar{position:sticky;top:0;z-index:50;background:var(--dark);display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:calc(52px + var(--safe-top));padding-top:var(--safe-top);}
+.top-bar-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--cream);letter-spacing:.01em;}
+#top-bar-left{display:flex;align-items:center;width:34px;}
+.hamburger{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;gap:5px;padding:6px;transition:opacity .15s;}
+.hamburger:hover{opacity:.7;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--cream);border-radius:2px;transition:all .25s;}
+/* side drawer */
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,0);z-index:80;display:none;max-width:462px;margin:0 auto;}
+.drawer-overlay.on{display:block;}
+.drawer{position:absolute;top:0;left:0;bottom:0;width:75%;max-width:300px;background:var(--dark);padding:0;transform:translateX(-100%);transition:transform .28s cubic-bezier(.4,0,.2,1);overflow-y:auto;}
+.drawer.on{transform:translateX(0);}
+.drawer-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.5);}
+.drawer-inner{position:relative;z-index:2;padding:20px 0;padding-top:calc(20px + var(--safe-top));}
+.drawer-logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:36px;color:var(--cream);padding:0 24px 24px;border-bottom:1px solid rgba(237,232,223,.08);}
+.drawer-sub{font-size:8px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);display:block;margin-top:2px;}
+.nav-item{display:flex;align-items:center;gap:14px;padding:15px 24px;cursor:pointer;transition:background .15s;border:none;background:none;width:100%;text-align:left;}
+.nav-item:hover,.nav-item.on{background:rgba(237,232,223,.06);}
+.nav-item.on .nav-lbl{color:var(--cream);}
+.nav-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.nav-lbl{font-size:13px;font-weight:600;color:var(--accent);letter-spacing:.02em;transition:color .15s;}
+.nav-item.on .nav-icon svg{stroke:var(--cream);}
 /* pages */
-.page{display:none;animation:pIn .45s ease;}
+.page{display:none;animation:pIn .3s ease;background:var(--paper);}
 .page.on{display:block;}
-.body{max-width:680px;margin:0 auto;padding:22px 18px;}
-/* tab bar */
-.tab-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:462px;background:var(--dark);border-top:1px solid rgba(237,232,223,.08);display:flex;z-index:40;padding-bottom:var(--safe-bot);}
-.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:11px 4px 13px;border:none;background:none;cursor:pointer;}
-.tab svg{stroke:var(--accent);transition:stroke .15s;}
-.tab.on svg{stroke:var(--cream);}
-.tab-lbl{font-size:8.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);transition:color .15s;}
-.tab.on .tab-lbl{color:var(--cream);}
+.body{max-width:680px;margin:0 auto;padding:20px 18px 40px;}
+/* contenu sticky tabs */
+.contenu-sticky{position:sticky;top:calc(52px + var(--safe-top));z-index:40;background:var(--paper);padding:14px 18px 10px;border-bottom:1px solid var(--line);}
+/* sub-page title in body */
+.sub-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:32px;color:var(--ink);line-height:1;margin-bottom:4px;}
+.sub-title-sm{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;}
 /* cards */
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:12px;}
 .card-dk{background:var(--dark);border:1px solid rgba(237,232,223,.1);border-radius:14px;padding:18px 16px;margin-bottom:12px;}
 /* section label */
-.sec{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
+.sec{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;margin-top:6px;}
 /* action buttons */
 .btn-dark{display:block;width:100%;background:var(--dark);color:var(--cream);border:none;border-radius:11px;padding:14px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;margin-bottom:10px;transition:opacity .2s;text-align:center;}
 .btn-dark:hover{opacity:.82;}
@@ -153,7 +167,8 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
 /* victory card */
 .vic-photo{width:100%;height:160px;background-size:cover;background-position:center;display:block;}
 /* back btn */
-.back-btn{color:var(--cream);cursor:pointer;font-size:22px;line-height:1;margin-right:12px;background:none;border:none;padding:0;}
+.back-btn{color:var(--cream);cursor:pointer;line-height:1;background:none;border:none;padding:4px;display:flex;align-items:center;transition:opacity .15s;}
+.back-btn:hover{opacity:.7;}
 @media(min-width:600px){.stat-grid{grid-template-columns:repeat(4,1fr);}}
 </style>
 </head>
@@ -201,58 +216,74 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
 
 <!-- APP -->
 <div id="app">
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div id="top-bar-left">
+      <button class="hamburger" onclick="toggleDrawer()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="top-bar-title" id="top-bar-title">Pulse</div>
+    <div style="width:34px;"></div>
+  </div>
+
+  <!-- SIDE DRAWER -->
+  <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer(event)">
+    <div class="drawer" id="drawer">
+      <div class="drawer-inner">
+        <div class="drawer-logo">Pulse<span class="drawer-sub">Ton espace · par Noïra</span></div>
+        <div style="padding:16px 0;">
+          <button class="nav-item on" id="nav-home" onclick="goTab('home')">
+            <div class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.7" stroke-linecap="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10a1 1 0 001 1h12a1 1 0 001-1V10"/></svg></div>
+            <span class="nav-lbl">Accueil</span>
+          </button>
+          <button class="nav-item" id="nav-today" onclick="goTab('today')">
+            <div class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.7" stroke-linecap="round"><path d="M13 2L4.5 13.5H11l-1 8.5L19 10.5H13z"/></svg></div>
+            <span class="nav-lbl">Aujourd'hui</span>
+          </button>
+          <button class="nav-item" id="nav-prospects" onclick="goTab('prospects')">
+            <div class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
+            <span class="nav-lbl">Prospects</span>
+          </button>
+          <button class="nav-item" id="nav-contenu" onclick="goTab('contenu')">
+            <div class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+            <span class="nav-lbl">Contenu</span>
+          </button>
+          <button class="nav-item" id="nav-plus" onclick="goTab('plus')">
+            <div class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.7" stroke-linecap="round"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg></div>
+            <span class="nav-lbl">Plus</span>
+          </button>
+        </div>
+      </div>
+      <div class="drawer-backdrop" onclick="toggleDrawer()"></div>
+    </div>
+  </div>
+
   <!-- ACCUEIL -->
-  <div id="p-home" class="page on">
-    <div class="hdr"><div class="hdr-logo">Pulse</div><div class="hdr-sub" id="home-sub">Ton espace &middot; par Noïra</div></div>
-    <div class="body" id="home-body"></div>
+  <div id="p-home" class="page on" style="position:relative;overflow:hidden;">
+    <canvas id="home-canvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:.55;z-index:0;"></canvas>
+    <div class="body" id="home-body" style="position:relative;z-index:1;"></div>
   </div>
   <!-- AUJOURD'HUI -->
   <div id="p-today" class="page">
-    <div class="page-hdr"><div class="page-ttl">Aujourd'hui.</div><div class="page-sub" id="today-sub"></div></div>
     <div class="body" id="today-body"></div>
   </div>
   <!-- PROSPECTS -->
   <div id="p-prospects" class="page">
-    <div class="page-hdr"><div class="page-ttl">Prospects.</div><div class="page-sub">Suivi de tes conversations</div></div>
     <div class="body" id="prospects-body"></div>
   </div>
   <!-- CONTENU -->
   <div id="p-contenu" class="page">
-    <div class="page-hdr" id="contenu-hdr">
-      <div class="page-ttl">Contenu.</div>
-      <div class="page-sub">Tes idées, prêtes à l'emploi</div>
-      <div style="display:flex;gap:8px;margin-top:16px;" id="contenu-tabs"></div>
+    <div class="contenu-sticky" id="contenu-hdr">
+      <div style="display:flex;gap:0;background:var(--bg2);border-radius:11px;padding:4px;" id="contenu-tabs"></div>
+      <div style="overflow-x:auto;padding-bottom:2px;margin-top:12px;scrollbar-width:none;" id="contenu-filters"></div>
     </div>
     <div class="body" id="contenu-body"></div>
   </div>
   <!-- PLUS -->
   <div id="p-plus" class="page">
-    <div class="page-hdr" id="plus-hdr"></div>
     <div class="body" id="plus-body"></div>
   </div>
-  <!-- TAB BAR -->
-  <nav class="tab-bar">
-    <button class="tab on" id="tab-home" onclick="goTab('home')">
-      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10a1 1 0 001 1h12a1 1 0 001-1V10"/></svg>
-      <span class="tab-lbl">Accueil</span>
-    </button>
-    <button class="tab" id="tab-today" onclick="goTab('today')">
-      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><path d="M13 2L4.5 13.5H11l-1 8.5L19 10.5H13z"/></svg>
-      <span class="tab-lbl">Aujourd'hui</span>
-    </button>
-    <button class="tab" id="tab-prospects" onclick="goTab('prospects')">
-      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>
-      <span class="tab-lbl">Prospects</span>
-    </button>
-    <button class="tab" id="tab-contenu" onclick="goTab('contenu')">
-      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-      <span class="tab-lbl">Contenu</span>
-    </button>
-    <button class="tab" id="tab-plus" onclick="goTab('plus')">
-      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>
-      <span class="tab-lbl">Plus</span>
-    </button>
-  </nav>
 </div>
 
 <!-- MODAL PROSPECT -->
@@ -679,10 +710,33 @@ function obFinish(){if(!OB_OFFRE||!OB_CHEMIN)return;S.typeOffre=OB_OFFRE;S.chemi
 function launchApp(){$('app').classList.add('on');renderAll();}
 function renderAll(){renderHome();renderToday();renderProspects();renderContenu();renderPlus();}
 
+const TAB_LABELS={home:'Pulse',today:'Aujourd\'hui',prospects:'Prospects',contenu:'Contenu',plus:'Plus'};
 function goTab(t){
-  ['home','today','prospects','contenu','plus'].forEach(id=>{$('p-'+id).classList.toggle('on',id===t);$('tab-'+id).classList.toggle('on',id===t);});
+  ['home','today','prospects','contenu','plus'].forEach(id=>{
+    $('p-'+id).classList.toggle('on',id===t);
+    const n=$('nav-'+id);if(n)n.classList.toggle('on',id===t);
+  });
   TAB=t;
+  const ttl=$('top-bar-title');if(ttl)ttl.textContent=TAB_LABELS[t]||'Pulse';
+  // Always restore hamburger when switching main tabs (except Plus sub-page)
+  if(t!=='plus'||!SUB_PAGE){
+    SUB_PAGE='';
+    const left=$('top-bar-left');
+    if(left)left.innerHTML=`<button class="hamburger" onclick="toggleDrawer()" aria-label="Menu"><span></span><span></span><span></span></button>`;
+  }
   window.scrollTo(0,0);
+  closeDrawerDirect();
+}
+function toggleDrawer(){
+  $('drawer-overlay').classList.toggle('on');
+  $('drawer').classList.toggle('on');
+}
+function closeDrawerDirect(){
+  $('drawer-overlay').classList.remove('on');
+  $('drawer').classList.remove('on');
+}
+function closeDrawer(e){
+  if(e.target===$('drawer-overlay'))closeDrawerDirect();
 }
 
 /* ════ HOME ════ */
@@ -708,8 +762,10 @@ function renderHome(){
   const miniCal=buildCal(35);
 
   $('home-body').innerHTML=`
-    <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:27px;color:var(--ink);">Bonjour, ${esc(S.prenom||'toi')}.</div>
-    <div style="font-size:10px;color:var(--accent);font-weight:500;margin-bottom:22px;text-transform:capitalize;">${dateStr}</div>
+    <div style="margin-bottom:4px;">
+      <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:30px;color:var(--ink);">Bonjour, ${esc(S.prenom||'toi')}.</div>
+    </div>
+    <div style="font-size:10px;color:var(--accent);font-weight:500;margin-bottom:24px;text-transform:capitalize;">${dateStr}</div>
     <div onclick="toggleDefi()" style="background:var(--dark);border:1px solid ${defiDone?'rgba(195,154,85,.5)':'rgba(237,232,223,.12)'};border-radius:16px;padding:20px;cursor:pointer;margin-bottom:20px;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
         <div style="font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#C39A55;">★ Défi du jour</div>
@@ -739,11 +795,11 @@ function renderHome(){
       <div style="font-size:32px;flex-shrink:0;">📚</div>
       <div style="flex:1;">
         <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--cream);line-height:1.15;margin-bottom:4px;">Pulse Academy</div>
-        <div style="font-size:10px;color:var(--accent);">Cours · Scripts · Checklists · Exercices</div>
+        <div style="font-size:10px;color:var(--accent);">Cours · Scripts · Checklists · Workbooks</div>
       </div>
       <div style="background:var(--cream);color:var(--dark);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:8px 14px;border-radius:8px;flex-shrink:0;">Ouvrir →</div>
     </a>
-    <a href="https://www.skool.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 16px;margin-bottom:18px;text-decoration:none;">
+    <a href="https://www.skool.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 16px;margin-bottom:24px;text-decoration:none;">
       <div style="font-size:22px;flex-shrink:0;">🏫</div>
       <div style="flex:1;">
         <div style="font-size:13px;font-weight:600;color:var(--ink);">Communauté Skool</div>
@@ -751,22 +807,20 @@ function renderHome(){
       </div>
       <div style="color:var(--line2);">›</div>
     </a>
-    <div class="sec">Accès rapide</div>
-    <button class="btn-ghost" onclick="goTab('today')">⚡ Que faire aujourd'hui ?</button>
-    <button class="btn-ghost" onclick="goTab('prospects')">🎯 Mes prospects</button>
-    <button class="btn-ghost" onclick="goTab('contenu')">💡 Banque de contenu</button>
-    <div class="sec" style="margin-top:22px;">Cette semaine</div>
+    <div class="sec">Cette semaine</div>
     <div class="stat-grid" style="margin-bottom:16px;">
       <div class="stat-box"><div class="stat-val">${wk.dm_recus||'—'}</div><div class="stat-lbl">DM reçus</div></div>
       <div class="stat-box"><div class="stat-val">${wk.reponses||'—'}</div><div class="stat-lbl">Réponses</div></div>
       <div class="stat-box"><div class="stat-val">${wk.appels||'—'}</div><div class="stat-lbl">${appelLbl}</div></div>
       <div class="stat-box"><div class="stat-val">${wk.ventes||'—'}</div><div class="stat-lbl">Ventes</div></div>
     </div>
-    <div onclick="goSub('reg');goTab('plus');" style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--card);border:1px solid var(--line);border-radius:12px;cursor:pointer;margin-bottom:4px;">
-      <span style="font-size:15px;">🔥</span>
-      <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:var(--dark);">${streak}</span>
-      <span style="font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);">jours d'affilée</span>
-      <span style="margin-left:auto;font-size:9px;color:var(--accent);">Voir →</span>
+    <div onclick="goSub('reg');goTab('plus');" style="display:flex;align-items:center;gap:10px;padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:12px;cursor:pointer;margin-bottom:24px;transition:border-color .15s;" onmouseenter="this.style.borderColor='var(--accent)'" onmouseleave="this.style.borderColor='var(--line)'">
+      <span style="font-size:18px;">🔥</span>
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--dark);line-height:1;">${streak}</div>
+        <div style="font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-top:1px;">jours d'affilée</div>
+      </div>
+      <span style="margin-left:auto;font-size:9px;color:var(--line2);">Régularité →</span>
     </div>`;
 }
 function toggleDefi(){const t=today();const has=S.defiDates.includes(t);S.defiDates=has?S.defiDates.filter(d=>d!==t):[...S.defiDates,t];save();if(!has)toast('🎉 Mission accomplie');renderHome();}
@@ -782,9 +836,9 @@ function renderToday(){
   const mois=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
   const now=new Date();
   const dateStr=jours[now.getDay()]+' '+now.getDate()+' '+mois[now.getMonth()];
-  $('today-sub').textContent=chLabel+' · ton plan';
-  const planDose={appel:'1 appel / 5 DM',dm:'15–20 DM',vsl:'VSL & relances'}[S.cheminVente]||'';
   $('today-body').innerHTML=`
+    <div class="sub-title" style="margin-bottom:4px;">Aujourd'hui.</div>
+    <div class="sub-title-sm">Ton plan du jour</div>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
       <div style="display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:6px 13px;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--deep);">📅 ${dateStr}</div>
       <div style="font-size:10px;color:var(--accent);">${planDone}/${S.planItems.length} tâches</div>
@@ -792,7 +846,6 @@ function renderToday(){
     <div style="display:flex;align-items:center;gap:9px;margin-bottom:13px;">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--deep)" stroke-width="1.6" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
       <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:23px;color:var(--ink);">Mon plan d'action</div>
-      <div style="margin-left:auto;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);">${planDose}</div>
     </div>
     <div id="plan-list">${renderPlanList(pc)}</div>
     <div style="display:flex;gap:8px;margin-bottom:28px;">
@@ -838,6 +891,8 @@ function renderProspects(){
   const closing=S.prospects.filter(p=>p.status==='closing').length;
   const client=S.prospects.filter(p=>p.status==='client').length;
   $('prospects-body').innerHTML=`
+    <div class="sub-title">Prospects.</div>
+    <div class="sub-title-sm">Suivi de tes conversations</div>
     <div class="stat-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:18px;">
       <div class="stat-box" style="text-align:center;padding:12px 8px;"><div class="stat-val" style="font-size:26px;">${S.prospects.length}</div><div class="stat-lbl" style="font-size:8px;">Total</div></div>
       <div class="stat-box" style="text-align:center;padding:12px 8px;"><div class="stat-val" style="font-size:26px;">${chaud}</div><div class="stat-lbl" style="font-size:8px;">Chauds</div></div>
@@ -885,12 +940,20 @@ let HOOK_FILTER='Tous';
 const HOOK_CATS=['Tous','Vérité','Erreur','Identification','Possibilité','Mindset'];
 const HOOK_COLORS={'Vérité':'#C39A55','Erreur':'#BE7A63','Identification':'#A49485','Possibilité':'#7E9A78','Mindset':'#9C8C72'};
 
+function tabBtn(id,label,active){
+  return `<button onclick="setContenuTab('${id}')" style="flex:1;padding:9px 6px;border:none;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;transition:all .2s;background:${active?'var(--dark)':'transparent'};color:${active?'var(--cream)':'var(--accent)'};">${label}</button>`;
+}
+
 function renderContenu(){
-  $('contenu-tabs').innerHTML=`
-    <button onclick="setContenuTab('banque')" style="flex:1;padding:9px;border:none;border-radius:9px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s;${CONTENU_TAB==='banque'?'background:var(--dark);color:var(--cream);':'background:transparent;color:var(--accent);'}">Idées</button>
-    <button onclick="setContenuTab('hooks')" style="flex:1;padding:9px;border:none;border-radius:9px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s;${CONTENU_TAB==='hooks'?'background:var(--dark);color:var(--cream);':'background:transparent;color:var(--accent);'}">Hooks</button>`;
-  if(CONTENU_TAB==='banque') renderBanque();
-  else renderHooks();
+  $('contenu-tabs').innerHTML=tabBtn('banque','Idées',CONTENU_TAB==='banque')+tabBtn('hooks','Hooks',CONTENU_TAB==='hooks');
+  if(CONTENU_TAB==='banque'){
+    const types=BANQUE_TYPES;
+    $('contenu-filters').innerHTML=`<div style="display:flex;gap:7px;white-space:nowrap;">${types.map(f=>`<button class="f-chip${BANQUE_FILTER===f?' on':''}" onclick="setBanqueFilter('${f}')">${f}${f==='Tous'?' ('+BANQUE.length+')':f==='Favoris'?' ('+S.favoris.length+')':''}</button>`).join('')}</div>`;
+    renderBanque();
+  } else {
+    $('contenu-filters').innerHTML=`<div style="display:flex;gap:7px;white-space:nowrap;">${HOOK_CATS.map(c=>`<button class="f-chip${HOOK_FILTER===c?' on':''}" onclick="setHookFilter('${c}')">${c}${c==='Tous'?' ('+HOOKS.length+')':''}</button>`).join('')}</div>`;
+    renderHooks();
+  }
 }
 function setContenuTab(t){CONTENU_TAB=t;renderContenu();}
 
@@ -898,19 +961,15 @@ function renderHooks(){
   let hooks=[...HOOKS];
   if(HOOK_FILTER!=='Tous') hooks=hooks.filter(h=>h.cat===HOOK_FILTER);
   $('contenu-body').innerHTML=`
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-      <div style="font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);">${hooks.length} hooks</div>
-    </div>
-    <div class="filters">${HOOK_CATS.map(c=>`<button class="f-chip${HOOK_FILTER===c?' on':''}" onclick="setHookFilter('${c}')">${c}</button>`).join('')}</div>
     <div style="font-size:10px;color:var(--accent);margin-bottom:16px;line-height:1.6;">Adapte ces hooks à ta voix — ne les copie pas mot pour mot.</div>
     ${hooks.map(h=>{const col=HOOK_COLORS[h.cat]||'#A49485';return `
-      <div style="background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px;margin-bottom:10px;">
-        <div style="margin-bottom:8px;"><span class="tag" style="color:${col};background:${col}22;">${h.cat}</span></div>
-        <div style="font-size:13px;color:var(--ink);line-height:1.6;margin-bottom:12px;">${esc(h.text)}</div>
-        <button onclick="copy(${JSON.stringify(h.text)})" style="display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid var(--line2);border-radius:8px;padding:7px 12px;font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--deep);cursor:pointer;">📋 Copier</button>
+      <div style="background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:10px;">
+        <div style="margin-bottom:8px;"><span class="tag" style="font-size:8.5px;font-weight:700;letter-spacing:.1em;color:${col};background:${col}18;padding:4px 9px;border-radius:99px;">${h.cat}</span></div>
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:var(--ink);line-height:1.45;margin-bottom:12px;">${esc(h.text)}</div>
+        <button onclick="copy(${JSON.stringify(h.text)})" style="display:inline-flex;align-items:center;gap:5px;background:transparent;border:1px solid var(--line2);border-radius:8px;padding:6px 12px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--deep);cursor:pointer;">📋 Copier</button>
       </div>`;}).join('')}`;
 }
-function setHookFilter(c){HOOK_FILTER=c;renderHooks();}
+function setHookFilter(c){HOOK_FILTER=c;renderContenu();}
 
 function renderBanque(){
   let bank=[...BANQUE];
@@ -918,64 +977,69 @@ function renderBanque(){
   else if(BANQUE_FILTER!=='Tous')bank=bank.filter(b=>b.type===BANQUE_FILTER);
   if(S.banqueShuffle)bank=bank.sort(()=>Math.random()-.5);
   $('contenu-body').innerHTML=`
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-      <div style="font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);">${bank.length} contenus</div>
-      <button onclick="toggleShuffle()" style="display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid var(--line);border-radius:99px;padding:7px 14px;font-size:10px;font-weight:600;letter-spacing:.04em;color:var(--deep);cursor:pointer;">🎲 ${S.banqueShuffle?'Trié (annuler)':'Aléatoire'}</button>
+    <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:14px;">
+      <button onclick="toggleShuffle()" style="display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid var(--line);border-radius:99px;padding:6px 13px;font-size:9.5px;font-weight:600;color:var(--deep);cursor:pointer;">🎲 ${S.banqueShuffle?'Annuler':'Aléatoire'}</button>
     </div>
-    <div class="filters">${BANQUE_TYPES.map(f=>`<button class="f-chip${BANQUE_FILTER===f?' on':''}" onclick="setBanqueFilter('${f}')">${f}</button>`).join('')}</div>
     ${bank.length?bank.map(b=>{const fav=S.favoris.includes(b.id);const col=TYPE_COLORS[b.type]||'#A49485';return `
-      <div style="background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px;margin-bottom:10px;">
-        <div style="display:flex;align-items:center;gap:7px;margin-bottom:9px;">
-          <span class="tag" style="color:${col};background:${col}22;">${b.type}</span>
-          <span style="font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);">${b.theme}</span>
-          <span onclick="toggleFav('${b.id}')" style="margin-left:auto;cursor:pointer;font-size:15px;color:${fav?'#BE7A63':'#CFC9C1'};">${fav?'♥':'♡'}</span>
+      <div style="background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:10px;">
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px;">
+          <span style="font-size:8.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:${col};background:${col}18;padding:4px 9px;border-radius:99px;">${b.type}</span>
+          <span style="font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);">${b.theme}</span>
+          <span onclick="toggleFav('${b.id}')" style="margin-left:auto;cursor:pointer;font-size:16px;color:${fav?'#BE7A63':'#CFC9C1'};">${fav?'♥':'♡'}</span>
         </div>
-        <div style="font-size:12.5px;color:var(--ink);line-height:1.6;margin-bottom:12px;">${esc(b.text)}</div>
-        <button onclick="copy(${JSON.stringify(b.text)})" style="display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid var(--line2);border-radius:8px;padding:7px 12px;font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--deep);cursor:pointer;">📋 Copier</button>
-      </div>`;}).join(''):`<div style="text-align:center;padding:30px;color:var(--accent);font-size:12px;">Aucun contenu dans ce filtre.</div>`}`;
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:var(--ink);line-height:1.45;margin-bottom:13px;">${esc(b.text)}</div>
+        <button onclick="copy(${JSON.stringify(b.text)})" style="display:inline-flex;align-items:center;gap:5px;background:transparent;border:1px solid var(--line2);border-radius:8px;padding:6px 12px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--deep);cursor:pointer;">📋 Copier</button>
+      </div>`;}).join(''):`<div style="text-align:center;padding:40px 20px;color:var(--accent);font-size:12px;">Aucun contenu dans ce filtre.</div>`}`;
 }
-function setBanqueFilter(f){BANQUE_FILTER=f;renderBanque();}
-function toggleFav(id){const has=S.favoris.includes(id);S.favoris=has?S.favoris.filter(x=>x!==id):[...S.favoris,id];save();renderBanque();}
+function setBanqueFilter(f){BANQUE_FILTER=f;renderContenu();}
+function toggleFav(id){const has=S.favoris.includes(id);S.favoris=has?S.favoris.filter(x=>x!==id):[...S.favoris,id];save();renderContenu();}
 function toggleShuffle(){S.banqueShuffle=!S.banqueShuffle;save();renderBanque();}
 
 
 /* ════ PLUS ════ */
 let SUB_PAGE='';
-function goSub(s){SUB_PAGE=s;renderPlus();}
+const SUB_LABELS={stats:'Stats',victoires:'Victoires',reg:'Régularité',ressources:'Ressources',params:'Paramètres'};
+function goSub(s){
+  SUB_PAGE=s;
+  const ttl=$('top-bar-title');
+  if(ttl)ttl.textContent=s?SUB_LABELS[s]||'Plus':'Plus';
+  const left=$('top-bar-left');
+  if(left){
+    if(s){
+      left.innerHTML=`<button class="back-btn" onclick="goSub('')" aria-label="Retour" style="padding:6px;display:flex;align-items:center;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>`;
+    } else {
+      left.innerHTML=`<button class="hamburger" onclick="toggleDrawer()" aria-label="Menu"><span></span><span></span><span></span></button>`;
+    }
+  }
+  window.scrollTo(0,0);
+  renderPlus();
+}
 
 function renderPlus(){
-  const hdr=$('plus-hdr');const body=$('plus-body');
+  const body=$('plus-body');
   if(!SUB_PAGE){
-    hdr.innerHTML=`<div class="page-ttl">Plus.</div><div class="page-sub">Ton espace personnel</div>`;
     body.innerHTML=`
+      <div class="sub-title">Plus.</div>
+      <div class="sub-title-sm">Ton espace personnel</div>
       ${hubItem('📈','Mes stats','Suivi hebdomadaire',"goSub('stats')")}
       ${hubItem('🏆','Mes victoires','Tes wins, petits et grands',"goSub('victoires')")}
       ${hubItem('📅','Régularité','Ta discipline jour après jour',"goSub('reg')")}
       ${hubItem('📁','Ressources','Drive, Canva, templates…',"goSub('ressources')")}
-      ${hubItem('📚','Ma formation','Accès à la méthode complète',"goSub('formation')")}
       ${hubItem('⚙️','Paramètres','Prénom, offre, chemin de vente',"goSub('params')")}`;
     return;
   }
-  const back=`<button class="back-btn" onclick="goSub('')">‹</button>`;
-  if(SUB_PAGE==='stats'){
-    hdr.innerHTML=`<div class="page-hdr" style="padding:0;"><div style="display:flex;align-items:center;">${back}<div><div class="page-ttl">Stats.</div><div class="page-sub">Suivi hebdomadaire</div></div></div></div>`;
-    renderStats(body);
-  } else if(SUB_PAGE==='victoires'){
-    hdr.innerHTML=`<div style="display:flex;align-items:center;">${back}<div><div class="page-ttl">Victoires.</div><div class="page-sub">Tes wins, petits et grands</div></div></div>`;
-    renderVictoires(body);
-  } else if(SUB_PAGE==='reg'){
-    hdr.innerHTML=`<div style="display:flex;align-items:center;">${back}<div><div class="page-ttl">Régularité.</div><div class="page-sub">Jour après jour</div></div></div>`;
-    renderReg(body);
-  } else if(SUB_PAGE==='ressources'){
-    hdr.innerHTML=`<div style="display:flex;align-items:center;">${back}<div><div class="page-ttl">Ressources.</div><div class="page-sub">Tout au même endroit</div></div></div>`;
-    renderRessources(body);
-  } else if(SUB_PAGE==='formation'){
-    hdr.innerHTML=`<div style="display:flex;align-items:center;">${back}<div><div class="page-ttl">Formation.</div><div class="page-sub">Ta méthode complète</div></div></div>`;
-    renderFormation(body);
-  } else if(SUB_PAGE==='params'){
-    hdr.innerHTML=`<div style="display:flex;align-items:center;">${back}<div><div class="page-ttl">Paramètres.</div><div class="page-sub">Ton compte</div></div></div>`;
-    renderParams(body);
-  }
+  const subTitles={stats:{t:'Stats.',s:'Suivi hebdomadaire'},victoires:{t:'Victoires.',s:'Tes wins, petits et grands'},reg:{t:'Régularité.',s:'Jour après jour'},ressources:{t:'Ressources.',s:'Tout au même endroit'},params:{t:'Paramètres.',s:'Ton compte'}};
+  const st=subTitles[SUB_PAGE]||{t:SUB_LABELS[SUB_PAGE]||'',s:''};
+  // Create title + sub-content container
+  body.innerHTML=`<div class="sub-title">${st.t}</div><div class="sub-title-sm">${st.s}</div><div id="sub-content"></div>`;
+  const sub=$('sub-content');
+  if(SUB_PAGE==='stats') renderStats(sub);
+  else if(SUB_PAGE==='victoires') renderVictoires(sub);
+  else if(SUB_PAGE==='reg') renderReg(sub);
+  else if(SUB_PAGE==='ressources') renderRessources(sub);
+  else if(SUB_PAGE==='params') renderParams(sub);
 }
 function hubItem(emoji,label,desc,onclick){return `<div class="hub-item" onclick="${onclick}"><div style="font-size:20px;">${emoji}</div><div style="flex:1;"><div class="hub-lbl">${label}</div><div class="hub-desc">${desc}</div></div><div style="color:var(--line2);">›</div></div>`;}
 
@@ -1025,8 +1089,8 @@ function vicPhotoChange(){
   r.onload=()=>{const img=new Image();img.onload=()=>{const c=document.createElement('canvas');const max=560;const sc=Math.min(1,max/Math.max(img.width,img.height));c.width=Math.round(img.width*sc);c.height=Math.round(img.height*sc);c.getContext('2d').drawImage(img,0,0,c.width,c.height);VIC_PHOTO=c.toDataURL('image/jpeg',.82);$('vic-photo-lbl').textContent='Changer la photo';$('vic-thumb').innerHTML=`<div style="width:54px;height:54px;border-radius:8px;background:url(${JSON.stringify(VIC_PHOTO)}) center/cover;"></div>`;};img.src=r.result;};
   r.readAsDataURL(f);
 }
-function saveVictoire(){const t=($('vic-text').value||'').trim();if(!t)return;S.victoires=[{text:t,photo:VIC_PHOTO,date:Date.now()},...S.victoires];save();$('ov-vic').classList.remove('on');renderVictoires($('plus-body'));}
-function delVictoire(i){S.victoires.splice(i,1);save();renderVictoires($('plus-body'));}
+function saveVictoire(){const t=($('vic-text').value||'').trim();if(!t)return;S.victoires=[{text:t,photo:VIC_PHOTO,date:Date.now()},...S.victoires];save();$('ov-vic').classList.remove('on');renderVictoires($('sub-content')||$('plus-body'));}
+function delVictoire(i){S.victoires.splice(i,1);save();renderVictoires($('sub-content')||$('plus-body'));}
 
 function renderReg(body){
   const streak=calcStreak();
@@ -1057,96 +1121,6 @@ function renderRessources(body){
   body.innerHTML=links.map(r=>`<a href="${r.url}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px 16px;margin-bottom:10px;text-decoration:none;"><div style="font-size:20px;flex-shrink:0;">${r.e}</div><div style="flex:1;"><div style="font-size:13px;font-weight:600;color:var(--ink);">${r.l}</div><div style="font-size:10px;color:var(--accent);margin-top:2px;">${r.d}</div></div><div style="color:var(--line2);">›</div></a>`).join('');
 }
 
-const HOOK_BANQUE = [
-  "Personne ne te dit ça quand tu lances ton business…",
-  "Si j'avais su ça plus tôt, j'aurais gagné des mois…",
-  "Tu fais sûrement cette erreur sans t'en rendre compte…",
-  "Arrête de faire ça si tu veux vraiment vendre…",
-  "Ce détail change absolument tout…",
-  "La vérité que personne n'ose dire…",
-  "Spoiler : ça ne marche pas comme tu le crois…",
-  "Tu n'as pas un problème de motivation, mais de stratégie…",
-  "Ce blocage te freine plus que tu ne le penses…",
-  "Tu compliques quelque chose qui devrait être simple…",
-  "Tu postes tous les jours mais personne n'achète…",
-  "Tu travailles beaucoup pour zéro résultat…",
-  "Tu as l'impression que tout le monde réussit sauf toi…",
-  "Tu doutes de ta légitimité alors que tu es capable…",
-  "Tu consommes du contenu mais tu n'avances pas…",
-  "Tu veux réussir mais tu fais ça à l'envers…",
-  "Tu es fatiguée de recommencer sans jamais finir…",
-  "Tu sais que tu peux plus, mais tu bloques encore…",
-  "Tu es plus proche de réussir que tu ne le crois…",
-  "Tu n'es pas en retard, tu es juste mal guidée…",
-  "Tu n'as pas besoin de milliers d'abonnés pour vendre…",
-  "Comment faire ta première vente sans être experte…",
-  "La méthode la plus simple pour monétiser ton savoir…",
-  "Ce qui m'a permis de passer de zéro à mes premières ventes…",
-  "Tu peux vendre sans t'épuiser à poster partout…",
-  "La stratégie que j'utiliserais si je repartais de zéro…",
-  "Tu peux gagner de l'argent sans produit compliqué…",
-  "Ce système m'a tout simplifié…",
-  "Tu peux lancer une offre même en partant de rien…",
-  "Vendre peut être beaucoup plus simple que tu ne le penses…",
-  "Tu n'as pas besoin d'être prête pour commencer…",
-  "La confiance vient après l'action, pas avant…",
-  "Tu es plus légitime que tu ne le crois…",
-  "Ce n'est pas un manque de talent…",
-  "Tu n'as pas échoué, tu apprends…",
-  "Le vrai problème n'est pas technique…",
-  "Tu n'as rien à prouver à personne…",
-  "Tu peux réussir même si tu doutes encore…",
-  "Ce n'est pas toi le problème…",
-  "Tu peux faire beaucoup avec peu…",
-  "L'erreur que je vois chez 90 % des débutantes…",
-  "Personne ne parle assez de ça dans le business en ligne…",
-  "Voici ce que les formations ne t'expliquent pas…",
-  "Si je devais donner un seul conseil…",
-  "La vraie raison pour laquelle ça ne décolle pas…",
-  "Ce que tout le monde fait mais qui ne fonctionne pas…",
-  "La différence entre celles qui réussissent et les autres…",
-  "Ce que je changerais si je devais tout recommencer",
-  "Ce détail est sous-estimé mais essentiel…",
-  "Tout le monde se trompe sur ce point…"
-];
-
-function renderFormation(body){
-  const randomHook = HOOK_BANQUE[Math.floor(Math.random()*HOOK_BANQUE.length)];
-  const hookItems = HOOK_BANQUE.map((h,i)=>`
-    <div onclick="copyHook('${h.replace(/'/g,"\\'")}',this)" style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line2);cursor:pointer;gap:10px;">
-      <div style="font-size:11px;color:var(--cream);line-height:1.5;flex:1;">${h}</div>
-      <div style="font-size:9px;color:var(--deep);white-space:nowrap;flex-shrink:0;">copier</div>
-    </div>`).join('');
-
-  body.innerHTML=`
-    <div style="background:var(--dark);border-radius:16px;padding:28px 22px;text-align:center;margin-bottom:16px;">
-      <div style="font-size:34px;margin-bottom:10px;">📚</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:27px;color:var(--cream);text-shadow:0 0 18px rgba(237,232,223,.4);margin-bottom:8px;">Ta méthode complète</div>
-      <div style="font-size:11px;color:var(--accent);line-height:1.6;margin-bottom:20px;">Tous tes cours, scripts, checklists et exercices.</div>
-      <a href="${GITBOOK_URL}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:var(--cream);color:var(--dark);border-radius:10px;padding:14px 28px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;">Continuer ma formation →</a>
-    </div>
-    <div class="card" style="margin-bottom:16px;">
-      <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--deep);margin-bottom:12px;">Ce que tu y trouveras</div>
-      <div style="font-size:12px;color:var(--deep);line-height:2;">La méthode en 8 modules<br>Scripts DM, closing, objections<br>Checklists par phase<br>Exercices pratiques<br>Mises à jour régulières</div>
-    </div>
-    <div class="card">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
-        <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--deep);">Banque de hooks</div>
-        <div style="font-size:9px;color:var(--accent);">${HOOK_BANQUE.length} hooks · tape pour copier</div>
-      </div>
-      <div style="font-size:10px;color:var(--deep);margin-bottom:14px;line-height:1.5;">Hook du jour → <span style="color:var(--cream);font-style:italic;">${randomHook}</span></div>
-      <div style="max-height:320px;overflow-y:auto;">${hookItems}</div>
-    </div>`;
-}
-
-function copyHook(text, el){
-  navigator.clipboard.writeText(text).then(()=>{
-    const orig = el.querySelector('div:last-child').textContent;
-    el.querySelector('div:last-child').textContent = '✓ copié';
-    el.querySelector('div:last-child').style.color = 'var(--cream)';
-    setTimeout(()=>{ el.querySelector('div:last-child').textContent = orig; el.querySelector('div:last-child').style.color = 'var(--deep)'; }, 1500);
-  }).catch(()=>toast(text));
-}
 
 function renderParams(body){
   const offreLbl={mrr:'Revente MRR',produit:'Produit digital propre',affiliation:'Affiliation'};
@@ -1184,6 +1158,71 @@ function calcStreak(){let s=0;const t=new Date();t.setHours(0,0,0,0);let cur=new
 /* ════ INIT ════ */
 (function init(){
   if(S.authed){$('s-auth').classList.remove('on');if(!S.typeOffre||!S.cheminVente)startOnb();else launchApp();}
+})();
+
+/* ════ HOME CANVAS — particules flottantes ════ */
+(function initCanvas(){
+  const canvas=$('home-canvas');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  const N=28;
+  let W,H,pts;
+
+  function resize(){
+    const p=$('p-home');
+    W=canvas.width=p.offsetWidth||360;
+    H=canvas.height=Math.max(p.scrollHeight,window.innerHeight);
+  }
+
+  function mkPt(){
+    return {
+      x:Math.random()*W,
+      y:Math.random()*H,
+      r:Math.random()*2.2+.6,
+      vx:(Math.random()-.5)*.18,
+      vy:-(Math.random()*.22+.06),
+      a:Math.random(),
+      da:(Math.random()-.5)*.004,
+      life:Math.random()
+    };
+  }
+
+  function setup(){
+    resize();
+    pts=Array.from({length:N},mkPt);
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy;
+      p.a+=p.da;
+      if(p.a<0)p.da=Math.abs(p.da);
+      if(p.a>1)p.da=-Math.abs(p.da);
+      p.life+=.0015;
+      // reset if out of bounds
+      if(p.y<-10||p.x<-10||p.x>W+10){Object.assign(p,mkPt());p.y=H+5;}
+      const alpha=p.a*.35;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(164,148,133,${alpha})`;
+      ctx.fill();
+    });
+    // subtle drifting gradient overlay
+    const grad=ctx.createRadialGradient(W*.5,H*.25,0,W*.5,H*.25,W*.7);
+    grad.addColorStop(0,'rgba(195,154,85,.03)');
+    grad.addColorStop(1,'rgba(241,239,236,0)');
+    ctx.fillStyle=grad;
+    ctx.fillRect(0,0,W,H);
+    requestAnimationFrame(draw);
+  }
+
+  setup();
+  draw();
+  // resize when home re-renders
+  const obs=new MutationObserver(()=>{resize();});
+  obs.observe($('home-body'),{childList:true,subtree:false});
+  window.addEventListener('resize',resize);
 })();
 </script>
 </body>
